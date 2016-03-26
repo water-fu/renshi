@@ -1,0 +1,211 @@
+﻿body{
+	font-family: "微软雅黑";
+}
+
+div.scroll{
+	width: 100%;
+	height: 368px;
+	background-color: #cdcdcd;
+}
+div.scroll-img{
+	width: 1080px;
+	height: 368px;
+	margin: 0 auto;
+}
+div.scroll-img img{
+	width: 1080px;
+	height: 368px;
+}
+
+div.content{
+	width: 1080px;
+	margin: 0 auto;
+}
+div.title{
+}
+div.title h1{
+	font-size: 1.75em;
+	text-align: center;
+}
+div.title em{
+	font-weight: normal;
+	color: #25be98;
+	border-bottom: 4px solid #25be98;
+	height: 50px;
+	line-height: 50px;
+	display: inline-block;
+}
+div.title p{
+	color: #adadad;
+	margin-top: -4px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 1.125em;
+	border-top: 1px solid #ccc;
+}
+
+.list-title{
+	height: 56px;
+	line-height: 56px;
+	border: 1px solid #dedede;
+	background-color: #f5f5f5;
+	margin-top: 8px;
+}
+.list-title em{
+	color: #25be98;
+	margin-left: 20px;
+	font-size: 22px;
+}
+.list-title .f-right{
+	margin-right: 20px;
+}
+.list-title a{
+	font-size: 14px;
+}
+.list-title span{
+	padding: 4px 8px;
+	border: 1px solid #dedede;
+	font-size: 14px;
+}
+.list-title a.tab-choice{
+	color: #25be98;
+}
+
+
+
+div.c-list{
+	margin-top: 20px;
+}
+div.left-list{
+	width: 100%;
+	margin-bottom: 20px;
+}
+p.title{
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #dedede;
+	font-size: 1.25em;
+	padding-left: 8px;
+	color: #25be98;
+}
+.doctor-list{
+	overflow: hidden;
+	margin-bottom: 40px;
+}
+.doc-content{
+	width: 340px;
+	float: left;
+	border: 1px solid #dedede;
+	margin-left: 27px;	
+	margin-bottom: 27px;
+}
+.left-content{
+	margin-left: 0px;
+}
+.base-info{
+	border-bottom: 1px solid #dedede;
+}
+.doc-img{
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.doc-img img{
+	width: 80px;
+	height: 80px;
+}
+.doc-info-list{
+	text-align: center;
+	font-size: 18px;
+	margin-bottom: 20px;
+}
+.doc-info-list em{
+	font-weight: bold;
+	font-size: 20px;
+	margin-right: 10px;
+}
+.doc-fun{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.doc-fun a{
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #25be98;
+	color: #fff;
+	border: 1px solid #dedede;
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+	border-radius: 4px;
+}
+.doc-mark{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+.doc-mark .f-left{
+	width: 100px;
+}
+.doc-mark em{
+	margin-left: 8px;
+	font-weight: bold;
+}
+.doc-mark .f-right{
+	width: 240px;
+}
+.doc-mark span{
+	display: inline-block;
+	border: 1px solid #dedede;
+	padding: 4px 8px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	font-size: 14px;
+	color: #25be98;
+}
+
+
+
+
+div.page{
+	width: 65%;
+	margin: 0 auto;
+	height: 60px;
+}
+div.page span{
+	position: relative;
+	top: -10px;
+	display: inline-block;
+	border: 1px solid #d6d6d6;
+	padding: 8px 4px;
+}
+span.page-prev{
+	border-top-left-radius: 12px;
+	border-bottom-left-radius: 12px;
+	color: #d6d6d6;
+}
+span.page-next{
+	border-top-right-radius: 12px;
+	border-bottom-right-radius: 12px;
+	color: #d6d6d6;
+}
+div.page ul{
+	display: inline-block;
+
+}
+div.page li{
+	float: left;
+	overflow: hidden;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: 1px solid #25be98;
+	margin-left: 4px;
+	margin-right: 4px;
+}

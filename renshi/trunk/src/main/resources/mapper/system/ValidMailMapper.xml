@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.system.ValidMailDao">
+
+	<resultMap type="ValidMailBean" id="BaseResultMap">
+		<result column="VALID_ID" property="validId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="VALID_TYPE" property="validType" />
+		<result column="VALID_KEY" property="validKey" />
+		<result column="EXPIRE_DATE" property="expireDate" />
+		<result column="VALID_BOOL" property="validBool" />
+		<result column="CREATE_DATE" property="createDate" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="ValidMailBean" keyProperty="validId" useGeneratedKeys="true">
+		INSERT INTO system_valid_mail (
+			ACCOUNT_ID,
+			VALID_TYPE,
+			VALID_KEY,
+			EXPIRE_DATE,
+			VALID_BOOL,
+			CREATE_DATE
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{validType},
+			#{validKey},
+			#{expireDate},
+			#{validBool},
+			#{createDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="ValidMailBean">
+		UPDATE system_valid_mail 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			VALID_TYPE = #{validType},
+			VALID_KEY = #{validKey},
+			EXPIRE_DATE = #{expireDate},
+			VALID_BOOL = #{validBool},
+			CREATE_DATE = #{createDate}
+		WHERE 
+			VALID_ID = #{validId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			system_valid_mail 
+		WHERE 
+			VALID_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			VALID_ID,
+			ACCOUNT_ID,
+			VALID_TYPE,
+			VALID_KEY,
+			EXPIRE_DATE,
+			VALID_BOOL,
+			CREATE_DATE
+		FROM 
+			system_valid_mail
+	 	WHERE 
+	 		VALID_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="ValidMailBean" resultMap="BaseResultMap">
+		SELECT 
+			VALID_ID,
+			ACCOUNT_ID,
+			VALID_TYPE,
+			VALID_KEY,
+			EXPIRE_DATE,
+			VALID_BOOL,
+			CREATE_DATE
+		FROM 
+			system_valid_mail
+		WHERE
+			1 = 1
+			<if test="validId != -1">
+				and VALID_ID = #{validId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="validType != -1">
+				and VALID_TYPE = #{validType}
+			</if>
+			<if test="validKey != null">
+				and VALID_KEY = #{validKey}
+			</if>
+			<if test="expireDate != null">
+				and EXPIRE_DATE = #{expireDate}
+			</if>
+			<if test="validBool != -1">
+				and VALID_BOOL = #{validBool}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+    	ORDER BY
+    		VALID_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			VALID_ID,
+			ACCOUNT_ID,
+			VALID_TYPE,
+			VALID_KEY,
+			EXPIRE_DATE,
+			VALID_BOOL,
+			CREATE_DATE
+		FROM
+			system_valid_mail
+		WHERE
+			1 = 1
+			<if test="validMailBean.validId != -1">
+				and VALID_ID = #{validMailBean.validId}
+			</if>
+			<if test="validMailBean.accountId != -1">
+				and ACCOUNT_ID = #{validMailBean.accountId}
+			</if>
+			<if test="validMailBean.validType != -1">
+				and VALID_TYPE = #{validMailBean.validType}
+			</if>
+			<if test="validMailBean.validKey != null">
+				and VALID_KEY = #{validMailBean.validKey}
+			</if>
+			<if test="validMailBean.expireDate != null">
+				and EXPIRE_DATE = #{validMailBean.expireDate}
+			</if>
+			<if test="validMailBean.validBool != -1">
+				and VALID_BOOL = #{validMailBean.validBool}
+			</if>
+			<if test="validMailBean.createDate != null">
+				and CREATE_DATE = #{validMailBean.createDate}
+			</if>
+    	ORDER BY
+    		VALID_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			system_valid_mail
+		WHERE
+			1 = 1
+			<if test="validMailBean.validId != -1">
+				and VALID_ID = #{validMailBean.validId}
+			</if>
+			<if test="validMailBean.accountId != -1">
+				and ACCOUNT_ID = #{validMailBean.accountId}
+			</if>
+			<if test="validMailBean.validType != -1">
+				and VALID_TYPE = #{validMailBean.validType}
+			</if>
+			<if test="validMailBean.validKey != null">
+				and VALID_KEY = #{validMailBean.validKey}
+			</if>
+			<if test="validMailBean.expireDate != null">
+				and EXPIRE_DATE = #{validMailBean.expireDate}
+			</if>
+			<if test="validMailBean.validBool != -1">
+				and VALID_BOOL = #{validMailBean.validBool}
+			</if>
+			<if test="validMailBean.createDate != null">
+				and CREATE_DATE = #{validMailBean.createDate}
+			</if>
+    	ORDER BY
+    		VALID_ID ASC
+	</select>
+	
+</mapper>

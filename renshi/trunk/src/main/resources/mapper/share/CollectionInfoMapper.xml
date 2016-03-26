@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.CollectionInfoDao">
+
+	<resultMap type="CollectionInfoBean" id="BaseResultMap">
+		<result column="COLLECTION_ID" property="collectionId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="SHARE_ID" property="shareId" />
+		<result column="IS_READ" property="isRead" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+	</resultMap>
+	
+	<resultMap type="ShareInfoBean" id="shareInfoBean">
+		<result column="SHARE_ID" property="shareId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="SHARE_TITLE" property="shareTitle" />
+		<result column="SHARE_TYPE" property="shareType" />
+		<result column="SHARE_TAG" property="shareTag" />
+		<result column="SHARE_DESC" property="shareDesc" />
+		<result column="BELONG_PROFESS" property="belongProfess" />
+		<result column="READ_PERMISSION" property="readPermission" />
+		<result column="SHARE_STATUS" property="shareStatus" />
+		<result column="LIKE_NUM" property="likeNum" />
+		<result column="COLLECTION_NUM" property="collectionNum" />
+		<result column="READ_NUM" property="readNum" />
+		<result column="COMMENT_NUM" property="commentNum" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="C_REAL_NAME" property="realName" />
+		<result column="B_HEAD_URL" property="headUrl" />
+		<result column="C_BELONG_DEPT" property="belongDept" />
+		<result column="D_WORK_PROFESS" property="workProfess" />
+		<result column="E_IS_COLLECTION" property="isCollection" />
+		<result column="P_IS_PRAISE" property="isPraise" />
+		<result column="E_COLLECTION_DATE" property="collectionDate" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="CollectionInfoBean" keyProperty="collectionId" useGeneratedKeys="true">
+		INSERT INTO share_collection_info (
+			ACCOUNT_ID,
+			SHARE_ID,
+			IS_READ,
+			CREATE_USER,
+			CREATE_DATE
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{shareId},
+			#{isRead},
+			#{createUser},
+			#{createDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="CollectionInfoBean">
+		UPDATE share_collection_info 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			SHARE_ID = #{shareId},
+			IS_READ = #{isRead},
+			CREATE_USER = #{createUser},
+			CREATE_DATE = #{createDate}
+		WHERE 
+			COLLECTION_ID = #{collectionId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			share_collection_info 
+		WHERE 
+			COLLECTION_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			COLLECTION_ID,
+			ACCOUNT_ID,
+			SHARE_ID,
+			IS_READ,
+			CREATE_USER,
+			CREATE_DATE
+		FROM 
+			share_collection_info
+	 	WHERE 
+	 		COLLECTION_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="CollectionInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			COLLECTION_ID,
+			ACCOUNT_ID,
+			SHARE_ID,
+			IS_READ,
+			CREATE_USER,
+			CREATE_DATE
+		FROM 
+			share_collection_info
+		WHERE
+			1 = 1
+			<if test="collectionId != -1">
+				and COLLECTION_ID = #{collectionId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="shareId != -1">
+				and SHARE_ID = #{shareId}
+			</if>
+			<if test="isRead != -1">
+				and IS_READ = #{isRead}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+    	ORDER BY
+    		COLLECTION_ID ASC
+	</select>
+	
+	<sql id="pageWhere">
+			blog_share_info a
+			LEFT JOIN
+			share_praise_info p
+			ON a.SHARE_ID = p.SHARE_ID AND p.ACCOUNT_ID = #{collectionInfoBean.accountId},
+			
+			system_account_info b,
+			doctor_user_info c,
+			doctor_authentic_info d,
+			share_collection_info e
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND c.ACCOUNT_ID = d.ACCOUNT_ID
+			AND e.SHARE_ID = a.SHARE_ID
+			AND e.ACCOUNT_ID = #{collectionInfoBean.accountId}
+			<!-- 根据标题搜索 收藏记录 -->
+			<if test="collectTitle != null ">
+			 and a.SHARE_TITLE like CONCAT('%',#{collectTitle}, '%')
+			</if>
+			
+	</sql>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="shareInfoBean">
+		SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			d.WORK_PROFESS D_WORK_PROFESS,
+			ISNULL(e.COLLECTION_ID) E_IS_COLLECTION,
+			ISNULL(p.PRAISE_ID) P_IS_PRAISE,
+			e.CREATE_DATE E_COLLECTION_DATE
+		FROM
+		
+		<include refid="pageWhere"></include>
+		
+    	ORDER BY
+    		a.SHARE_ID ASC<!-- 与按照发布时间来排序等价 -->
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+		<include refid="pageWhere"></include>
+		
+    	ORDER BY
+    		a.SHARE_ID ASC
+	</select>
+</mapper>

@@ -1,0 +1,292 @@
+div.nav{
+	width: 1080px;
+	height: 65px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+div.nav img{
+	width: 1080px;
+	height: 65px;
+}
+div.content{
+	width: 1080px;
+	margin: 0 auto;
+	margin-top: 20px;
+	overflow: hidden;
+}
+div.con-left{
+	width: 776px;
+	border: 0px solid #dedede;
+}
+div.con-right{
+	width: 280px;
+	border: 0px solid #dedede;
+}
+
+div.scroll{
+	width:776px;
+	height: 378px;
+	border: 1px solid #dedede;
+}
+div.scroll p{
+	height: 50px;
+	line-height: 50px;
+	font-size: 18px;
+	margin-left: 20px;
+}
+div.scroll p em{
+	font-size: 24px;
+	margin-right: 10px;
+}
+div.scroll-layout{
+	background-color: #f2f2f2;
+	height: 328px;
+}
+div.scroll-layout img{
+	width: 776px;
+	height: 328px;
+	border: 0px;
+}
+
+
+div.con-list{
+	margin-top: 20px;
+	border: 1px solid #dedede;
+	margin-bottom: 20px;
+}
+div.con-head{
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #dedede;
+}
+span.title{
+	margin-left: 20px;
+	margin-right: 10px;
+}
+div.answer-choice a{
+	margin-right: 20px;
+}
+div.list-answer{
+	overflow: hidden;
+}
+div.list-answer-content{
+	overflow: hidden;
+	width: 94%;
+	border-bottom: 1px solid #dedede;
+	margin: 0 auto;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+}
+div.logo-img{
+	width: 100px;
+}
+div.logo-img img{
+	width: 80px;
+	height: 80px;
+	margin-top: 20px;
+}
+
+div.answer-con{
+	width: 620px;
+	margin-top: 20px;
+}
+div.answer-con h3{
+	height: 28px;
+	font-weight: normal;
+	font-size: 18px;
+}
+span.u-post{
+	font-size: 14px;
+	margin-left: 10px;
+}
+span.u-post em{
+	margin-right: 10px;
+}
+p.a-title{
+	height: 28px;
+	font-weight: bold;
+	font-size: 20px;
+}
+p.a-answer{
+	color: #999;
+	line-height: 22px;
+}
+p.a-fun{
+	height: 30px;
+	line-height: 30px;
+	margin-top: 10px;
+}
+p.a-fun span{
+	color: #999;
+}
+p.a-fun em{
+	color: #666;
+}
+p.a-fun-list{
+	margin-right: 10px;
+}
+span.a-mark{
+	margin-left: 40px;
+}
+span.a-mark em{
+	padding:2px 4px;
+	border: 1px solid #dedede;
+	margin-right: 8px;
+}
+
+
+
+p.a-search,p.a-publish{
+	border: 1px solid #dedede;
+	margin-bottom: 20px;
+}
+p.a-search{
+	position: relative;
+	height: 30px;
+	line-height: 30px;
+}
+p.a-search input{
+	width: 85%;
+	border: 0px;
+	margin-left: 8px;
+}
+p.a-search img{
+	position: absolute;
+	top: 4px;
+	right: 10px;
+}
+p.a-publish{
+	border: 1px solid #3dd6a8;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	background-color: #3dd6a8;
+	color: #fff;
+}
+p.a-publish a{
+	color: #f2f2f2;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+
+}
+
+
+div.a-new-attend,div.a-expert,div.a-topic,div.a-ad{
+	border: 1px solid #dedede;
+	margin-bottom: 20px;
+}
+h4{
+	height: 40px;
+	line-height: 40px;
+	color: #3dd6a8;
+	border-bottom: 1px solid #dedede;
+	padding-left: 8px;
+}
+
+div.new-list-content{
+	width: 90%;
+	margin: 0 auto;
+	border-top: 1px dotted #dedede;
+	color: #666;
+	margin-bottom: 10px;
+}
+div.new-list div:first-child{
+	border-top: 0px;
+}
+p.new-com-title{
+	height: 40px;
+	line-height: 40px;
+	color: #999;
+}
+p.new-com-title em{
+	color: #666;
+	margin-right: 8px;
+}
+p.new-com-content{
+	line-height: 20px;
+}
+
+div.expert-list-content{
+	overflow: hidden;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+div.e-img img{
+	width: 60px;
+	height: 60px;
+	margin-left: 8px;
+}
+div.e-desc{
+	position: relative;
+	left: 8px;
+}
+div.e-desc p{
+	height: 30px;
+	color: #666;
+}
+p.e-name em{
+	color: #49a78c;
+	font-size: 16px;
+	margin-right: 8px;
+}
+p.e-name span{
+	font-size: 14px;
+	color: #999;
+}
+p.e-que{
+	font-size: 14px;
+	color: #888;
+}
+p.e-que span{
+	margin-right: 20px;
+}
+p.e-que em{
+	margin-right: 4px;
+}
+
+div.topic-list-content{
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+p.topic-title{
+	width: 120px;
+	height: 30px;
+	line-height:30px;
+	background-color: #3dd6a8;
+	color: #fff;
+	text-align: center;
+	border-radius: 4px;
+}
+p.topic-desc{
+	height: 24px;
+	line-height: 24px;
+	color: #999;
+}
+p.topic-desc em{
+	color: #3dd6a8;
+	margin-right: 4px;
+}
+p.topic-more{
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 16px;
+	color: #333;
+	background-color: #f2f2f2;
+}
+
+div.a-meet{
+	margin-bottom: 20px;
+}
+div.a-meet img{
+	width: 280px;
+	height: 280px;
+}
+div.a-ad{
+	height: 200px;
+	line-height: 200px;
+	text-align: center;
+}

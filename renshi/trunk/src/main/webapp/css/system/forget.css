@@ -1,0 +1,138 @@
+
+body{
+	font-family: ºÚÌå;
+}
+.userInfo{
+	width: 100%;
+	height: 810px;
+	overflow: hidden;
+	background-color: #F5F5F5;
+}
+
+.userInfo-layout{
+	width: 900px;
+	height: 750px;
+	margin: 0 auto;
+	border: 1px solid #D5D5D5;
+	margin-top: 30px;
+	background-color: white;
+}
+
+.forget {
+	width: 85%;
+	margin: 0 auto;
+}
+
+.intro p{
+	line-height: 35px;
+	margin-top: 15px;
+}
+
+p.title {
+	font-size: 23px;
+	background: url("../../images/register/forget.png") no-repeat;
+	padding-left: 45px;
+	font-family: ºÚÌå;
+	font-weight: bold;
+	color: #686868;
+}
+
+.status {
+	height: 90px;
+	text-align: center;
+}
+
+.content p {
+	margin-left: 55px;
+	font-size: 17px;
+	line-height: 60px;
+	color: #686868;
+}
+
+.content p label {
+	width: 90px;
+	display: inline-block;
+	text-align: right;
+}
+
+p input {
+	border: 1px solid #cdcdcd;
+	border-radius: 4px;
+	font-size: 14px;
+	width: 254px;
+	height: 30px;
+	text-indent: 0.825em;
+}
+
+#validateDiv p {
+	float: left;
+}
+
+p input.validate {
+	width: 140px;
+}
+
+#validate-img {
+	width: 92px;
+	height: 37px;
+	margin: 11px 0 0 11px;
+	cursor: pointer;
+}
+
+p.get-sub {
+	width: 150px;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	color: #fff;
+	background-color: #1dd3a2;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+p.get-sub span, p.get-sub-dis span {
+	font-size: 20px;
+}
+
+p.get-sub-dis {
+	width: 150px;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	color: #fff;
+	background-color: #D8CECE;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.subCont {
+	line-height: 27px !important;
+	font-size: 15px !important;
+}
+
+#validateP {
+	margin: 0 0 0 10px !important;
+}
+
+.error {
+	font-size: 13px;
+	color: red;
+	padding-left: 10px;
+	display: none;
+}
+
+.hr {
+	height: 1px;
+	margin: 0px auto;
+	padding: 0px;
+	background-color: #D5D5D5;
+	overflow: hidden;
+}
+
+.hr_dashed {
+	height: 1px;
+	margin: 0px auto;
+	padding: 0px;
+	overflow: hidden;
+	border-bottom: 1px dashed #D5D5D5;
+}

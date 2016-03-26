@@ -1,0 +1,422 @@
+
+body{
+	font-family: "微软雅黑";
+}
+.userInfo{
+	width: 100%;
+	overflow: hidden;
+	margin-bottom:40px;
+	background:url(../../images/doctor/bg.png) no-repeat;
+}
+
+.userInfo-layout{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.userInfo-top {
+	width: 600px;
+	margin: 0 auto;
+}
+
+.userInfo-top p {
+	text-align: center;
+}
+
+.userInfo-top p.image {
+	height: 70px;
+	margin-top: 50px;
+}
+
+.userInfo-top p.image img {
+	width: 94px;
+	height: 63px;
+}
+
+.userInfo-top p.head{
+	height: 70px;
+}
+
+.userInfo-top p.head em{
+	font-family: 宋体;
+	font-size: 40px;
+	font-weight: bold;
+	color: #fff;
+}
+
+.userInfo-con{
+	background-color: #fff;
+	box-shadow: 0px 0px 8px #888888;
+	border-radius: 6px;
+	min-height: 380px;
+	border-bottom: 1px solid #888888;
+}
+
+.userInfo-con .top {
+	border-radius: 6px 6px 0 0;
+	margin-top: 1px;
+	height: 130px;
+	background: #FCFCFC;
+}
+
+.userInfo-con .top img {
+	width: 820px;
+	height: 120px;
+	margin-top: 7px;
+	margin-left: 82px;
+}
+
+.base, .profess, .contact, .operater, .photo, .approve {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.intro p{
+	float: left;
+	line-height: 60px;
+}
+
+p.title {
+	width: 160px;
+}
+
+p.title span{
+	position: relative;
+	width: 4px;
+	height: 20px;
+	background-color: #1dd3a2;
+	display: inline-block;
+	top: 3px;
+}
+p.title em{
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 10px;
+	color: #666;
+}
+
+p.desc em{
+	font-size: 15px;
+	color: #C7C7C7;
+}
+
+p.tip {
+	float: right;
+}
+
+p.tip span {
+	color: red;
+}
+
+/*  */
+.area>p, .area div {
+	line-height: 50px;
+}
+
+.area label {
+	width: 170px;
+	display: inline-block;
+	font-size: 15px;
+	color: #BBBBBB;
+	text-align: right;
+	vertical-align: top;
+}
+
+.area span {
+	font-size: 14px;
+	color: black;
+}
+
+.area input[type~="text"] {
+	font-family: "微软雅黑";
+	text-indent: 0.825em;
+	font-size: 14px;
+	width: 254px;
+	height: 25px;
+	border: 1px solid #cdcdcd;
+	border-radius: 6px;
+}
+
+.area input[readonly="readonly"] {
+	cursor: pointer;
+}
+
+.area select {
+	font-family: "微软雅黑";
+	font-size: 14px;
+	height: 25px;
+	border: 1px solid #cdcdcd;
+	border-radius: 6px;
+}
+
+.area textarea {
+	font-family: "微软雅黑";
+	font-size: 14px;
+	border: 1px solid #cdcdcd;
+	border-radius: 6px;
+	resize: none;
+}
+
+.area #header {
+	min-height: 230px;
+}
+
+.area #header label {
+	vertical-align: top;
+}
+
+.area #upload {
+	display: inline-block;
+	margin-top: 20px;
+}
+
+.area #upload div{
+	float: left;
+	margin-right: 40px;
+}
+
+.area #camera {
+	width: 161px;
+	height: 160px;
+	cursor: pointer;
+}
+
+.area #camera p {
+	line-height: 183px;
+	text-align: center;
+	font-size: 18px;
+	color: #cdcdcd;
+}
+
+.area .headCamera {
+	background-image: url("../../images/doctor/head.png");
+}
+
+.area .certificateCamera {
+	background-image: url("../../images/doctor/certificate.png");
+}
+
+.area .frontCamera {
+	background-image: url("../../images/doctor/front.png");
+	height: 100px !important;
+}
+
+.area .backCamera {
+	background-image: url("../../images/doctor/back.png");
+	height: 100px !important;
+}
+
+/* idcard专用CSS */
+.idcardHead {
+	min-height: 135px !important;
+}
+
+.idcardDesc {
+	margin-top: 0 !important;
+}
+
+/* idcard专用css结束 */
+
+.area #view {
+	width: 100px;
+	height: 100px;
+	border: 1px dashed #cdcdcd;
+	margin-top: 30px;
+}
+.area #headImg {
+	width: 100px;
+	height: 100px;
+	display: none;
+}
+
+.area #view p {
+	line-height: 100px;
+	text-align: center;
+	font-size: 18px;
+	color: #cdcdcd;
+}
+
+.area #header #desc {
+	width: 180px;
+	height: 140px;
+	line-height: 30px;
+	margin-top: 40px;
+}
+
+.area .mf {
+	margin-left: 42px;
+}
+
+.area .ps {
+	width: 400px;
+	display: block;
+	margin-left: 215px;
+}
+
+.lh30 {
+	line-height: 30px !important;
+}
+
+.width254 {
+	width: 254px;
+}
+
+.inputSelect {
+	border: 1px solid #cdcdcd;
+	background-color: #fff;
+	display: none;
+	border-radius: 0 0 6px 6px;
+	cursor: pointer;
+}
+
+.inputSelect li {
+	padding-left: 20px;
+	height: 40px;
+	line-height: 40px;
+}
+
+.inputSelect li span{
+	display: inline-block;
+	width: 79px;
+}
+
+.inputSelect li span.selected {
+	font-weight: bold;
+}
+
+.inputSelect li em{
+	margin: 0 auto;
+}
+
+p.get-sub{
+	font-size: 22px;
+	width: 308px;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	color: #fff;
+	background-color: #1dd3a2;
+	border-radius: 4px;
+	cursor: pointer;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+p.get-sub-dis {
+	font-size: 22px;
+	width: 308px;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	color: #fff;
+	background-color: #D8CECE;
+	border-radius: 4px;
+	cursor: pointer;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/* senond */
+.area .success {
+	font-size: 22px;
+	color: #3FC3A0;
+	font-weight: bold;
+}
+
+.area p.viewimg {
+	font-size: 15px;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 4px;
+	cursor: pointer;
+	border: 1px solid #cdcdcd;
+	margin-top: 20px;
+}
+
+.area .agree {
+	display: inline-block;
+	border: 1px solid #cdcdcd;
+	width: 600px;
+	height: 300px;
+	padding: 0 20px; 
+	overflow: auto;
+}
+
+.area .agree p {
+	line-height: 25px;
+	text-indent: 2em;
+	font-size: 15px;
+	color: #B7B7B7;
+}
+
+.area .error {
+	font-size: 13px;
+	color: red;
+	padding-left: 10px;
+	display: none;
+}
+
+.area .star, .base .star {
+	color: red;
+}
+
+.area .hide {
+	display: none;
+}
+
+/* 审批页面 */
+.approve {
+	border: 1px solid #D5D5D5;
+	height: 300px;
+	width: 85%;
+	margin: 50px auto;
+	text-align: center;
+	color: #6B6B6B;
+	font-family: 黑体
+}
+
+.approve p.info {
+	line-height: 150px;
+	font-size: 30px;
+}
+
+.approve p.content, .approve p.content em {
+	line-height: 40px;
+	font-size: 22px;
+}
+
+.approve p.content em {
+	font-size: 24px;
+	padding-left: 32px;
+	color: #3ED6A8;
+	background: url("../../images/doctor/tel.png") no-repeat;
+}
+
+.hr {
+	height: 1px;
+	margin: 0px auto;
+	padding: 0px;
+	background-color: #D5D5D5;
+	overflow: hidden;
+}
+
+.hr_vertical {
+	height: 155px;
+	width: 1px;
+	margin: 0px auto;
+	padding: 0px;
+	background-color: #D5D5D5;
+	overflow: hidden;
+}
+
+.hr_dashed {
+	height: 1px;
+	margin: 0px auto;
+	padding: 0px;
+	overflow: hidden;
+	border-bottom: 1px dashed #D5D5D5;
+}

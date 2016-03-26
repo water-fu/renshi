@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.DiscussInfoDao">
+
+	<resultMap type="DiscussInfoBean" id="BaseResultMap">
+		<result column="DISCUSS_ID" property="discussId" />
+		<result column="SHARE_ID" property="shareId" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="DISCUSS_TYPE" property="discussType" />
+		<result column="DISCUSS_CONTENT" property="discussContent" />
+		<result column="DISCUSS_PATH" property="discussPath" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="ACCOUNT_NAME" property="accountName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="CREATE_USER" property="createUser" />
+	</resultMap>
+	
+	<resultMap type="DiscussInfoBean" id="ExtendResultMap" extends="BaseResultMap">
+		<result column="REAL_NAME" property="realName"></result>
+		<result column="HEAD_URL" property="headUrl"></result>
+		<result column="SHARE_TITLE" property="shareTitle"></result>
+		<result column="E_DISCUSS_CONTENT" property="parentContent"></result>
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="DiscussInfoBean" keyProperty="discussId" useGeneratedKeys="true">
+		INSERT INTO share_discuss_info (
+			SHARE_ID,
+			PARENT_ID,
+			DISCUSS_TYPE,
+			DISCUSS_CONTENT,
+			DISCUSS_PATH,
+			ACCOUNT_ID,
+			ACCOUNT_NAME,
+			CREATE_DATE,
+			CREATE_USER
+    	)
+		VALUES
+		(
+			#{shareId},
+			#{parentId},
+			#{discussType},
+			#{discussContent},
+			#{discussPath},
+			#{accountId},
+			#{accountName},
+			#{createDate},
+			#{createUser}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="DiscussInfoBean">
+		UPDATE share_discuss_info 
+		SET 
+			SHARE_ID = #{shareId},
+			PARENT_ID = #{parentId},
+			DISCUSS_TYPE = #{discussType},
+			DISCUSS_CONTENT = #{discussContent},
+			DISCUSS_PATH = #{discussPath},
+			ACCOUNT_ID = #{accountId},
+			ACCOUNT_NAME = #{accountName},
+			CREATE_DATE = #{createDate},
+			CREATE_USER = #{createUser}
+		WHERE 
+			DISCUSS_ID = #{discussId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			share_discuss_info 
+		WHERE 
+			DISCUSS_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			DISCUSS_ID,
+			SHARE_ID,
+			PARENT_ID,
+			DISCUSS_TYPE,
+			DISCUSS_CONTENT,
+			DISCUSS_PATH,
+			ACCOUNT_ID,
+			ACCOUNT_NAME,
+			CREATE_DATE,
+			CREATE_USER
+		FROM 
+			share_discuss_info
+	 	WHERE 
+	 		DISCUSS_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="DiscussInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			DISCUSS_ID,
+			SHARE_ID,
+			PARENT_ID,
+			DISCUSS_TYPE,
+			DISCUSS_CONTENT,
+			DISCUSS_PATH,
+			ACCOUNT_ID,
+			ACCOUNT_NAME,
+			CREATE_DATE,
+			CREATE_USER
+		FROM 
+			share_discuss_info
+		WHERE
+			1 = 1
+			<if test="discussId != -1">
+				and DISCUSS_ID = #{discussId}
+			</if>
+			<if test="shareId != -1">
+				and SHARE_ID = #{shareId}
+			</if>
+			<if test="parentId != -1">
+				and PARENT_ID = #{parentId}
+			</if>
+			<if test="discussType != -1">
+				and DISCUSS_TYPE = #{discussType}
+			</if>
+			<if test="discussContent != null">
+				and DISCUSS_CONTENT = #{discussContent}
+			</if>
+			<if test="discussPath != null">
+				and DISCUSS_PATH = #{discussPath}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="accountName != null">
+				and ACCOUNT_NAME = #{accountName}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+    	ORDER BY
+    		DISCUSS_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="ExtendResultMap">
+		SELECT 
+			a.DISCUSS_ID,
+			a.SHARE_ID,
+			a.PARENT_ID,
+			a.DISCUSS_TYPE,
+			a.DISCUSS_CONTENT,
+			a.DISCUSS_PATH,
+			a.ACCOUNT_ID,
+			a.ACCOUNT_NAME,
+			a.CREATE_DATE,
+			a.CREATE_USER,
+			
+			b.HEAD_URL,
+			c.REAL_NAME,
+			d.SHARE_TITLE,
+			e.DISCUSS_CONTENT E_DISCUSS_CONTENT
+		FROM
+			share_discuss_info a
+			LEFT JOIN
+			share_discuss_info e
+			ON a.PARENT_ID = e.DISCUSS_ID,
+			
+			system_account_info b,
+			doctor_user_info c,			
+			blog_share_info d
+		WHERE
+			1 = 1
+			
+			AND a.CREATE_USER = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_ID = d.SHARE_ID
+			
+			<if test="discussInfoBean.discussId != -1">
+				and a.DISCUSS_ID = #{discussInfoBean.discussId}
+			</if>
+			<if test="discussInfoBean.shareId != -1">
+				and a.SHARE_ID = #{discussInfoBean.shareId}
+			</if>
+			<if test="discussInfoBean.parentId != -1">
+				and a.PARENT_ID = #{discussInfoBean.parentId}
+			</if>
+			<if test="discussInfoBean.discussType != -1">
+				and a.DISCUSS_TYPE = #{discussInfoBean.discussType}
+			</if>
+			<if test="discussInfoBean.discussContent != null">
+				and a.DISCUSS_CONTENT = #{discussInfoBean.discussContent}
+			</if>
+			<if test="discussInfoBean.discussPath != null">
+				and a.DISCUSS_PATH = #{discussInfoBean.discussPath}
+			</if>
+			<if test="discussInfoBean.accountId != -1">
+				and a.ACCOUNT_ID = #{discussInfoBean.accountId}
+			</if>
+			<if test="discussInfoBean.accountName != null">
+				and a.ACCOUNT_NAME = #{discussInfoBean.accountName}
+			</if>
+			<if test="discussInfoBean.createDate != null">
+				and a.CREATE_DATE = #{discussInfoBean.createDate}
+			</if>
+			<if test="discussInfoBean.createUser != -1">
+				and a.CREATE_USER = #{discussInfoBean.createUser}
+			</if>
+    	ORDER BY
+    		a.CREATE_DATE DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM
+			share_discuss_info a
+			LEFT JOIN
+			share_discuss_info e
+			ON a.PARENT_ID = e.DISCUSS_ID,
+			system_account_info b,
+			doctor_user_info c,			
+			blog_share_info d
+		WHERE
+			1 = 1
+			
+			AND a.CREATE_USER = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_ID = d.SHARE_ID
+			
+			<if test="discussInfoBean.discussId != -1">
+				and a.DISCUSS_ID = #{discussInfoBean.discussId}
+			</if>
+			<if test="discussInfoBean.shareId != -1">
+				and a.SHARE_ID = #{discussInfoBean.shareId}
+			</if>
+			<if test="discussInfoBean.parentId != -1">
+				and a.PARENT_ID = #{discussInfoBean.parentId}
+			</if>
+			<if test="discussInfoBean.discussType != -1">
+				and a.DISCUSS_TYPE = #{discussInfoBean.discussType}
+			</if>
+			<if test="discussInfoBean.discussContent != null">
+				and a.DISCUSS_CONTENT = #{discussInfoBean.discussContent}
+			</if>
+			<if test="discussInfoBean.discussPath != null">
+				and a.DISCUSS_PATH = #{discussInfoBean.discussPath}
+			</if>
+			<if test="discussInfoBean.accountId != -1">
+				and a.ACCOUNT_ID = #{discussInfoBean.accountId}
+			</if>
+			<if test="discussInfoBean.accountName != null">
+				and a.ACCOUNT_NAME = #{discussInfoBean.accountName}
+			</if>
+			<if test="discussInfoBean.createDate != null">
+				and a.CREATE_DATE = #{discussInfoBean.createDate}
+			</if>
+			<if test="discussInfoBean.createUser != -1">
+				and a.CREATE_USER = #{discussInfoBean.createUser}
+			</if>
+    	ORDER BY
+    		a.CREATE_DATE DESC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageComment" parameterType="java.util.Map" resultMap="ExtendResultMap">
+		SELECT 
+			a.DISCUSS_ID,
+			a.SHARE_ID,
+			a.PARENT_ID,
+			a.DISCUSS_TYPE,
+			a.DISCUSS_CONTENT,
+			a.DISCUSS_PATH,
+			a.ACCOUNT_ID,
+			a.ACCOUNT_NAME,
+			a.CREATE_DATE,
+			a.CREATE_USER,
+			
+			b.HEAD_URL,
+			c.REAL_NAME,
+			d.SHARE_TITLE,
+			e.DISCUSS_CONTENT E_DISCUSS_CONTENT
+		FROM
+			share_discuss_info a
+			LEFT JOIN
+			share_discuss_info e
+			ON a.PARENT_ID = e.DISCUSS_ID,
+			
+			system_account_info b,
+			doctor_user_info c,			
+			blog_share_info d
+		WHERE
+			1 = 1
+			
+			AND a.CREATE_USER = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_ID = d.SHARE_ID
+			
+			<if test="discussInfoBean.discussId != -1">
+				and a.DISCUSS_ID = #{discussInfoBean.discussId}
+			</if>
+			<if test="discussInfoBean.shareId != -1">
+				and a.SHARE_ID = #{discussInfoBean.shareId}
+			</if>
+			<if test="discussInfoBean.parentId != -1">
+				and a.PARENT_ID = #{discussInfoBean.parentId}
+			</if>
+			<if test="discussInfoBean.discussType != -1">
+				and a.DISCUSS_TYPE = #{discussInfoBean.discussType}
+			</if>
+			<if test="discussInfoBean.discussContent != null">
+				and a.DISCUSS_CONTENT = #{discussInfoBean.discussContent}
+			</if>
+			<if test="discussInfoBean.discussPath != null">
+				and a.DISCUSS_PATH = #{discussInfoBean.discussPath}
+			</if>
+			<if test="discussInfoBean.accountId != -1">
+				and a.ACCOUNT_ID = #{discussInfoBean.accountId}
+			</if>
+			<if test="discussInfoBean.accountName != null">
+				and a.ACCOUNT_NAME = #{discussInfoBean.accountName}
+			</if>
+			<if test="discussInfoBean.createDate != null">
+				and a.CREATE_DATE = #{discussInfoBean.createDate}
+			</if>
+			<if test="discussInfoBean.createUser != -1">
+				and a.CREATE_USER = #{discussInfoBean.createUser}
+			</if>
+    	ORDER BY
+    		a.CREATE_DATE DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countComment" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM
+			share_discuss_info a
+			LEFT JOIN
+			share_discuss_info e
+			ON a.PARENT_ID = e.DISCUSS_ID,
+			system_account_info b,
+			doctor_user_info c,			
+			blog_share_info d
+		WHERE
+			1 = 1
+			
+			AND a.CREATE_USER = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_ID = d.SHARE_ID
+			
+			<if test="discussInfoBean.discussId != -1">
+				and a.DISCUSS_ID = #{discussInfoBean.discussId}
+			</if>
+			<if test="discussInfoBean.shareId != -1">
+				and a.SHARE_ID = #{discussInfoBean.shareId}
+			</if>
+			<if test="discussInfoBean.parentId != -1">
+				and a.PARENT_ID = #{discussInfoBean.parentId}
+			</if>
+			<if test="discussInfoBean.discussType != -1">
+				and a.DISCUSS_TYPE = #{discussInfoBean.discussType}
+			</if>
+			<if test="discussInfoBean.discussContent != null">
+				and a.DISCUSS_CONTENT = #{discussInfoBean.discussContent}
+			</if>
+			<if test="discussInfoBean.discussPath != null">
+				and a.DISCUSS_PATH = #{discussInfoBean.discussPath}
+			</if>
+			<if test="discussInfoBean.accountId != -1">
+				and a.ACCOUNT_ID = #{discussInfoBean.accountId}
+			</if>
+			<if test="discussInfoBean.accountName != null">
+				and a.ACCOUNT_NAME = #{discussInfoBean.accountName}
+			</if>
+			<if test="discussInfoBean.createDate != null">
+				and a.CREATE_DATE = #{discussInfoBean.createDate}
+			</if>
+			<if test="discussInfoBean.createUser != -1">
+				and a.CREATE_USER = #{discussInfoBean.createUser}
+			</if>
+    	ORDER BY
+    		a.CREATE_DATE ASC
+	</select>
+</mapper>

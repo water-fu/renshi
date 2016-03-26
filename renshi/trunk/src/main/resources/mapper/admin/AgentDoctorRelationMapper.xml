@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.admin.AgentDoctorRelationDao">
+
+	<resultMap type="AgentDoctorRelationBean" id="BaseResultMap">
+		<result column="ID" property="id" />
+		<result column="AGENT_USER_ID" property="agentUserId" />
+		<result column="DOCTOR_USER_ID" property="doctorUserId" />
+		<result column="PROXY_STATUS" property="proxyStatus" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="AgentDoctorRelationBean" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO agent_doctor_relation (
+			AGENT_USER_ID,
+			DOCTOR_USER_ID,
+			PROXY_STATUS,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+    	)
+		VALUES
+		(
+			#{agentUserId},
+			#{doctorUserId},
+			#{proxyStatus},
+			#{createUser},
+			#{createDate},
+			#{updateUser},
+			#{updateDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="AgentDoctorRelationBean">
+		UPDATE agent_doctor_relation 
+		SET 
+			AGENT_USER_ID = #{agentUserId},
+			DOCTOR_USER_ID = #{doctorUserId},
+			PROXY_STATUS = #{proxyStatus},
+			CREATE_USER = #{createUser},
+			CREATE_DATE = #{createDate},
+			UPDATE_USER = #{updateUser},
+			UPDATE_DATE = #{updateDate}
+		WHERE 
+			ID = #{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			agent_doctor_relation 
+		WHERE 
+			ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			ID,
+			AGENT_USER_ID,
+			DOCTOR_USER_ID,
+			PROXY_STATUS,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			agent_doctor_relation
+	 	WHERE 
+	 		ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="AgentDoctorRelationBean" resultMap="BaseResultMap">
+		SELECT 
+			ID,
+			AGENT_USER_ID,
+			DOCTOR_USER_ID,
+			PROXY_STATUS,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			agent_doctor_relation
+		WHERE
+			1 = 1
+			<if test="id != -1">
+				and ID = #{id}
+			</if>
+			<if test="agentUserId != -1">
+				and AGENT_USER_ID = #{agentUserId}
+			</if>
+			<if test="doctorUserId != -1">
+				and DOCTOR_USER_ID = #{doctorUserId}
+			</if>
+			<if test="proxyStatus != -1">
+				and PROXY_STATUS = #{proxyStatus}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+    	ORDER BY
+    		ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			ID,
+			AGENT_USER_ID,
+			DOCTOR_USER_ID,
+			PROXY_STATUS,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM
+			agent_doctor_relation
+		WHERE
+			1 = 1
+			<if test="agentDoctorRelationBean.id != -1">
+				and ID = #{agentDoctorRelationBean.id}
+			</if>
+			<if test="agentDoctorRelationBean.agentUserId != -1">
+				and AGENT_USER_ID = #{agentDoctorRelationBean.agentUserId}
+			</if>
+			<if test="agentDoctorRelationBean.doctorUserId != -1">
+				and DOCTOR_USER_ID = #{agentDoctorRelationBean.doctorUserId}
+			</if>
+			<if test="agentDoctorRelationBean.proxyStatus != -1">
+				and PROXY_STATUS = #{agentDoctorRelationBean.proxyStatus}
+			</if>
+			<if test="agentDoctorRelationBean.createUser != -1">
+				and CREATE_USER = #{agentDoctorRelationBean.createUser}
+			</if>
+			<if test="agentDoctorRelationBean.createDate != null">
+				and CREATE_DATE = #{agentDoctorRelationBean.createDate}
+			</if>
+			<if test="agentDoctorRelationBean.updateUser != -1">
+				and UPDATE_USER = #{agentDoctorRelationBean.updateUser}
+			</if>
+			<if test="agentDoctorRelationBean.updateDate != null">
+				and UPDATE_DATE = #{agentDoctorRelationBean.updateDate}
+			</if>
+    	ORDER BY
+    		ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			agent_doctor_relation
+		WHERE
+			1 = 1
+			<if test="agentDoctorRelationBean.id != -1">
+				and ID = #{agentDoctorRelationBean.id}
+			</if>
+			<if test="agentDoctorRelationBean.agentUserId != -1">
+				and AGENT_USER_ID = #{agentDoctorRelationBean.agentUserId}
+			</if>
+			<if test="agentDoctorRelationBean.doctorUserId != -1">
+				and DOCTOR_USER_ID = #{agentDoctorRelationBean.doctorUserId}
+			</if>
+			<if test="agentDoctorRelationBean.proxyStatus != -1">
+				and PROXY_STATUS = #{agentDoctorRelationBean.proxyStatus}
+			</if>
+			<if test="agentDoctorRelationBean.createUser != -1">
+				and CREATE_USER = #{agentDoctorRelationBean.createUser}
+			</if>
+			<if test="agentDoctorRelationBean.createDate != null">
+				and CREATE_DATE = #{agentDoctorRelationBean.createDate}
+			</if>
+			<if test="agentDoctorRelationBean.updateUser != -1">
+				and UPDATE_USER = #{agentDoctorRelationBean.updateUser}
+			</if>
+			<if test="agentDoctorRelationBean.updateDate != null">
+				and UPDATE_DATE = #{agentDoctorRelationBean.updateDate}
+			</if>
+    	ORDER BY
+    		ID ASC
+	</select>
+	
+</mapper>

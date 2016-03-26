@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.admin.UserDao">
+
+	<resultMap type="UserBean" id="BaseResultMap">
+		<result column="USER_ID" property="userId" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="LOGIN_ACCOUNT" property="loginAccount" />
+		<result column="LOGIN_PASSWORD" property="loginPassword" />
+		<result column="USER_TYPE" property="userType" />
+		<result column="EMAIL" property="email" />
+		<result column="PHONE" property="phone" />
+		<result column="STATUS" property="status" />
+		<result column="INVITER" property="inviter" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="UserBean" keyProperty="userId" useGeneratedKeys="true">
+		INSERT INTO admin_user (
+		PARENT_ID,
+		LOGIN_ACCOUNT,
+		LOGIN_PASSWORD,
+		USER_TYPE,
+		EMAIL,
+		PHONE,
+		STATUS,
+		INVITER,
+		CREATE_USER,
+		CREATE_DATE,
+		UPDATE_USER,
+		UPDATE_DATE
+		)
+		VALUES
+		(
+		#{parentId},
+		#{loginAccount},
+		#{loginPassword},
+		#{userType},
+		#{email},
+		#{phone},
+		#{status},
+		#{inviter},
+		#{createUser},
+		#{createDate},
+		#{updateUser},
+		#{updateDate}
+		)
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="UserBean">
+		UPDATE admin_user
+		SET
+		PARENT_ID = #{parentId},
+		LOGIN_ACCOUNT = #{loginAccount},
+		LOGIN_PASSWORD = #{loginPassword},
+		USER_TYPE = #{userType},
+		EMAIL = #{email},
+		PHONE = #{phone},
+		STATUS = #{status},
+		INVITER = #{inviter},
+		CREATE_USER = #{createUser},
+		CREATE_DATE = #{createDate},
+		UPDATE_USER = #{updateUser},
+		UPDATE_DATE = #{updateDate}
+		WHERE
+		USER_ID = #{userId}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM
+		admin_user
+		WHERE
+		USER_ID = #{value}
+	</delete>
+
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+		USER_ID,
+		PARENT_ID,
+		LOGIN_ACCOUNT,
+		LOGIN_PASSWORD,
+		USER_TYPE,
+		EMAIL,
+		PHONE,
+		STATUS,
+		INVITER,
+		CREATE_USER,
+		CREATE_DATE,
+		UPDATE_USER,
+		UPDATE_DATE
+		FROM
+		admin_user
+		WHERE
+		USER_ID = #{value}
+	</select>
+
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="UserBean" resultMap="BaseResultMap">
+		SELECT
+		USER_ID,
+		PARENT_ID,
+		LOGIN_ACCOUNT,
+		LOGIN_PASSWORD,
+		USER_TYPE,
+		EMAIL,
+		PHONE,
+		STATUS,
+		INVITER,
+		CREATE_USER,
+		CREATE_DATE,
+		UPDATE_USER,
+		UPDATE_DATE
+		FROM
+		admin_user
+		WHERE
+		1 = 1
+		<if test="userId != -1">
+			and USER_ID = #{userId}
+		</if>
+		<if test="parentId != -1">
+			and PARENT_ID = #{parentId}
+		</if>
+		<if test="loginAccount != null">
+			and LOGIN_ACCOUNT = #{loginAccount}
+		</if>
+		<if test="loginPassword != null">
+			and LOGIN_PASSWORD = #{loginPassword}
+		</if>
+		<if test="userType != null">
+			and USER_TYPE = #{userType}
+		</if>
+		<if test="email != null">
+			and EMAIL = #{email}
+		</if>
+		<if test="phone != null">
+			and PHONE = #{phone}
+		</if>
+		<if test="status != -1">
+			and STATUS = #{status}
+		</if>
+		<if test="inviter != -1">
+			and INVITER = #{inviter}
+		</if>
+		<if test="createUser != -1">
+			and CREATE_USER = #{createUser}
+		</if>
+		<if test="createDate != null">
+			and CREATE_DATE = #{createDate}
+		</if>
+		<if test="updateUser != -1">
+			and UPDATE_USER = #{updateUser}
+		</if>
+		<if test="updateDate != null">
+			and UPDATE_DATE = #{updateDate}
+		</if>
+		ORDER BY
+		USER_ID ASC
+	</select>
+
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		USER_ID,
+		PARENT_ID,
+		LOGIN_ACCOUNT,
+		LOGIN_PASSWORD,
+		USER_TYPE,
+		EMAIL,
+		PHONE,
+		STATUS,
+		INVITER,
+		CREATE_USER,
+		CREATE_DATE,
+		UPDATE_USER,
+		UPDATE_DATE
+		FROM
+		admin_user
+		WHERE
+		1 = 1
+		<if test="userBean.userId != -1">
+			and USER_ID = #{userBean.userId}
+		</if>
+		<if test="userBean.parentId != -1">
+			and PARENT_ID = #{userBean.parentId}
+		</if>
+		<if test="userBean.loginAccount != null">
+			and LOGIN_ACCOUNT = #{userBean.loginAccount}
+		</if>
+		<if test="userBean.loginPassword != null">
+			and LOGIN_PASSWORD = #{userBean.loginPassword}
+		</if>
+		<if test="userBean.userType != null">
+			and USER_TYPE = #{userBean.userType}
+		</if>
+		<if test="userBean.email != null">
+			and EMAIL = #{userBean.email}
+		</if>
+		<if test="userBean.phone != null">
+			and PHONE = #{userBean.phone}
+		</if>
+		<if test="userBean.status != -1">
+			and STATUS = #{userBean.status}
+		</if>
+		<if test="userBean.inviter != -1">
+			and INVITER = #{userBean.inviter}
+		</if>
+		<if test="userBean.createUser != -1">
+			and CREATE_USER = #{userBean.createUser}
+		</if>
+		<if test="userBean.createDate != null">
+			and CREATE_DATE = #{userBean.createDate}
+		</if>
+		<if test="userBean.updateUser != -1">
+			and UPDATE_USER = #{userBean.updateUser}
+		</if>
+		<if test="userBean.updateDate != null">
+			and UPDATE_DATE = #{userBean.updateDate}
+		</if>
+		ORDER BY
+		USER_ID ASC
+		LIMIT
+		#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		FROM
+		admin_user
+		WHERE
+		1 = 1
+		<if test="userBean.userId != -1">
+			and USER_ID = #{userBean.userId}
+		</if>
+		<if test="userBean.parentId != -1">
+			and PARENT_ID = #{userBean.parentId}
+		</if>
+		<if test="userBean.loginAccount != null">
+			and LOGIN_ACCOUNT = #{userBean.loginAccount}
+		</if>
+		<if test="userBean.loginPassword != null">
+			and LOGIN_PASSWORD = #{userBean.loginPassword}
+		</if>
+		<if test="userBean.userType != null">
+			and USER_TYPE = #{userBean.userType}
+		</if>
+		<if test="userBean.email != null">
+			and EMAIL = #{userBean.email}
+		</if>
+		<if test="userBean.phone != null">
+			and PHONE = #{userBean.phone}
+		</if>
+		<if test="userBean.status != -1">
+			and STATUS = #{userBean.status}
+		</if>
+		<if test="userBean.inviter != -1">
+			and INVITER = #{userBean.inviter}
+		</if>
+		<if test="userBean.createUser != -1">
+			and CREATE_USER = #{userBean.createUser}
+		</if>
+		<if test="userBean.createDate != null">
+			and CREATE_DATE = #{userBean.createDate}
+		</if>
+		<if test="userBean.updateUser != -1">
+			and UPDATE_USER = #{userBean.updateUser}
+		</if>
+		<if test="userBean.updateDate != null">
+			and UPDATE_DATE = #{userBean.updateDate}
+		</if>
+		ORDER BY
+		USER_ID ASC
+	</select>
+
+</mapper>

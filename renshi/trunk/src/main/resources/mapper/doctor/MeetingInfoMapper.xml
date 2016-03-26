@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.doctor.MeetingInfoDao">
+
+	<resultMap type="MeetingInfoBean" id="BaseResultMap">
+		<result column="MEETING_ID" property="meetingId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="MEETING_NAME" property="meetingName" />
+		<result column="MEETING_TYPE" property="meetingType" />
+		<result column="MEETING_ADDRESS" property="meetingAddress" />
+		<result column="MEETING_DATE" property="meetingDate" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="MeetingInfoBean" keyProperty="meetingId" useGeneratedKeys="true">
+		INSERT INTO doctor_meeting_info (
+			ACCOUNT_ID,
+			MEETING_NAME,
+			MEETING_TYPE,
+			MEETING_ADDRESS,
+			MEETING_DATE,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{meetingName},
+			#{meetingType},
+			#{meetingAddress},
+			#{meetingDate},
+			#{createDate},
+			#{createUser},
+			#{updateDate},
+			#{updateUser}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="MeetingInfoBean">
+		UPDATE doctor_meeting_info 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			MEETING_NAME = #{meetingName},
+			MEETING_TYPE = #{meetingType},
+			MEETING_ADDRESS = #{meetingAddress},
+			MEETING_DATE = #{meetingDate},
+			CREATE_DATE = #{createDate},
+			CREATE_USER = #{createUser},
+			UPDATE_DATE = #{updateDate},
+			UPDATE_USER = #{updateUser}
+		WHERE 
+			MEETING_ID = #{meetingId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			doctor_meeting_info 
+		WHERE 
+			MEETING_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			MEETING_ID,
+			ACCOUNT_ID,
+			MEETING_NAME,
+			MEETING_TYPE,
+			MEETING_ADDRESS,
+			MEETING_DATE,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM 
+			doctor_meeting_info
+	 	WHERE 
+	 		MEETING_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="MeetingInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			MEETING_ID,
+			ACCOUNT_ID,
+			MEETING_NAME,
+			MEETING_TYPE,
+			MEETING_ADDRESS,
+			MEETING_DATE,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM 
+			doctor_meeting_info
+		WHERE
+			1 = 1
+			<if test="meetingId != -1">
+				and MEETING_ID = #{meetingId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="meetingName != null">
+				and MEETING_NAME = #{meetingName}
+			</if>
+			<if test="meetingType != null">
+				and MEETING_TYPE = #{meetingType}
+			</if>
+			<if test="meetingAddress != null">
+				and MEETING_ADDRESS = #{meetingAddress}
+			</if>
+			<if test="meetingDate != null">
+				and MEETING_DATE = #{meetingDate}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+    	ORDER BY
+    		MEETING_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			MEETING_ID,
+			ACCOUNT_ID,
+			MEETING_NAME,
+			MEETING_TYPE,
+			MEETING_ADDRESS,
+			MEETING_DATE,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM
+			doctor_meeting_info
+		WHERE
+			1 = 1
+			<if test="meetingInfoBean.meetingId != -1">
+				and MEETING_ID = #{meetingInfoBean.meetingId}
+			</if>
+			<if test="meetingInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{meetingInfoBean.accountId}
+			</if>
+			<if test="meetingInfoBean.meetingName != null">
+				and MEETING_NAME = #{meetingInfoBean.meetingName}
+			</if>
+			<if test="meetingInfoBean.meetingType != null">
+				and MEETING_TYPE = #{meetingInfoBean.meetingType}
+			</if>
+			<if test="meetingInfoBean.meetingAddress != null">
+				and MEETING_ADDRESS = #{meetingInfoBean.meetingAddress}
+			</if>
+			<if test="meetingInfoBean.meetingDate != null">
+				and MEETING_DATE = #{meetingInfoBean.meetingDate}
+			</if>
+			<if test="meetingInfoBean.createDate != null">
+				and CREATE_DATE = #{meetingInfoBean.createDate}
+			</if>
+			<if test="meetingInfoBean.createUser != -1">
+				and CREATE_USER = #{meetingInfoBean.createUser}
+			</if>
+			<if test="meetingInfoBean.updateDate != null">
+				and UPDATE_DATE = #{meetingInfoBean.updateDate}
+			</if>
+			<if test="meetingInfoBean.updateUser != -1">
+				and UPDATE_USER = #{meetingInfoBean.updateUser}
+			</if>
+    	ORDER BY
+    		MEETING_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			doctor_meeting_info
+		WHERE
+			1 = 1
+			<if test="meetingInfoBean.meetingId != -1">
+				and MEETING_ID = #{meetingInfoBean.meetingId}
+			</if>
+			<if test="meetingInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{meetingInfoBean.accountId}
+			</if>
+			<if test="meetingInfoBean.meetingName != null">
+				and MEETING_NAME = #{meetingInfoBean.meetingName}
+			</if>
+			<if test="meetingInfoBean.meetingType != null">
+				and MEETING_TYPE = #{meetingInfoBean.meetingType}
+			</if>
+			<if test="meetingInfoBean.meetingAddress != null">
+				and MEETING_ADDRESS = #{meetingInfoBean.meetingAddress}
+			</if>
+			<if test="meetingInfoBean.meetingDate != null">
+				and MEETING_DATE = #{meetingInfoBean.meetingDate}
+			</if>
+			<if test="meetingInfoBean.createDate != null">
+				and CREATE_DATE = #{meetingInfoBean.createDate}
+			</if>
+			<if test="meetingInfoBean.createUser != -1">
+				and CREATE_USER = #{meetingInfoBean.createUser}
+			</if>
+			<if test="meetingInfoBean.updateDate != null">
+				and UPDATE_DATE = #{meetingInfoBean.updateDate}
+			</if>
+			<if test="meetingInfoBean.updateUser != -1">
+				and UPDATE_USER = #{meetingInfoBean.updateUser}
+			</if>
+    	ORDER BY
+    		MEETING_ID ASC
+	</select>
+	
+</mapper>

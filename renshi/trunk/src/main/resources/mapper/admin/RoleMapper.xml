@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.admin.RoleDao">
+
+	<resultMap type="RoleBean" id="BaseResultMap">
+		<result column="ROLE_ID" property="roleId" />
+		<result column="ROLE_NAME" property="roleName" />
+		<result column="ROLE_DESC" property="roleDesc" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="RoleBean" keyProperty="roleId" useGeneratedKeys="true">
+		INSERT INTO admin_role (
+			ROLE_NAME,
+			ROLE_DESC
+    	)
+		VALUES
+		(
+			#{roleName},
+			#{roleDesc}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="RoleBean">
+		UPDATE admin_role 
+		SET 
+			ROLE_NAME = #{roleName},
+			ROLE_DESC = #{roleDesc}
+		WHERE 
+			ROLE_ID = #{roleId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			admin_role 
+		WHERE 
+			ROLE_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			ROLE_ID,
+			ROLE_NAME,
+			ROLE_DESC
+		FROM 
+			admin_role
+	 	WHERE 
+	 		ROLE_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="RoleBean" resultMap="BaseResultMap">
+		SELECT 
+			ROLE_ID,
+			ROLE_NAME,
+			ROLE_DESC
+		FROM 
+			admin_role
+		WHERE
+			1 = 1
+			<if test="roleId != -1">
+				and ROLE_ID = #{roleId}
+			</if>
+			<if test="roleName != null">
+				and ROLE_NAME = #{roleName}
+			</if>
+			<if test="roleDesc != null">
+				and ROLE_DESC = #{roleDesc}
+			</if>
+    	ORDER BY
+    		ROLE_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			ROLE_ID,
+			ROLE_NAME,
+			ROLE_DESC
+		FROM
+			admin_role
+		WHERE
+			1 = 1
+			<if test="roleBean.roleId != -1">
+				and ROLE_ID = #{roleBean.roleId}
+			</if>
+			<if test="roleBean.roleName != null">
+				and ROLE_NAME = #{roleBean.roleName}
+			</if>
+			<if test="roleBean.roleDesc != null">
+				and ROLE_DESC = #{roleBean.roleDesc}
+			</if>
+    	ORDER BY
+    		ROLE_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			admin_role
+		WHERE
+			1 = 1
+			<if test="roleBean.roleId != -1">
+				and ROLE_ID = #{roleBean.roleId}
+			</if>
+			<if test="roleBean.roleName != null">
+				and ROLE_NAME = #{roleBean.roleName}
+			</if>
+			<if test="roleBean.roleDesc != null">
+				and ROLE_DESC = #{roleBean.roleDesc}
+			</if>
+    	ORDER BY
+    		ROLE_ID ASC
+	</select>
+	
+</mapper>

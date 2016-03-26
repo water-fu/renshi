@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.doctor.WorkInfoDao">
+
+	<resultMap type="WorkInfoBean" id="BaseResultMap">
+		<result column="WORK_ID" property="workId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="COMPANY_NAME" property="companyName" />
+		<result column="START_DATE" property="startDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="IN_CITY" property="inCity" />
+		<result column="BELONG_DEPT" property="belongDept" />
+		<result column="PREFESS_NAME" property="prefessName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="WorkInfoBean" keyProperty="workId" useGeneratedKeys="true">
+		INSERT INTO doctor_work_info (
+			ACCOUNT_ID,
+			COMPANY_NAME,
+			START_DATE,
+			END_DATE,
+			IN_CITY,
+			BELONG_DEPT,
+			PREFESS_NAME,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{companyName},
+			#{startDate},
+			#{endDate},
+			#{inCity},
+			#{belongDept},
+			#{prefessName},
+			#{createDate},
+			#{createUser},
+			#{updateDate},
+			#{updateUser}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="WorkInfoBean">
+		UPDATE doctor_work_info 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			COMPANY_NAME = #{companyName},
+			START_DATE = #{startDate},
+			END_DATE = #{endDate},
+			IN_CITY = #{inCity},
+			BELONG_DEPT = #{belongDept},
+			PREFESS_NAME = #{prefessName},
+			CREATE_DATE = #{createDate},
+			CREATE_USER = #{createUser},
+			UPDATE_DATE = #{updateDate},
+			UPDATE_USER = #{updateUser}
+		WHERE 
+			WORK_ID = #{workId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			doctor_work_info 
+		WHERE 
+			WORK_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			WORK_ID,
+			ACCOUNT_ID,
+			COMPANY_NAME,
+			START_DATE,
+			END_DATE,
+			IN_CITY,
+			BELONG_DEPT,
+			PREFESS_NAME,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM 
+			doctor_work_info
+	 	WHERE 
+	 		WORK_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="WorkInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			WORK_ID,
+			ACCOUNT_ID,
+			COMPANY_NAME,
+			START_DATE,
+			END_DATE,
+			IN_CITY,
+			BELONG_DEPT,
+			PREFESS_NAME,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM 
+			doctor_work_info
+		WHERE
+			1 = 1
+			<if test="workId != -1">
+				and WORK_ID = #{workId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="companyName != null">
+				and COMPANY_NAME = #{companyName}
+			</if>
+			<if test="startDate != null">
+				and START_DATE = #{startDate}
+			</if>
+			<if test="endDate != null">
+				and END_DATE = #{endDate}
+			</if>
+			<if test="inCity != null">
+				and IN_CITY = #{inCity}
+			</if>
+			<if test="belongDept != null">
+				and BELONG_DEPT = #{belongDept}
+			</if>
+			<if test="prefessName != null">
+				and PREFESS_NAME = #{prefessName}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+    	ORDER BY
+    		WORK_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			WORK_ID,
+			ACCOUNT_ID,
+			COMPANY_NAME,
+			START_DATE,
+			END_DATE,
+			IN_CITY,
+			BELONG_DEPT,
+			PREFESS_NAME,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM
+			doctor_work_info
+		WHERE
+			1 = 1
+			<if test="workInfoBean.workId != -1">
+				and WORK_ID = #{workInfoBean.workId}
+			</if>
+			<if test="workInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{workInfoBean.accountId}
+			</if>
+			<if test="workInfoBean.companyName != null">
+				and COMPANY_NAME = #{workInfoBean.companyName}
+			</if>
+			<if test="workInfoBean.startDate != null">
+				and START_DATE = #{workInfoBean.startDate}
+			</if>
+			<if test="workInfoBean.endDate != null">
+				and END_DATE = #{workInfoBean.endDate}
+			</if>
+			<if test="workInfoBean.inCity != null">
+				and IN_CITY = #{workInfoBean.inCity}
+			</if>
+			<if test="workInfoBean.belongDept != null">
+				and BELONG_DEPT = #{workInfoBean.belongDept}
+			</if>
+			<if test="workInfoBean.prefessName != null">
+				and PREFESS_NAME = #{workInfoBean.prefessName}
+			</if>
+			<if test="workInfoBean.createDate != null">
+				and CREATE_DATE = #{workInfoBean.createDate}
+			</if>
+			<if test="workInfoBean.createUser != -1">
+				and CREATE_USER = #{workInfoBean.createUser}
+			</if>
+			<if test="workInfoBean.updateDate != null">
+				and UPDATE_DATE = #{workInfoBean.updateDate}
+			</if>
+			<if test="workInfoBean.updateUser != -1">
+				and UPDATE_USER = #{workInfoBean.updateUser}
+			</if>
+    	ORDER BY
+    		WORK_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			doctor_work_info
+		WHERE
+			1 = 1
+			<if test="workInfoBean.workId != -1">
+				and WORK_ID = #{workInfoBean.workId}
+			</if>
+			<if test="workInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{workInfoBean.accountId}
+			</if>
+			<if test="workInfoBean.companyName != null">
+				and COMPANY_NAME = #{workInfoBean.companyName}
+			</if>
+			<if test="workInfoBean.startDate != null">
+				and START_DATE = #{workInfoBean.startDate}
+			</if>
+			<if test="workInfoBean.endDate != null">
+				and END_DATE = #{workInfoBean.endDate}
+			</if>
+			<if test="workInfoBean.inCity != null">
+				and IN_CITY = #{workInfoBean.inCity}
+			</if>
+			<if test="workInfoBean.belongDept != null">
+				and BELONG_DEPT = #{workInfoBean.belongDept}
+			</if>
+			<if test="workInfoBean.prefessName != null">
+				and PREFESS_NAME = #{workInfoBean.prefessName}
+			</if>
+			<if test="workInfoBean.createDate != null">
+				and CREATE_DATE = #{workInfoBean.createDate}
+			</if>
+			<if test="workInfoBean.createUser != -1">
+				and CREATE_USER = #{workInfoBean.createUser}
+			</if>
+			<if test="workInfoBean.updateDate != null">
+				and UPDATE_DATE = #{workInfoBean.updateDate}
+			</if>
+			<if test="workInfoBean.updateUser != -1">
+				and UPDATE_USER = #{workInfoBean.updateUser}
+			</if>
+    	ORDER BY
+    		WORK_ID ASC
+	</select>
+	
+</mapper>

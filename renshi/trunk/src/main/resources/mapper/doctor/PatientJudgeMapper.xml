@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.doctor.PatientJudgeDao">
+
+	<resultMap type="PatientJudgeBean" id="BaseResultMap">
+		<result column="PATIENT_ID" property="patientId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="PATIENT_NAME" property="patientName" />
+		<result column="PATIENT_SEX" property="patientSex" />
+		<result column="PATIENT_AGE" property="patientAge" />
+		<result column="PATIENT_DESC" property="patientDesc" />
+		<result column="JUDGE_DATE" property="judgeDate" />
+		<result column="JUDGE_DESC" property="judgeDesc" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="CREATE_DATE" property="createDate" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="PatientJudgeBean" keyProperty="patientId" useGeneratedKeys="true">
+		INSERT INTO doctor_patient_judge (
+			ACCOUNT_ID,
+			PATIENT_NAME,
+			PATIENT_SEX,
+			PATIENT_AGE,
+			PATIENT_DESC,
+			JUDGE_DATE,
+			JUDGE_DESC,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER,
+			CREATE_DATE
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{patientName},
+			#{patientSex},
+			#{patientAge},
+			#{patientDesc},
+			#{judgeDate},
+			#{judgeDesc},
+			#{createUser},
+			#{updateDate},
+			#{updateUser},
+			#{createDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="PatientJudgeBean">
+		UPDATE doctor_patient_judge 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			PATIENT_NAME = #{patientName},
+			PATIENT_SEX = #{patientSex},
+			PATIENT_AGE = #{patientAge},
+			PATIENT_DESC = #{patientDesc},
+			JUDGE_DATE = #{judgeDate},
+			JUDGE_DESC = #{judgeDesc},
+			CREATE_USER = #{createUser},
+			UPDATE_DATE = #{updateDate},
+			UPDATE_USER = #{updateUser},
+			CREATE_DATE = #{createDate}
+		WHERE 
+			PATIENT_ID = #{patientId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			doctor_patient_judge 
+		WHERE 
+			PATIENT_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			PATIENT_ID,
+			ACCOUNT_ID,
+			PATIENT_NAME,
+			PATIENT_SEX,
+			PATIENT_AGE,
+			PATIENT_DESC,
+			JUDGE_DATE,
+			JUDGE_DESC,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER,
+			CREATE_DATE
+		FROM 
+			doctor_patient_judge
+	 	WHERE 
+	 		PATIENT_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="PatientJudgeBean" resultMap="BaseResultMap">
+		SELECT 
+			PATIENT_ID,
+			ACCOUNT_ID,
+			PATIENT_NAME,
+			PATIENT_SEX,
+			PATIENT_AGE,
+			PATIENT_DESC,
+			JUDGE_DATE,
+			JUDGE_DESC,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER,
+			CREATE_DATE
+		FROM 
+			doctor_patient_judge
+		WHERE
+			1 = 1
+			<if test="patientId != -1">
+				and PATIENT_ID = #{patientId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="patientName != null">
+				and PATIENT_NAME = #{patientName}
+			</if>
+			<if test="patientSex != -1">
+				and PATIENT_SEX = #{patientSex}
+			</if>
+			<if test="patientAge != -1">
+				and PATIENT_AGE = #{patientAge}
+			</if>
+			<if test="patientDesc != null">
+				and PATIENT_DESC = #{patientDesc}
+			</if>
+			<if test="judgeDate != null">
+				and JUDGE_DATE = #{judgeDate}
+			</if>
+			<if test="judgeDesc != null">
+				and JUDGE_DESC = #{judgeDesc}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+    	ORDER BY
+    		PATIENT_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			PATIENT_ID,
+			ACCOUNT_ID,
+			PATIENT_NAME,
+			PATIENT_SEX,
+			PATIENT_AGE,
+			PATIENT_DESC,
+			JUDGE_DATE,
+			JUDGE_DESC,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER,
+			CREATE_DATE
+		FROM
+			doctor_patient_judge
+		WHERE
+			1 = 1
+			<if test="patientJudgeBean.patientId != -1">
+				and PATIENT_ID = #{patientJudgeBean.patientId}
+			</if>
+			<if test="patientJudgeBean.accountId != -1">
+				and ACCOUNT_ID = #{patientJudgeBean.accountId}
+			</if>
+			<if test="patientJudgeBean.patientName != null">
+				and PATIENT_NAME = #{patientJudgeBean.patientName}
+			</if>
+			<if test="patientJudgeBean.patientSex != -1">
+				and PATIENT_SEX = #{patientJudgeBean.patientSex}
+			</if>
+			<if test="patientJudgeBean.patientAge != -1">
+				and PATIENT_AGE = #{patientJudgeBean.patientAge}
+			</if>
+			<if test="patientJudgeBean.patientDesc != null">
+				and PATIENT_DESC = #{patientJudgeBean.patientDesc}
+			</if>
+			<if test="patientJudgeBean.judgeDate != null">
+				and JUDGE_DATE = #{patientJudgeBean.judgeDate}
+			</if>
+			<if test="patientJudgeBean.judgeDesc != null">
+				and JUDGE_DESC = #{patientJudgeBean.judgeDesc}
+			</if>
+			<if test="patientJudgeBean.createUser != -1">
+				and CREATE_USER = #{patientJudgeBean.createUser}
+			</if>
+			<if test="patientJudgeBean.updateDate != null">
+				and UPDATE_DATE = #{patientJudgeBean.updateDate}
+			</if>
+			<if test="patientJudgeBean.updateUser != -1">
+				and UPDATE_USER = #{patientJudgeBean.updateUser}
+			</if>
+			<if test="patientJudgeBean.createDate != null">
+				and CREATE_DATE = #{patientJudgeBean.createDate}
+			</if>
+    	ORDER BY
+    		PATIENT_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			doctor_patient_judge
+		WHERE
+			1 = 1
+			<if test="patientJudgeBean.patientId != -1">
+				and PATIENT_ID = #{patientJudgeBean.patientId}
+			</if>
+			<if test="patientJudgeBean.accountId != -1">
+				and ACCOUNT_ID = #{patientJudgeBean.accountId}
+			</if>
+			<if test="patientJudgeBean.patientName != null">
+				and PATIENT_NAME = #{patientJudgeBean.patientName}
+			</if>
+			<if test="patientJudgeBean.patientSex != -1">
+				and PATIENT_SEX = #{patientJudgeBean.patientSex}
+			</if>
+			<if test="patientJudgeBean.patientAge != -1">
+				and PATIENT_AGE = #{patientJudgeBean.patientAge}
+			</if>
+			<if test="patientJudgeBean.patientDesc != null">
+				and PATIENT_DESC = #{patientJudgeBean.patientDesc}
+			</if>
+			<if test="patientJudgeBean.judgeDate != null">
+				and JUDGE_DATE = #{patientJudgeBean.judgeDate}
+			</if>
+			<if test="patientJudgeBean.judgeDesc != null">
+				and JUDGE_DESC = #{patientJudgeBean.judgeDesc}
+			</if>
+			<if test="patientJudgeBean.createUser != -1">
+				and CREATE_USER = #{patientJudgeBean.createUser}
+			</if>
+			<if test="patientJudgeBean.updateDate != null">
+				and UPDATE_DATE = #{patientJudgeBean.updateDate}
+			</if>
+			<if test="patientJudgeBean.updateUser != -1">
+				and UPDATE_USER = #{patientJudgeBean.updateUser}
+			</if>
+			<if test="patientJudgeBean.createDate != null">
+				and CREATE_DATE = #{patientJudgeBean.createDate}
+			</if>
+    	ORDER BY
+    		PATIENT_ID ASC
+	</select>
+	
+</mapper>

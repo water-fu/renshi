@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.doctor.UserInfoDao">
+
+	<resultMap type="UserInfoBean" id="BaseResultMap">
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="REAL_NAME" property="realName" />
+		<result column="ACCOUNT_SEX" property="accountSex" />
+		<result column="BIRTH_DATE" property="birthDate" />
+		<result column="HOME_TOWN" property="homeTown" />
+		<result column="LIVE_TOWN" property="liveTown" />
+		<result column="BELONG_HOSPITAL" property="belongHospital" />
+		<result column="BELONG_DEPT" property="belongDept" />
+		<result column="WORK_PROFESS" property="workProfess" />
+		<result column="BELONG_MEDICAL" property="belongMedical" />
+		<result column="SPECIL_AREA" property="specilArea" />
+		<result column="PERSON_INFRO" property="personInfro" />
+	</resultMap>
+	
+	<resultMap type="UserInfoBean" id="ExtendResultMap" extends="BaseResultMap">
+		<result column="B_HEAD_URL" property="headUrl" />
+	</resultMap>
+
+	<!-- 鎻掑叆 -->
+	<insert id="insert" parameterType="UserInfoBean" keyProperty="accountId" useGeneratedKeys="true">
+		INSERT INTO doctor_user_info (
+			ACCOUNT_ID,
+			REAL_NAME,
+			ACCOUNT_SEX,
+			BIRTH_DATE,
+			HOME_TOWN,
+			LIVE_TOWN,
+			BELONG_HOSPITAL,
+			BELONG_DEPT,
+			WORK_PROFESS,
+			BELONG_MEDICAL,
+			SPECIL_AREA,
+			PERSON_INFRO
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{realName},
+			#{accountSex},
+			#{birthDate},
+			#{homeTown},
+			#{liveTown},
+			#{belongHospital},
+			#{belongDept},
+			#{workProfess},
+			#{belongMedical},
+			#{specilArea},
+			#{personInfro}
+		)
+	</insert>
+	
+	<!-- 鏇存柊 -->
+	<update id="update" parameterType="UserInfoBean">
+		UPDATE doctor_user_info 
+		SET 
+			REAL_NAME = #{realName},
+			ACCOUNT_SEX = #{accountSex},
+			BIRTH_DATE = #{birthDate},
+			HOME_TOWN = #{homeTown},
+			LIVE_TOWN = #{liveTown},
+			BELONG_HOSPITAL = #{belongHospital},
+			BELONG_DEPT = #{belongDept},
+			WORK_PROFESS = #{workProfess},
+			BELONG_MEDICAL = #{belongMedical},
+			SPECIL_AREA = #{specilArea},
+			PERSON_INFRO = #{personInfro}
+		WHERE 
+			ACCOUNT_ID = #{accountId}
+	</update>
+	
+	<!-- 鍒犻櫎 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			doctor_user_info 
+		WHERE 
+			ACCOUNT_ID = #{value}
+	</delete>
+	
+	<!-- 鏍规嵁涓婚敭鏌ヨ -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="ExtendResultMap">
+		SELECT 
+			a.ACCOUNT_ID,
+			a.REAL_NAME,
+			a.ACCOUNT_SEX,
+			a.BIRTH_DATE,
+			a.HOME_TOWN,
+			a.LIVE_TOWN,
+			a.BELONG_HOSPITAL,
+			a.BELONG_DEPT,
+			a.WORK_PROFESS,
+			a.BELONG_MEDICAL,
+			a.SPECIL_AREA,
+			a.PERSON_INFRO,
+			b.HEAD_URL B_HEAD_URL
+		FROM 
+			doctor_user_info a, system_account_info b
+	 	WHERE 
+	 		a.ACCOUNT_ID = b.ACCOUNT_ID
+	 		AND a.ACCOUNT_ID = #{value}
+	</select>
+	
+	<!-- 鏌ヨ鍒楄〃鏁版嵁 -->
+	<select id="listData" parameterType="UserInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			REAL_NAME,
+			ACCOUNT_SEX,
+			BIRTH_DATE,
+			HOME_TOWN,
+			LIVE_TOWN,
+			BELONG_HOSPITAL,
+			BELONG_DEPT,
+			WORK_PROFESS,
+			BELONG_MEDICAL,
+			SPECIL_AREA,
+			PERSON_INFRO
+		FROM 
+			doctor_user_info
+		WHERE
+			1 = 1
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="realName != null">
+				and REAL_NAME  like CONCAT('%',#{realName}, '%')
+			</if>
+			<if test="accountSex != -1">
+				and ACCOUNT_SEX = #{accountSex}
+			</if>
+			<if test="birthDate != null">
+				and BIRTH_DATE = #{birthDate}
+			</if>
+			<if test="homeTown != null">
+				and HOME_TOWN = #{homeTown}
+			</if>
+			<if test="liveTown != null">
+				and LIVE_TOWN = #{liveTown}
+			</if>
+			<if test="belongHospital != null">
+				and BELONG_HOSPITAL = #{belongHospital}
+			</if>
+			<if test="belongDept != null">
+				and BELONG_DEPT = #{belongDept}
+			</if>
+			<if test="workProfess != null">
+				and WORK_PROFESS = #{workProfess}
+			</if>
+			<if test="belongMedical != null">
+				and BELONG_MEDICAL = #{belongMedical}
+			</if>
+			<if test="specilArea != null">
+				and SPECIL_AREA = #{specilArea}
+			</if>
+			<if test="personInfro != null">
+				and PERSON_INFRO = #{personInfro}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+	<!-- 鏌ヨ鍒嗛〉鏁版嵁 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="ExtendResultMap">
+		SELECT 
+			a.ACCOUNT_ID,
+			REAL_NAME,
+			ACCOUNT_SEX,
+			BIRTH_DATE,
+			HOME_TOWN,
+			LIVE_TOWN,
+			BELONG_HOSPITAL,
+			BELONG_DEPT,
+			WORK_PROFESS,
+			BELONG_MEDICAL,
+			SPECIL_AREA,
+			PERSON_INFRO,
+			b.HEAD_URL B_HEAD_URL
+		FROM
+			doctor_user_info a,
+			system_account_info b
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_STATUS = 3
+			<if test="userInfoBean.accountId != -1">
+				AND not exists (
+					SELECT * FROM share_follow_active c 
+					WHERE c.FOLLOW_ACCOUNT = a.ACCOUNT_ID AND c.ACCOUNT_ID = #{userInfoBean.accountId}
+				)
+				and a.ACCOUNT_ID != #{userInfoBean.accountId}
+			</if>
+			<if test="userInfoBean.realName != null">
+				and REAL_NAME like CONCAT('%', #{userInfoBean.realName}, '%')
+			</if>
+			<if test="userInfoBean.accountSex != -1">
+				and ACCOUNT_SEX = #{userInfoBean.accountSex}
+			</if>
+			<if test="userInfoBean.birthDate != null">
+				and BIRTH_DATE = #{userInfoBean.birthDate}
+			</if>
+			<if test="userInfoBean.homeTown != null">
+				and HOME_TOWN = #{userInfoBean.homeTown}
+			</if>
+			<if test="userInfoBean.liveTown != null">
+				and LIVE_TOWN like CONCAT('%', #{userInfoBean.liveTown}, '%')
+			</if>
+			<if test="userInfoBean.belongHospital != null">
+				and BELONG_HOSPITAL like CONCAT('%', #{userInfoBean.belongHospital}, '%')
+			</if>
+			<if test="userInfoBean.belongDept != null">
+				and BELONG_DEPT = #{userInfoBean.belongDept}
+			</if>
+			<if test="userInfoBean.workProfess != null">
+				and WORK_PROFESS = #{userInfoBean.workProfess}
+			</if>
+			<if test="userInfoBean.belongMedical != null">
+				and BELONG_MEDICAL = #{userInfoBean.belongMedical}
+			</if>
+			<if test="userInfoBean.specilArea != null">
+				and SPECIL_AREA = #{userInfoBean.specilArea}
+			</if>
+			<if test="userInfoBean.personInfro != null">
+				and PERSON_INFRO = #{userInfoBean.personInfro}
+			</if>
+    	ORDER BY
+    		b.CREATE_DATE DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 鍒嗛〉鏁版嵁缁熻鎬绘暟 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			doctor_user_info a,
+			system_account_info b
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_STATUS = 3
+			<if test="userInfoBean.accountId != -1">
+				AND not exists (
+					SELECT * FROM share_follow_active c 
+					WHERE c.FOLLOW_ACCOUNT = a.ACCOUNT_ID AND c.ACCOUNT_ID = #{userInfoBean.accountId}
+				)
+				and a.ACCOUNT_ID != #{userInfoBean.accountId}
+			</if>
+			<if test="userInfoBean.realName != null">
+				and REAL_NAME like CONCAT('%', #{userInfoBean.realName}, '%')
+			</if>
+			<if test="userInfoBean.accountSex != -1">
+				and ACCOUNT_SEX = #{userInfoBean.accountSex}
+			</if>
+			<if test="userInfoBean.birthDate != null">
+				and BIRTH_DATE = #{userInfoBean.birthDate}
+			</if>
+			<if test="userInfoBean.homeTown != null">
+				and HOME_TOWN = #{userInfoBean.homeTown}
+			</if>
+			<if test="userInfoBean.liveTown != null">
+				and LIVE_TOWN like CONCAT('%', #{userInfoBean.liveTown}, '%')
+			</if>
+			<if test="userInfoBean.belongHospital != null">
+				and BELONG_HOSPITAL like CONCAT('%', #{userInfoBean.belongHospital}, '%')
+			</if>
+			<if test="userInfoBean.belongDept != null">
+				and BELONG_DEPT = #{userInfoBean.belongDept}
+			</if>
+			<if test="userInfoBean.workProfess != null">
+				and WORK_PROFESS = #{userInfoBean.workProfess}
+			</if>
+			<if test="userInfoBean.belongMedical != null">
+				and BELONG_MEDICAL = #{userInfoBean.belongMedical}
+			</if>
+			<if test="userInfoBean.specilArea != null">
+				and SPECIL_AREA = #{userInfoBean.specilArea}
+			</if>
+			<if test="userInfoBean.personInfro != null">
+				and PERSON_INFRO = #{userInfoBean.personInfro}
+			</if>
+    	ORDER BY
+    		b.CREATE_DATE DESC
+	</select>
+	
+	<select id="QueryKnowBeanList" resultMap="ExtendResultMap">
+		SELECT a.ACCOUNT_ID,
+			REAL_NAME,
+			ACCOUNT_SEX,
+			BIRTH_DATE,
+			HOME_TOWN,
+			LIVE_TOWN,
+			BELONG_HOSPITAL,
+			BELONG_DEPT,
+			BELONG_MEDICAL,
+			SPECIL_AREA,
+			PERSON_INFRO,
+			a.WORK_PROFESS,
+			b.HEAD_URL B_HEAD_URL
+			FROM 
+				doctor_user_info a,
+				system_account_info b
+			WHERE 
+				a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND a.BELONG_DEPT= #{belongDept} 
+			AND a.BELONG_HOSPITAL=#{belongHospital} 
+			AND a.LIVE_TOWN=#{liveTown}
+			AND a.ACCOUNT_ID != #{accountId}
+			AND b.ACCOUNT_STATUS = 3
+			AND not exists (
+				SELECT * FROM share_follow_active c 
+				WHERE c.FOLLOW_ACCOUNT = a.ACCOUNT_ID AND c.ACCOUNT_ID = #{accountId}
+			)
+			ORDER BY
+    			b.CREATE_DATE DESC
+			LIMIT 
+				#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+
+	<select id="QueryHelpBeanList" resultMap="ExtendResultMap">
+		SELECT a.ACCOUNT_ID,
+		REAL_NAME,
+		ACCOUNT_SEX,
+		BIRTH_DATE,
+		HOME_TOWN,
+		LIVE_TOWN,
+		BELONG_HOSPITAL,
+		a.BELONG_DEPT,
+		BELONG_MEDICAL,
+		SPECIL_AREA,
+		PERSON_INFRO,
+		a.WORK_PROFESS,
+		c.HEAD_URL B_HEAD_URL
+		FROM 
+			doctor_user_info a,
+			doctor_authentic_info b,
+			system_account_info c
+		WHERE a.ACCOUNT_ID = b.ACCOUNT_ID AND a.ACCOUNT_ID = c.ACCOUNT_ID AND
+		a.BELONG_DEPT=#{belongDept} AND b.PROFESS_LEVEL >= #{professLevel}
+		AND a.ACCOUNT_ID != #{accountId}
+		AND c.ACCOUNT_STATUS = 3
+		AND not exists (
+			SELECT * FROM share_follow_active d
+			WHERE d.FOLLOW_ACCOUNT = a.ACCOUNT_ID AND d.ACCOUNT_ID = #{accountId}
+		)
+		ORDER BY
+   			c.CREATE_DATE DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+</mapper>

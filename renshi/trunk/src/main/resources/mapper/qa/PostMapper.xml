@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.qa.PostDao">
+
+	<resultMap type="PostBean" id="BaseResultMap">
+		<result column="ID" property="id" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="CATEGORY" property="category" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="VIEW_NUM" property="viewNum" />
+		<result column="VOTE_NUM" property="voteNum" />
+		<result column="REPLY_NUM" property="replyNum" />
+		<result column="FAVORITE_NUM" property="favoriteNum" />
+		<result column="TAG" property="tag" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="PostBean" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO qa_post (
+		ACCOUNT_ID,
+		TITLE,
+		CONTENT,
+		CATEGORY,
+		CREATE_DATE,
+		UPDATE_DATE,
+		VIEW_NUM,
+		VOTE_NUM,
+		REPLY_NUM,
+		FAVORITE_NUM,
+		TAG,
+		STATUS
+		)
+		VALUES
+		(
+		#{accountId},
+		#{title},
+		#{content},
+		#{category},
+		#{createDate},
+		#{updateDate},
+		#{viewNum},
+		#{voteNum},
+		#{replyNum},
+		#{favoriteNum},
+		#{tag},
+		#{status}
+		)
+	</insert>
+
+	<!-- 更新 -->
+	<update id="update" parameterType="PostBean">
+		UPDATE qa_post
+		SET
+		ACCOUNT_ID = #{accountId},
+		TITLE = #{title},
+		CONTENT = #{content},
+		CATEGORY = #{category},
+		CREATE_DATE = #{createDate},
+		UPDATE_DATE = #{updateDate},
+		VIEW_NUM = #{viewNum},
+		VOTE_NUM = #{voteNum},
+		REPLY_NUM = #{replyNum},
+		FAVORITE_NUM = #{favoriteNum},
+		TAG = #{tag},
+		STATUS = #{status}
+		WHERE
+		ID = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM
+		qa_post
+		WHERE
+		ID = #{value}
+	</delete>
+
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+		ID,
+		ACCOUNT_ID,
+		TITLE,
+		CONTENT,
+		CATEGORY,
+		CREATE_DATE,
+		UPDATE_DATE,
+		VIEW_NUM,
+		VOTE_NUM,
+		REPLY_NUM,
+		FAVORITE_NUM,
+		TAG,
+		STATUS
+		FROM
+		qa_post
+		WHERE
+		ID = #{value}
+	</select>
+
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="PostBean" resultMap="BaseResultMap">
+		SELECT
+		ID,
+		ACCOUNT_ID,
+		TITLE,
+		CONTENT,
+		CATEGORY,
+		CREATE_DATE,
+		UPDATE_DATE,
+		VIEW_NUM,
+		VOTE_NUM,
+		REPLY_NUM,
+		FAVORITE_NUM,
+		TAG,
+		STATUS
+		FROM
+		qa_post
+		WHERE
+		1 = 1
+		<if test="id != -1">
+			and ID = #{id}
+		</if>
+		<if test="accountId != -1">
+			and ACCOUNT_ID = #{accountId}
+		</if>
+		<if test="title != null">
+			and TITLE = #{title}
+		</if>
+		<if test="content != null">
+			and CONTENT = #{content}
+		</if>
+		<if test="category != null">
+			and CATEGORY = #{category}
+		</if>
+		<if test="createDate != null">
+			and CREATE_DATE = #{createDate}
+		</if>
+		<if test="updateDate != null">
+			and UPDATE_DATE = #{updateDate}
+		</if>
+		<if test="viewNum != -1">
+			and VIEW_NUM = #{viewNum}
+		</if>
+		<if test="voteNum != -1">
+			and VOTE_NUM = #{voteNum}
+		</if>
+		<if test="replyNum != -1">
+			and REPLY_NUM = #{replyNum}
+		</if>
+		<if test="favoriteNum != -1">
+			and FAVORITE_NUM = #{favoriteNum}
+		</if>
+		<if test="tag != null">
+			and TAG = #{tag}
+		</if>
+		<if test="status != null">
+			and STATUS = #{status}
+		</if>
+		ORDER BY
+		ID ASC
+	</select>
+
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+		ID,
+		ACCOUNT_ID,
+		TITLE,
+		CONTENT,
+		CATEGORY,
+		CREATE_DATE,
+		UPDATE_DATE,
+		VIEW_NUM,
+		VOTE_NUM,
+		REPLY_NUM,
+		FAVORITE_NUM,
+		TAG,
+		STATUS
+		FROM
+		qa_post
+		WHERE
+		1 = 1
+		<if test="postBean.id != -1">
+			and ID = #{postBean.id}
+		</if>
+		<if test="postBean.accountId != -1">
+			and ACCOUNT_ID = #{postBean.accountId}
+		</if>
+		<if test="postBean.title != null">
+			and TITLE = #{postBean.title}
+		</if>
+		<if test="postBean.content != null">
+			and CONTENT = #{postBean.content}
+		</if>
+		<if test="postBean.category != null">
+			and CATEGORY = #{postBean.category}
+		</if>
+		<if test="postBean.createDate != null">
+			and CREATE_DATE = #{postBean.createDate}
+		</if>
+		<if test="postBean.updateDate != null">
+			and UPDATE_DATE = #{postBean.updateDate}
+		</if>
+		<if test="postBean.viewNum != -1">
+			and VIEW_NUM = #{postBean.viewNum}
+		</if>
+		<if test="postBean.voteNum != -1">
+			and VOTE_NUM = #{postBean.voteNum}
+		</if>
+		<if test="postBean.replyNum != -1">
+			and REPLY_NUM = #{postBean.replyNum}
+		</if>
+		<if test="postBean.favoriteNum != -1">
+			and FAVORITE_NUM = #{postBean.favoriteNum}
+		</if>
+		<if test="postBean.tag != null">
+			and TAG = #{postBean.tag}
+		</if>
+		<if test="postBean.status != null">
+			and STATUS = #{postBean.status}
+		</if>
+		ORDER BY
+		ID ASC
+		LIMIT
+		#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		FROM
+		qa_post
+		WHERE
+		1 = 1
+		<if test="postBean.id != -1">
+			and ID = #{postBean.id}
+		</if>
+		<if test="postBean.accountId != -1">
+			and ACCOUNT_ID = #{postBean.accountId}
+		</if>
+		<if test="postBean.title != null">
+			and TITLE = #{postBean.title}
+		</if>
+		<if test="postBean.content != null">
+			and CONTENT = #{postBean.content}
+		</if>
+		<if test="postBean.category != null">
+			and CATEGORY = #{postBean.category}
+		</if>
+		<if test="postBean.createDate != null">
+			and CREATE_DATE = #{postBean.createDate}
+		</if>
+		<if test="postBean.updateDate != null">
+			and UPDATE_DATE = #{postBean.updateDate}
+		</if>
+		<if test="postBean.viewNum != -1">
+			and VIEW_NUM = #{postBean.viewNum}
+		</if>
+		<if test="postBean.voteNum != -1">
+			and VOTE_NUM = #{postBean.voteNum}
+		</if>
+		<if test="postBean.replyNum != -1">
+			and REPLY_NUM = #{postBean.replyNum}
+		</if>
+		<if test="postBean.favoriteNum != -1">
+			and FAVORITE_NUM = #{postBean.favoriteNum}
+		</if>
+		<if test="postBean.tag != null">
+			and TAG = #{postBean.tag}
+		</if>
+		<if test="postBean.status != null">
+			and STATUS = #{postBean.status}
+		</if>
+		ORDER BY
+		ID ASC
+	</select>
+
+</mapper>

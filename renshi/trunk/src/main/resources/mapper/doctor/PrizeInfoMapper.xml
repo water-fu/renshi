@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.doctor.PrizeInfoDao">
+
+	<resultMap type="PrizeInfoBean" id="BaseResultMap">
+		<result column="PRIZE_ID" property="prizeId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="PRIZE_NAME" property="prizeName" />
+		<result column="PRIZE_DATE" property="prizeDate" />
+		<result column="AWARD_DEPT" property="awardDept" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="PrizeInfoBean" keyProperty="prizeId" useGeneratedKeys="true">
+		INSERT INTO doctor_prize_info (
+			ACCOUNT_ID,
+			PRIZE_NAME,
+			PRIZE_DATE,
+			AWARD_DEPT,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{prizeName},
+			#{prizeDate},
+			#{awardDept},
+			#{createDate},
+			#{createUser},
+			#{updateDate},
+			#{updateUser}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="PrizeInfoBean">
+		UPDATE doctor_prize_info 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			PRIZE_NAME = #{prizeName},
+			PRIZE_DATE = #{prizeDate},
+			AWARD_DEPT = #{awardDept},
+			CREATE_DATE = #{createDate},
+			CREATE_USER = #{createUser},
+			UPDATE_DATE = #{updateDate},
+			UPDATE_USER = #{updateUser}
+		WHERE 
+			PRIZE_ID = #{prizeId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			doctor_prize_info 
+		WHERE 
+			PRIZE_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			PRIZE_ID,
+			ACCOUNT_ID,
+			PRIZE_NAME,
+			PRIZE_DATE,
+			AWARD_DEPT,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM 
+			doctor_prize_info
+	 	WHERE 
+	 		PRIZE_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="PrizeInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			PRIZE_ID,
+			ACCOUNT_ID,
+			PRIZE_NAME,
+			PRIZE_DATE,
+			AWARD_DEPT,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM 
+			doctor_prize_info
+		WHERE
+			1 = 1
+			<if test="prizeId != -1">
+				and PRIZE_ID = #{prizeId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="prizeName != null">
+				and PRIZE_NAME = #{prizeName}
+			</if>
+			<if test="prizeDate != null">
+				and PRIZE_DATE = #{prizeDate}
+			</if>
+			<if test="awardDept != null">
+				and AWARD_DEPT = #{awardDept}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+    	ORDER BY
+    		PRIZE_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			PRIZE_ID,
+			ACCOUNT_ID,
+			PRIZE_NAME,
+			PRIZE_DATE,
+			AWARD_DEPT,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM
+			doctor_prize_info
+		WHERE
+			1 = 1
+			<if test="prizeInfoBean.prizeId != -1">
+				and PRIZE_ID = #{prizeInfoBean.prizeId}
+			</if>
+			<if test="prizeInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{prizeInfoBean.accountId}
+			</if>
+			<if test="prizeInfoBean.prizeName != null">
+				and PRIZE_NAME = #{prizeInfoBean.prizeName}
+			</if>
+			<if test="prizeInfoBean.prizeDate != null">
+				and PRIZE_DATE = #{prizeInfoBean.prizeDate}
+			</if>
+			<if test="prizeInfoBean.awardDept != null">
+				and AWARD_DEPT = #{prizeInfoBean.awardDept}
+			</if>
+			<if test="prizeInfoBean.createDate != null">
+				and CREATE_DATE = #{prizeInfoBean.createDate}
+			</if>
+			<if test="prizeInfoBean.createUser != -1">
+				and CREATE_USER = #{prizeInfoBean.createUser}
+			</if>
+			<if test="prizeInfoBean.updateDate != null">
+				and UPDATE_DATE = #{prizeInfoBean.updateDate}
+			</if>
+			<if test="prizeInfoBean.updateUser != -1">
+				and UPDATE_USER = #{prizeInfoBean.updateUser}
+			</if>
+    	ORDER BY
+    		PRIZE_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			doctor_prize_info
+		WHERE
+			1 = 1
+			<if test="prizeInfoBean.prizeId != -1">
+				and PRIZE_ID = #{prizeInfoBean.prizeId}
+			</if>
+			<if test="prizeInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{prizeInfoBean.accountId}
+			</if>
+			<if test="prizeInfoBean.prizeName != null">
+				and PRIZE_NAME = #{prizeInfoBean.prizeName}
+			</if>
+			<if test="prizeInfoBean.prizeDate != null">
+				and PRIZE_DATE = #{prizeInfoBean.prizeDate}
+			</if>
+			<if test="prizeInfoBean.awardDept != null">
+				and AWARD_DEPT = #{prizeInfoBean.awardDept}
+			</if>
+			<if test="prizeInfoBean.createDate != null">
+				and CREATE_DATE = #{prizeInfoBean.createDate}
+			</if>
+			<if test="prizeInfoBean.createUser != -1">
+				and CREATE_USER = #{prizeInfoBean.createUser}
+			</if>
+			<if test="prizeInfoBean.updateDate != null">
+				and UPDATE_DATE = #{prizeInfoBean.updateDate}
+			</if>
+			<if test="prizeInfoBean.updateUser != -1">
+				and UPDATE_USER = #{prizeInfoBean.updateUser}
+			</if>
+    	ORDER BY
+    		PRIZE_ID ASC
+	</select>
+	
+</mapper>

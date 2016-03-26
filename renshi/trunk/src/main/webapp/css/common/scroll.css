@@ -1,0 +1,90 @@
+/*header start*/ 
+div.scroll{
+	width: 100%;
+}
+.info{
+	width: 100%;
+	height: 308px;
+	background-image: url(../../images/common/bg.jpg);
+	border-bottom: 1px solid #797979;
+}
+.info-layout{
+	position: relative;
+	width: 240px;
+	height: 320px;
+	margin: 0 auto;
+	top: 55px;
+	color: #fff;
+}
+div.icon{
+	width: 88px;
+	height: 88px;
+	margin: 0 auto;
+	border: 0px solid #cdcdcd;
+}
+div.title{
+}
+div.info div.title{
+	width: 200px;
+	height: 40px;
+	line-height: 50px;
+	vertical-align: bottom;
+	margin: 0 auto;
+	text-align:center;
+}
+div.title em{
+	font-size: 1.2em;
+	color: #fff;
+}
+div.title span{
+	font-family: Arial;
+	font-size: 1em;
+	margin-left: 10px;
+}
+div.company{
+	height: 25px;
+	margin: 0 auto;
+	text-align:center;
+}
+div.company a{
+	color: #fff;
+	font-size: 14px;
+	text-align: center;
+	margin-right:10px;
+	display: inline-block;
+}
+div.mess{
+	margin-top: 10px;
+}
+div.mess a{
+	width: 112px;
+	height: 33px;
+	line-height: 33px;
+	border: 1px solid #cdcdcd;
+	background-color: #25BE98;
+	color: #fff;
+	border-radius: 4px;
+	display: inline-block;
+	cursor: pointer;
+}
+div.mess img{
+	width: 22x;
+	height: 22px;
+	margin-left: 8px;
+	margin-top: 4px;
+	opacity: 1.0;
+}
+div.mess span{
+	position: relative;
+	margin-left: 10px;
+	top: -4px;
+	opacity: 1.0;
+	color: #fff;
+}
+
+#person-icon {
+	width: 88px;
+	height: 88px;
+	border-radius: 44px;
+}
+/*header end*/

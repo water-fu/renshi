@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.TagInfoDao">
+
+	<resultMap type="TagInfoBean" id="BaseResultMap">
+		<result column="TAG_ID" property="tagId" />
+		<result column="TAG_NAME" property="tagName" />
+		<result column="SHARE_TYPE" property="shareType" />
+		<result column="TAG_NUM" property="tagNum" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="TagInfoBean" keyProperty="tagId" useGeneratedKeys="true">
+		INSERT INTO share_tag_info (
+			TAG_NAME,
+			SHARE_TYPE,
+			TAG_NUM
+    	)
+		VALUES
+		(
+			#{tagName},
+			#{shareType},
+			#{tagNum}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="TagInfoBean">
+		UPDATE share_tag_info 
+		SET 
+			TAG_NAME = #{tagName},
+			SHARE_TYPE = #{shareType},
+			TAG_NUM = #{tagNum}
+		WHERE 
+			TAG_ID = #{tagId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			share_tag_info 
+		WHERE 
+			TAG_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			TAG_ID,
+			TAG_NAME,
+			SHARE_TYPE,
+			TAG_NUM
+		FROM 
+			share_tag_info
+	 	WHERE 
+	 		TAG_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="TagInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			TAG_ID,
+			TAG_NAME,
+			SHARE_TYPE,
+			TAG_NUM
+		FROM 
+			share_tag_info
+		WHERE
+			1 = 1
+			<if test="tagId != -1">
+				and TAG_ID = #{tagId}
+			</if>
+			<if test="tagName != null">
+				and TAG_NAME = #{tagName}
+			</if>
+			<if test="shareType != -1">
+				and SHARE_TYPE = #{shareType}
+			</if>
+			<if test="tagNum != -1">
+				and TAG_NUM = #{tagNum}
+			</if>
+    	ORDER BY
+    		TAG_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			TAG_ID,
+			TAG_NAME,
+			SHARE_TYPE,
+			TAG_NUM
+		FROM
+			share_tag_info
+		WHERE
+			1 = 1
+			<if test="tagInfoBean.tagId != -1">
+				and TAG_ID = #{tagInfoBean.tagId}
+			</if>
+			<if test="tagInfoBean.tagName != null">
+				and TAG_NAME = #{tagInfoBean.tagName}
+			</if>
+			<if test="tagInfoBean.shareType != -1">
+				and SHARE_TYPE = #{tagInfoBean.shareType}
+			</if>
+			<if test="tagInfoBean.tagNum != -1">
+				and TAG_NUM = #{tagInfoBean.tagNum}
+			</if>
+    	ORDER BY
+    		TAG_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			share_tag_info
+		WHERE
+			1 = 1
+			<if test="tagInfoBean.tagId != -1">
+				and TAG_ID = #{tagInfoBean.tagId}
+			</if>
+			<if test="tagInfoBean.tagName != null">
+				and TAG_NAME = #{tagInfoBean.tagName}
+			</if>
+			<if test="tagInfoBean.shareType != -1">
+				and SHARE_TYPE = #{tagInfoBean.shareType}
+			</if>
+			<if test="tagInfoBean.tagNum != -1">
+				and TAG_NUM = #{tagInfoBean.tagNum}
+			</if>
+    	ORDER BY
+    		TAG_ID ASC
+	</select>
+	
+</mapper>

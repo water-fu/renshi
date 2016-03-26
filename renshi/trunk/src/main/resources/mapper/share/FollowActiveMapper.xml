@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.FollowActiveDao">
+
+	<resultMap type="FollowActiveBean" id="BaseResultMap">
+		<result column="FOLLOW_ID" property="followId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="FOLLOW_ACCOUNT" property="followAccount" />
+		<result column="FOLLOW_NAME" property="followName" />
+		<result column="FOLLOW_TYPE" property="followType" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="FollowActiveBean" keyProperty="followId" useGeneratedKeys="true">
+		INSERT INTO share_follow_active (
+			ACCOUNT_ID,
+			FOLLOW_ACCOUNT,
+			FOLLOW_NAME,
+			FOLLOW_TYPE,
+			CREATE_USER,
+			CREATE_DATE
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{followAccount},
+			#{followName},
+			#{followType},
+			#{createUser},
+			#{createDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="FollowActiveBean">
+		UPDATE share_follow_active 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			FOLLOW_ACCOUNT = #{followAccount},
+			FOLLOW_NAME = #{followName},
+			FOLLOW_TYPE = #{followType},
+			CREATE_USER = #{createUser},
+			CREATE_DATE = #{createDate}
+		WHERE 
+			FOLLOW_ID = #{followId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			share_follow_active 
+		WHERE 
+			FOLLOW_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			FOLLOW_ID,
+			ACCOUNT_ID,
+			FOLLOW_ACCOUNT,
+			FOLLOW_NAME,
+			FOLLOW_TYPE,
+			CREATE_USER,
+			CREATE_DATE
+		FROM 
+			share_follow_active
+	 	WHERE 
+	 		FOLLOW_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="FollowActiveBean" resultMap="BaseResultMap">
+		SELECT 
+			FOLLOW_ID,
+			ACCOUNT_ID,
+			FOLLOW_ACCOUNT,
+			FOLLOW_NAME,
+			FOLLOW_TYPE,
+			CREATE_USER,
+			CREATE_DATE
+		FROM 
+			share_follow_active
+		WHERE
+			1 = 1
+			<if test="followId != -1">
+				and FOLLOW_ID = #{followId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="followAccount != -1">
+				and FOLLOW_ACCOUNT = #{followAccount}
+			</if>
+			<if test="followName != null">
+				and FOLLOW_NAME = #{followName,jdbcType=VARCHAR}
+			</if>
+			<if test="followType != -1">
+				and FOLLOW_TYPE = #{followType}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+    	ORDER BY
+    		FOLLOW_ID ASC
+	</select>
+	
+	<!-- 查询分页数据  粉丝-->
+	<select id="pageData" parameterType="java.util.Map" resultType="Map">
+
+		<if test="followActiveBean.queryCondition == 'queryByFansNum'"><!--按粉丝数量排序-->
+			SELECT
+			FOLLOW_ID,
+			a.ACCOUNT_ID,
+			FOLLOW_ACCOUNT,
+			FOLLOW_NAME,
+			FOLLOW_TYPE,
+			REAL_NAME,
+			WORK_PROFESS,
+			BELONG_DEPT,
+			PERSON_INFRO,
+			FANS_NUM
+			FROM
+			share_follow_active a,
+			doctor_user_info b,
+			share_person_info d
+			WHERE a.ACCOUNT_ID != a.FOLLOW_ACCOUNT
+			<if test="followActiveBean.accountId != -1">
+				AND a.ACCOUNT_ID = #{followActiveBean.accountId} 
+			</if>
+			<if test="followActiveBean.followAccount != -1">
+				AND FOLLOW_ACCOUNT = #{followActiveBean.followAccount}  
+			</if>
+			<if test="followActiveBean.searchtype == 1">/*查询我的粉丝*/
+				AND a.ACCOUNT_ID = b.ACCOUNT_ID
+				<if test="name!=null">
+				   AND b.REAL_NAME like CONCAT('%',#{name}, '%')
+				</if>
+			</if>
+			<if test="followActiveBean.searchtype == 2">/*查询我的关注*/
+				AND a.FOLLOW_ACCOUNT = b.ACCOUNT_ID
+				AND a.FOLLOW_ACCOUNT = d.ACCOUNT_ID
+				<if test="name!=null">
+				   AND b.REAL_NAME like CONCAT('%',#{name}, '%')
+				</if>
+			</if>
+			ORDER BY FANS_NUM DESC LIMIT
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+		</if>
+
+		<if test="followActiveBean.queryCondition == 'queryByFollowTime'"><!--按关注时间排序-->
+			SELECT
+			FOLLOW_ID,
+			a.ACCOUNT_ID,
+			FOLLOW_ACCOUNT,
+			FOLLOW_NAME,
+			FOLLOW_TYPE,
+			a.CREATE_DATE,
+			REAL_NAME,
+			WORK_PROFESS,
+			BELONG_DEPT,
+			PERSON_INFRO
+			FROM
+			share_follow_active a,
+			doctor_user_info b
+			WHERE a.ACCOUNT_ID != a.FOLLOW_ACCOUNT
+			<if test="followActiveBean.accountId != -1">
+				AND a.ACCOUNT_ID = #{followActiveBean.accountId} 
+			</if>
+			<if test="followActiveBean.followAccount != -1">
+				AND a.FOLLOW_ACCOUNT = #{followActiveBean.followAccount}  
+			</if>
+			<if test="followActiveBean.searchtype == 1">/*查询我的粉丝*/
+				AND a.ACCOUNT_ID = b.ACCOUNT_ID 
+				<if test="name!=null">
+				   AND b.REAL_NAME like CONCAT('%',#{name}, '%')
+				</if>
+			</if>
+			<if test="followActiveBean.searchtype == 2">/*查询我的关注*/
+				AND a.FOLLOW_ACCOUNT = b.ACCOUNT_ID
+				<if test="name!=null">
+				   AND b.REAL_NAME like CONCAT('%',#{name}, '%')
+				</if>
+			</if>
+			ORDER BY a.CREATE_DATE ASC LIMIT
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+		</if>
+
+	</select>
+
+
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			share_follow_active a,
+			doctor_user_info b
+		WHERE
+			a.ACCOUNT_ID != a.FOLLOW_ACCOUNT
+			<if test="followActiveBean.followId != -1">
+				and a.FOLLOW_ID = #{followActiveBean.followId}
+			</if>
+			<if test="followActiveBean.accountId != -1">
+				and a.ACCOUNT_ID = #{followActiveBean.accountId}
+			</if>
+			<if test="followActiveBean.followAccount != -1">
+				and a.FOLLOW_ACCOUNT = #{followActiveBean.followAccount}
+			</if>
+			<if test="followActiveBean.followName != null">
+				and a.FOLLOW_NAME = #{followActiveBean.followName,jdbcType=VARCHAR}
+			</if>
+			<if test="followActiveBean.followType != -1">
+				and a.FOLLOW_TYPE = #{followActiveBean.followType}
+			</if>
+			<if test="followActiveBean.createUser != -1">
+				and a.CREATE_USER = #{followActiveBean.createUser}
+			</if>
+			<if test="followActiveBean.createDate != null">
+				and a.CREATE_DATE = #{followActiveBean.createDate}
+			</if>
+			<!-- start -->
+			<if test="followActiveBean.searchtype == 1">/*查询我的粉丝*/
+				AND a.ACCOUNT_ID = b.ACCOUNT_ID 
+				<if test="name!=null">
+				   AND b.REAL_NAME like CONCAT('%',#{name}, '%')
+				</if>
+			</if>
+			<if test="followActiveBean.searchtype == 2">/*查询我的关注*/
+				AND a.FOLLOW_ACCOUNT = b.ACCOUNT_ID
+				<if test="name!=null">
+				   AND b.REAL_NAME like CONCAT('%',#{name}, '%')
+				</if>
+			</if>
+			<!--  end-->
+	</select>
+</mapper>

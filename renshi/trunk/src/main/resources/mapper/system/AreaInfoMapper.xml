@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.system.AreaInfoDao">
+
+	<resultMap type="AreaInfoBean" id="BaseResultMap">
+		<result column="AREA_ID" property="areaId" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="FIRST_CHAR" property="firstChar" />
+		<result column="AREA_NAME" property="areaName" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+	</resultMap>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="AreaInfoBean" keyProperty="areaId" useGeneratedKeys="true">
+		INSERT INTO system_area_info (
+			PARENT_ID,
+			FIRST_CHAR,
+			AREA_NAME,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+    	)
+		VALUES
+		(
+			#{parentId},
+			#{firstChar},
+			#{areaName},
+			#{createUser},
+			#{createDate},
+			#{updateUser},
+			#{updateDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="AreaInfoBean">
+		UPDATE system_area_info 
+		SET 
+			PARENT_ID = #{parentId},
+			FIRST_CHAR = #{firstChar},
+			AREA_NAME = #{areaName},
+			CREATE_USER = #{createUser},
+			CREATE_DATE = #{createDate},
+			UPDATE_USER = #{updateUser},
+			UPDATE_DATE = #{updateDate}
+		WHERE 
+			AREA_ID = #{areaId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			system_area_info 
+		WHERE 
+			AREA_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键删除 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			AREA_ID,
+			PARENT_ID,
+			FIRST_CHAR,
+			AREA_NAME,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			system_area_info
+	 	WHERE 
+	 		AREA_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="AreaInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			AREA_ID,
+			PARENT_ID,
+			FIRST_CHAR,
+			AREA_NAME,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			system_area_info
+		WHERE
+			1 = 1
+			<if test="areaId != -1">
+				and AREA_ID = #{areaId}
+			</if>
+			<if test="parentId != -1">
+				and PARENT_ID = #{parentId}
+			</if>
+			<if test="firstChar != null">
+				and FIRST_CHAR = #{firstChar}
+			</if>
+			<if test="areaName != null">
+				and AREA_NAME = #{areaName}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+    	ORDER BY
+    		AREA_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			AREA_ID,
+			PARENT_ID,
+			FIRST_CHAR,
+			AREA_NAME,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM
+			system_area_info
+		WHERE
+			1 = 1
+			<if test="areaInfoBean.areaId != -1">
+				and AREA_ID = #{areaInfoBean.areaId}
+			</if>
+			<if test="areaInfoBean.parentId != -1">
+				and PARENT_ID = #{areaInfoBean.parentId}
+			</if>
+			<if test="areaInfoBean.firstChar != null">
+				and FIRST_CHAR = #{areaInfoBean.firstChar}
+			</if>
+			<if test="areaInfoBean.areaName != null">
+				and AREA_NAME = #{areaInfoBean.areaName}
+			</if>
+			<if test="areaInfoBean.createUser != -1">
+				and CREATE_USER = #{areaInfoBean.createUser}
+			</if>
+			<if test="areaInfoBean.createDate != null">
+				and CREATE_DATE = #{areaInfoBean.createDate}
+			</if>
+			<if test="areaInfoBean.updateUser != -1">
+				and UPDATE_USER = #{areaInfoBean.updateUser}
+			</if>
+			<if test="areaInfoBean.updateDate != null">
+				and UPDATE_DATE = #{areaInfoBean.updateDate}
+			</if>
+    	ORDER BY
+    		AREA_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页查询统计数量 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			system_area_info
+		WHERE
+			1 = 1
+			<if test="areaInfoBean.areaId != -1">
+				and AREA_ID = #{areaInfoBean.areaId}
+			</if>
+			<if test="areaInfoBean.parentId != -1">
+				and PARENT_ID = #{areaInfoBean.parentId}
+			</if>
+			<if test="areaInfoBean.firstChar != null">
+				and FIRST_CHAR = #{areaInfoBean.firstChar}
+			</if>
+			<if test="areaInfoBean.areaName != null">
+				and AREA_NAME = #{areaInfoBean.areaName}
+			</if>
+			<if test="areaInfoBean.createUser != -1">
+				and CREATE_USER = #{areaInfoBean.createUser}
+			</if>
+			<if test="areaInfoBean.createDate != null">
+				and CREATE_DATE = #{areaInfoBean.createDate}
+			</if>
+			<if test="areaInfoBean.updateUser != -1">
+				and UPDATE_USER = #{areaInfoBean.updateUser}
+			</if>
+			<if test="areaInfoBean.updateDate != null">
+				and UPDATE_DATE = #{areaInfoBean.updateDate}
+			</if>
+    	ORDER BY
+    		AREA_ID ASC
+	</select>
+	
+</mapper>

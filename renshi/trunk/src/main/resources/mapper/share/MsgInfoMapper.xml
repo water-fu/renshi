@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.MsgInfoDao">
+
+	<resultMap type="MsgInfoBean" id="BaseResultMap">
+		<result column="MSG_ID" property="msgId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="ACCOUNTED_ID" property="accountedId" />
+		<result column="SEND_DATE" property="sendDate" />
+		<result column="MSG_COUNT" property="msgCount" />
+		<result column="MSGDED_COUNT" property="msgdedCount" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="MSG_CONTENT" property="msgContent" />
+	</resultMap>
+
+	<!-- 鎻掑叆 -->
+	<insert id="insert" parameterType="MsgInfoBean" keyProperty="msgId" useGeneratedKeys="true">
+		INSERT INTO share_msg_info (
+			ACCOUNT_ID,
+			ACCOUNTED_ID,
+			SEND_DATE,
+			MSG_COUNT,
+			MSGDED_COUNT,
+			CREATE_DATE,
+			MSG_CONTENT
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{accountedId},
+			#{sendDate},
+			#{msgCount},
+			#{msgdedCount},
+			#{createDate},
+			#{msgContent}
+		)
+	</insert>
+	
+	<!-- 鏇存柊 -->
+	<update id="update" parameterType="MsgInfoBean">
+		UPDATE share_msg_info 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			ACCOUNTED_ID = #{accountedId},
+			SEND_DATE = #{sendDate},
+			MSG_COUNT = #{msgCount},
+			MSGDED_COUNT = #{msgdedCount},
+			CREATE_DATE = #{createDate},
+			MSG_CONTENT = #{msgContent}
+		WHERE 
+			MSG_ID = #{msgId}
+	</update>
+	
+	<!-- 鍒犻櫎 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			share_msg_info 
+		WHERE 
+			MSG_ID = #{value}
+	</delete>
+	
+	<!-- 鏍规嵁涓婚敭鏌ヨ -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			MSG_ID,
+			ACCOUNT_ID,
+			ACCOUNTED_ID,
+			SEND_DATE,
+			MSG_COUNT,
+			MSGDED_COUNT,
+			CREATE_DATE,
+			MSG_CONTENT
+		FROM 
+			share_msg_info
+	 	WHERE 
+	 		MSG_ID = #{value}
+	</select>
+	
+	<!-- 鏌ヨ鍒楄〃鏁版嵁 -->
+	<select id="listData" parameterType="MsgInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			MSG_ID,
+			ACCOUNT_ID,
+			ACCOUNTED_ID,
+			SEND_DATE,
+			MSG_COUNT,
+			MSGDED_COUNT,
+			CREATE_DATE,
+			MSG_CONTENT
+		FROM 
+			share_msg_info
+		WHERE
+			1 = 1
+			<if test="msgId != -1">
+				and MSG_ID = #{msgId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="accountedId != -1">
+				and ACCOUNTED_ID = #{accountedId}
+			</if>
+			<if test="sendDate != null">
+				and SEND_DATE = #{sendDate}
+			</if>
+			<if test="msgCount != -1">
+				and MSG_COUNT = #{msgCount}
+			</if>
+			<if test="msgdedCount != -1">
+				and MSGDED_COUNT = #{msgdedCount}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+    	ORDER BY
+    		MSG_ID ASC
+	</select>
+	
+	<!-- 鏌ヨ鍒嗛〉鏁版嵁 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			MSG_ID,
+			ACCOUNT_ID,
+			ACCOUNTED_ID,
+			SEND_DATE,
+			MSG_COUNT,
+			MSGDED_COUNT,
+			CREATE_DATE,
+			MSG_CONTENT
+		FROM
+			share_msg_info
+		WHERE
+			1 = 1
+			AND (ACCOUNT_ID = #{msgInfoBean.accountId} OR ACCOUNTED_ID = #{msgInfoBean.accountId})
+    	ORDER BY
+    		SEND_DATE DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 鍒嗛〉鏁版嵁缁熻鎬绘暟 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			share_msg_info
+		WHERE
+			1 = 1
+			AND (ACCOUNT_ID = #{msgInfoBean.accountId} OR ACCOUNTED_ID = #{msgInfoBean.accountId})
+    	ORDER BY
+    		SEND_DATE DESC
+	</select>
+	
+</mapper>
