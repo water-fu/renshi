@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.admin.PermissionDao">
+
+	<resultMap type="PermissionBean" id="BaseResultMap">
+		<result column="PERM_ID" property="permId" />
+		<result column="PERM_NAME" property="permName" />
+		<result column="PERM_DESC" property="permDesc" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="PermissionBean" keyProperty="permId" useGeneratedKeys="true">
+		INSERT INTO admin_permission (
+			PERM_NAME,
+			PERM_DESC
+    	)
+		VALUES
+		(
+			#{permName},
+			#{permDesc}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="PermissionBean">
+		UPDATE admin_permission 
+		SET 
+			PERM_NAME = #{permName},
+			PERM_DESC = #{permDesc}
+		WHERE 
+			PERM_ID = #{permId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			admin_permission 
+		WHERE 
+			PERM_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			PERM_ID,
+			PERM_NAME,
+			PERM_DESC
+		FROM 
+			admin_permission
+	 	WHERE 
+	 		PERM_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="PermissionBean" resultMap="BaseResultMap">
+		SELECT 
+			PERM_ID,
+			PERM_NAME,
+			PERM_DESC
+		FROM 
+			admin_permission
+		WHERE
+			1 = 1
+			<if test="permId != -1">
+				and PERM_ID = #{permId}
+			</if>
+			<if test="permName != null">
+				and PERM_NAME = #{permName}
+			</if>
+			<if test="permDesc != null">
+				and PERM_DESC = #{permDesc}
+			</if>
+    	ORDER BY
+    		PERM_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			PERM_ID,
+			PERM_NAME,
+			PERM_DESC
+		FROM
+			admin_permission
+		WHERE
+			1 = 1
+			<if test="permissionBean.permId != -1">
+				and PERM_ID = #{permissionBean.permId}
+			</if>
+			<if test="permissionBean.permName != null">
+				and PERM_NAME = #{permissionBean.permName}
+			</if>
+			<if test="permissionBean.permDesc != null">
+				and PERM_DESC = #{permissionBean.permDesc}
+			</if>
+    	ORDER BY
+    		PERM_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			admin_permission
+		WHERE
+			1 = 1
+			<if test="permissionBean.permId != -1">
+				and PERM_ID = #{permissionBean.permId}
+			</if>
+			<if test="permissionBean.permName != null">
+				and PERM_NAME = #{permissionBean.permName}
+			</if>
+			<if test="permissionBean.permDesc != null">
+				and PERM_DESC = #{permissionBean.permDesc}
+			</if>
+    	ORDER BY
+    		PERM_ID ASC
+	</select>
+	
+</mapper>

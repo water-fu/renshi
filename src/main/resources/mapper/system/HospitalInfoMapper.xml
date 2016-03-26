@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.system.HospitalInfoDao">
+
+	<resultMap type="HospitalInfoBean" id="BaseResultMap">
+		<result column="HOSPITAL_ID" property="hospitalId" />
+		<result column="AREA_ID" property="areaId" />
+		<result column="HOSPITAL_NAME" property="hospitalName" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+	</resultMap>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="HospitalInfoBean" keyProperty="hospitalId" useGeneratedKeys="true">
+		INSERT INTO system_hospital_info (
+			AREA_ID,
+			HOSPITAL_NAME,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+    	)
+		VALUES
+		(
+			#{areaId},
+			#{hospitalName},
+			#{createUser},
+			#{createDate},
+			#{updateUser},
+			#{updateDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="HospitalInfoBean">
+		UPDATE system_hospital_info 
+		SET 
+			AREA_ID = #{areaId},
+			HOSPITAL_NAME = #{hospitalName},
+			CREATE_USER = #{createUser},
+			CREATE_DATE = #{createDate},
+			UPDATE_USER = #{updateUser},
+			UPDATE_DATE = #{updateDate}
+		WHERE 
+			HOSPITAL_ID = #{hospitalId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			system_hospital_info 
+		WHERE 
+			HOSPITAL_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			HOSPITAL_ID,
+			AREA_ID,
+			HOSPITAL_NAME,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			system_hospital_info
+	 	WHERE 
+	 		HOSPITAL_ID = #{value}
+	</select>
+	
+	<!-- 查询列表 -->
+	<select id="listData" parameterType="HospitalInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			HOSPITAL_ID,
+			AREA_ID,
+			HOSPITAL_NAME,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			system_hospital_info
+		WHERE
+			1 = 1
+			<if test="hospitalId != -1">
+				and HOSPITAL_ID = #{hospitalId}
+			</if>
+			<if test="areaId != -1">
+				and AREA_ID = #{areaId}
+			</if>
+			<if test="hospitalName != null">
+				and HOSPITAL_NAME = #{hospitalName}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+    	ORDER BY
+    		HOSPITAL_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			HOSPITAL_ID,
+			AREA_ID,
+			HOSPITAL_NAME,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM
+			system_hospital_info
+		WHERE
+			1 = 1
+			<if test="hospitalInfoBean.hospitalId != -1">
+				and HOSPITAL_ID = #{hospitalInfoBean.hospitalId}
+			</if>
+			<if test="hospitalInfoBean.areaId != -1">
+				and AREA_ID = #{hospitalInfoBean.areaId}
+			</if>
+			<if test="hospitalInfoBean.hospitalName != null">
+				and HOSPITAL_NAME = #{hospitalInfoBean.hospitalName}
+			</if>
+			<if test="hospitalInfoBean.createUser != -1">
+				and CREATE_USER = #{hospitalInfoBean.createUser}
+			</if>
+			<if test="hospitalInfoBean.createDate != null">
+				and CREATE_DATE = #{hospitalInfoBean.createDate}
+			</if>
+			<if test="hospitalInfoBean.updateUser != -1">
+				and UPDATE_USER = #{hospitalInfoBean.updateUser}
+			</if>
+			<if test="hospitalInfoBean.updateDate != null">
+				and UPDATE_DATE = #{hospitalInfoBean.updateDate}
+			</if>
+    	ORDER BY
+    		HOSPITAL_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页统计数量 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			system_hospital_info
+		WHERE
+			1 = 1
+			<if test="hospitalInfoBean.hospitalId != -1">
+				and HOSPITAL_ID = #{hospitalInfoBean.hospitalId}
+			</if>
+			<if test="hospitalInfoBean.areaId != -1">
+				and AREA_ID = #{hospitalInfoBean.areaId}
+			</if>
+			<if test="hospitalInfoBean.hospitalName != null">
+				and HOSPITAL_NAME = #{hospitalInfoBean.hospitalName}
+			</if>
+			<if test="hospitalInfoBean.createUser != -1">
+				and CREATE_USER = #{hospitalInfoBean.createUser}
+			</if>
+			<if test="hospitalInfoBean.createDate != null">
+				and CREATE_DATE = #{hospitalInfoBean.createDate}
+			</if>
+			<if test="hospitalInfoBean.updateUser != -1">
+				and UPDATE_USER = #{hospitalInfoBean.updateUser}
+			</if>
+			<if test="hospitalInfoBean.updateDate != null">
+				and UPDATE_DATE = #{hospitalInfoBean.updateDate}
+			</if>
+    	ORDER BY
+    		HOSPITAL_ID ASC
+	</select>
+	
+</mapper>

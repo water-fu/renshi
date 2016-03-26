@@ -1,0 +1,104 @@
+/*footer*/
+#footer {
+	margin-top: 15px;
+}
+
+.footer_top {
+	width: 100%;
+	height: 100px;
+	background: #25C79F;
+}
+
+.whyus {
+	width: auto;
+	float: left;
+	margin-top: 20px;
+	margin-left: 30px;
+}
+
+.whyus span {
+	width: 62px;
+	height: 62px;
+	float: left;
+	background: url(../../images/footer/footer.png) no-repeat 0px 0px;
+	text-indent: -10000px;
+}
+
+.whyus span.w2 {
+	background-position: -61px 0px;
+}
+
+.whyus span.w3 {
+	background-position: -123px 0px;
+}
+
+.whyus span.w4 {
+	background-position: -185px 0px;
+}
+
+.whyus i {
+	display: block;
+	width: auto;
+	color: #fff;
+	font-size: 18px;
+	float: left;
+	margin-left: 14px;
+	margin-top: 10px;
+	font-style: normal;
+}
+
+.footer_link {
+	border-bottom: 1px solid #ccc;
+	padding: 30px 0px;
+	font-size: 16px;
+	margin-bottom: 30px;
+}
+
+.footer_link a {
+	margin-left: 20px;
+}
+
+.footer_webinfo {
+	margin-left: 50px;
+	float: left;
+	line-height: 23px;
+}
+
+.footer_webinfo p {
+	font-size: 16px;
+	text-align: left;
+}
+
+.footer_zs {
+	margin: 10px 0px 0px 105px;
+}
+
+.footerSns a {
+	display: block;
+	float: left;
+	width: 85px;
+	height: 85px;
+	background: url(../../images/footer/footer-social.png) no-repeat -1px 0px;
+	text-indent: -10000px;
+	margin-left: 20px;
+}
+
+.footerSns a.wb {
+	background-position: -104px 0px;
+}
+
+.footerSns a.qq {
+	background-position: -210px 0px;
+}
+
+.footerSns a:hover {
+	background-position: -1px -125px;
+}
+
+.footerSns a.wb:hover {
+	background-position: -104px -125px;
+}
+
+.footerSns a.qq:hover {
+	background-position: -210px -125px;
+}

@@ -1,0 +1,36 @@
+.floatLeft {
+	float: left;
+}
+
+.floatRight {
+	float: right;
+}
+
+.tac {
+	text-align: center;;
+}
+
+.mr10p {
+	margin-right: 10px;
+}
+
+.mr20p {
+	margin-right: 20px;
+}
+
+.ml10p {
+	margin-left: 10px;
+}
+
+.mt15p {
+	margin-top: 15px;
+}
+
+.width1000 {
+	margin: 0 auto;
+	width: 1080px;
+}
+
+.hidden {
+	display: none !important;
+}

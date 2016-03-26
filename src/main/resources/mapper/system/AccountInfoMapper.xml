@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.system.AccountInfoDao">
+
+	<resultMap type="AccountInfoBean" id="BaseResultMap">
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="REGISTER_TYPE" property="registerType" />
+		<result column="LOGIN_ACCOUNT" property="loginAccount" />
+		<result column="LOGIN_PASSWORD" property="loginPassword" />
+		<result column="HEAD_URL" property="headUrl" />
+		<result column="ACCOUNT_TYPE" property="accountType" />
+		<result column="ACCOUNT_STATUS" property="accountStatus" />
+		<result column="ACTIVE_TYPE" property="activeType" />
+		<result column="ACTIVE_TIME" property="activeTime" />
+		<result column="ACCOUNT_LEVEL" property="accountLevel" />
+		<result column="ACCOUNT_SCORE" property="accountScore" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="AccountInfoBean" keyProperty="accountId" useGeneratedKeys="true">
+		INSERT INTO system_account_info (
+			REGISTER_TYPE,
+			LOGIN_ACCOUNT,
+			LOGIN_PASSWORD,
+			HEAD_URL,
+			ACCOUNT_TYPE,
+			ACCOUNT_STATUS,
+			ACTIVE_TYPE,
+			ACTIVE_TIME,
+			ACCOUNT_LEVEL,
+			ACCOUNT_SCORE,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+    	)
+		VALUES
+		(
+			#{registerType},
+			#{loginAccount},
+			#{loginPassword},
+			#{headUrl},
+			#{accountType},
+			#{accountStatus},
+			#{activeType},
+			#{activeTime},
+			#{accountLevel},
+			#{accountScore},
+			#{createDate},
+			#{updateUser},
+			#{updateDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="AccountInfoBean">
+		UPDATE system_account_info 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			REGISTER_TYPE = #{registerType},
+			LOGIN_ACCOUNT = #{loginAccount},
+			LOGIN_PASSWORD = #{loginPassword},
+			HEAD_URL = #{headUrl},
+			ACCOUNT_TYPE = #{accountType},
+			ACCOUNT_STATUS = #{accountStatus},
+			ACTIVE_TYPE = #{activeType},
+			ACTIVE_TIME = #{activeTime},
+			ACCOUNT_LEVEL = #{accountLevel},
+			ACCOUNT_SCORE = #{accountScore},
+			CREATE_DATE = #{createDate},
+			UPDATE_USER = #{updateUser},
+			UPDATE_DATE = #{updateDate}
+		WHERE 
+			ACCOUNT_ID = #{accountId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			system_account_info 
+		WHERE 
+			ACCOUNT_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			REGISTER_TYPE,
+			LOGIN_ACCOUNT,
+			LOGIN_PASSWORD,
+			HEAD_URL,
+			ACCOUNT_TYPE,
+			ACCOUNT_STATUS,
+			ACTIVE_TYPE,
+			ACTIVE_TIME,
+			ACCOUNT_LEVEL,
+			ACCOUNT_SCORE,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			system_account_info
+	 	WHERE 
+	 		ACCOUNT_ID = #{value} 
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="AccountInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			REGISTER_TYPE,
+			LOGIN_ACCOUNT,
+			LOGIN_PASSWORD,
+			HEAD_URL,
+			ACCOUNT_TYPE,
+			ACCOUNT_STATUS,
+			ACTIVE_TYPE,
+			ACTIVE_TIME,
+			ACCOUNT_LEVEL,
+			ACCOUNT_SCORE,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			system_account_info
+		WHERE
+			1 = 1
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="registerType != -1">
+				and REGISTER_TYPE = #{registerType}
+			</if>
+			<if test="loginAccount != null">
+				and LOGIN_ACCOUNT = #{loginAccount}
+			</if>
+			<if test="loginPassword != null">
+				and LOGIN_PASSWORD = #{loginPassword}
+			</if>
+			<if test="headUrl != null">
+				and HEAD_URL = #{headUrl}
+			</if>
+			<if test="accountType != -1">
+				and ACCOUNT_TYPE = #{accountType}
+			</if>
+			<if test="accountStatus != -1">
+				and ACCOUNT_STATUS = #{accountStatus}
+			</if>
+			<if test="activeType != -1">
+				and ACTIVE_TYPE = #{activeType}
+			</if>
+			<if test="activeTime != null">
+				and ACTIVE_TIME = #{activeTime}
+			</if>
+			<if test="accountLevel != -1">
+				and ACCOUNT_LEVEL = #{accountLevel}
+			</if>
+			<if test="accountScore != -1">
+				and ACCOUNT_SCORE = #{accountScore}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			REGISTER_TYPE,
+			LOGIN_ACCOUNT,
+			LOGIN_PASSWORD,
+			HEAD_URL,
+			ACCOUNT_TYPE,
+			ACCOUNT_STATUS,
+			ACTIVE_TYPE,
+			ACTIVE_TIME,
+			ACCOUNT_LEVEL,
+			ACCOUNT_SCORE,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM
+			system_account_info
+		WHERE
+			1 = 1
+			<if test="accountInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{accountInfoBean.accountId}
+			</if>
+			<if test="accountInfoBean.registerType != -1">
+				and REGISTER_TYPE = #{accountInfoBean.registerType}
+			</if>
+			<if test="accountInfoBean.loginAccount != null">
+				and LOGIN_ACCOUNT = #{accountInfoBean.loginAccount}
+			</if>
+			<if test="accountInfoBean.loginPassword != null">
+				and LOGIN_PASSWORD = #{accountInfoBean.loginPassword}
+			</if>
+			<if test="accountInfoBean.headUrl != null">
+				and HEAD_URL = #{accountInfoBean.headUrl}
+			</if>
+			<if test="accountInfoBean.accountType != -1">
+				and ACCOUNT_TYPE = #{accountInfoBean.accountType}
+			</if>
+			<if test="accountInfoBean.accountStatus != -1">
+				and ACCOUNT_STATUS = #{accountInfoBean.accountStatus}
+			</if>
+			<if test="accountInfoBean.activeType != -1">
+				and ACTIVE_TYPE = #{accountInfoBean.activeType}
+			</if>
+			<if test="accountInfoBean.activeTime != null">
+				and ACTIVE_TIME = #{accountInfoBean.activeTime}
+			</if>
+			<if test="accountInfoBean.accountLevel != -1">
+				and ACCOUNT_LEVEL = #{accountInfoBean.accountLevel}
+			</if>
+			<if test="accountInfoBean.accountScore != -1">
+				and ACCOUNT_SCORE = #{accountInfoBean.accountScore}
+			</if>
+			<if test="accountInfoBean.createDate != null">
+				and CREATE_DATE = #{accountInfoBean.createDate}
+			</if>
+			<if test="accountInfoBean.updateUser != -1">
+				and UPDATE_USER = #{accountInfoBean.updateUser}
+			</if>
+			<if test="accountInfoBean.updateDate != null">
+				and UPDATE_DATE = #{accountInfoBean.updateDate}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			system_account_info
+		WHERE
+			1 = 1
+			<if test="accountInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{accountInfoBean.accountId}
+			</if>
+			<if test="accountInfoBean.registerType != -1">
+				and REGISTER_TYPE = #{accountInfoBean.registerType}
+			</if>
+			<if test="accountInfoBean.loginAccount != null">
+				and LOGIN_ACCOUNT = #{accountInfoBean.loginAccount}
+			</if>
+			<if test="accountInfoBean.loginPassword != null">
+				and LOGIN_PASSWORD = #{accountInfoBean.loginPassword}
+			</if>
+			<if test="accountInfoBean.headUrl != null">
+				and HEAD_URL = #{accountInfoBean.headUrl}
+			</if>
+			<if test="accountInfoBean.accountType != -1">
+				and ACCOUNT_TYPE = #{accountInfoBean.accountType}
+			</if>
+			<if test="accountInfoBean.accountStatus != -1">
+				and ACCOUNT_STATUS = #{accountInfoBean.accountStatus}
+			</if>
+			<if test="accountInfoBean.activeType != -1">
+				and ACTIVE_TYPE = #{accountInfoBean.activeType}
+			</if>
+			<if test="accountInfoBean.activeTime != null">
+				and ACTIVE_TIME = #{accountInfoBean.activeTime}
+			</if>
+			<if test="accountInfoBean.accountLevel != -1">
+				and ACCOUNT_LEVEL = #{accountInfoBean.accountLevel}
+			</if>
+			<if test="accountInfoBean.accountScore != -1">
+				and ACCOUNT_SCORE = #{accountInfoBean.accountScore}
+			</if>
+			<if test="accountInfoBean.createDate != null">
+				and CREATE_DATE = #{accountInfoBean.createDate}
+			</if>
+			<if test="accountInfoBean.updateUser != -1">
+				and UPDATE_USER = #{accountInfoBean.updateUser}
+			</if>
+			<if test="accountInfoBean.updateDate != null">
+				and UPDATE_DATE = #{accountInfoBean.updateDate}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+</mapper>

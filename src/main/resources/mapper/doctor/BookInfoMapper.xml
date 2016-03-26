@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.doctor.BookInfoDao">
+
+	<resultMap type="BookInfoBean" id="BaseResultMap">
+		<result column="BOOK_ID" property="bookId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="BOOK_NAME" property="bookName" />
+		<result column="AUTHOR_TYPE" property="authorType" />
+		<result column="AUTHOR_NAME" property="authorName" />
+		<result column="PUBLISH_DATE" property="publishDate" />
+		<result column="PUBLISH_DEPT" property="publishDept" />
+		<result column="BOOK_DESC" property="bookDesc" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="BookInfoBean" keyProperty="bookId" useGeneratedKeys="true">
+		INSERT INTO doctor_book_info (
+			ACCOUNT_ID,
+			BOOK_NAME,
+			AUTHOR_TYPE,
+			AUTHOR_NAME,
+			PUBLISH_DATE,
+			PUBLISH_DEPT,
+			BOOK_DESC,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{bookName},
+			#{authorType},
+			#{authorName},
+			#{publishDate},
+			#{publishDept},
+			#{bookDesc},
+			#{createDate},
+			#{createUser},
+			#{updateDate},
+			#{updateUser}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="BookInfoBean">
+		UPDATE doctor_book_info 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			BOOK_NAME = #{bookName},
+			AUTHOR_TYPE = #{authorType},
+			AUTHOR_NAME = #{authorName},
+			PUBLISH_DATE = #{publishDate},
+			PUBLISH_DEPT = #{publishDept},
+			BOOK_DESC = #{bookDesc},
+			CREATE_DATE = #{createDate},
+			CREATE_USER = #{createUser},
+			UPDATE_DATE = #{updateDate},
+			UPDATE_USER = #{updateUser}
+		WHERE 
+			BOOK_ID = #{bookId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			doctor_book_info 
+		WHERE 
+			BOOK_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			BOOK_ID,
+			ACCOUNT_ID,
+			BOOK_NAME,
+			AUTHOR_TYPE,
+			AUTHOR_NAME,
+			PUBLISH_DATE,
+			PUBLISH_DEPT,
+			BOOK_DESC,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM 
+			doctor_book_info
+	 	WHERE 
+	 		BOOK_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="BookInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			BOOK_ID,
+			ACCOUNT_ID,
+			BOOK_NAME,
+			AUTHOR_TYPE,
+			AUTHOR_NAME,
+			PUBLISH_DATE,
+			PUBLISH_DEPT,
+			BOOK_DESC,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM 
+			doctor_book_info
+		WHERE
+			1 = 1
+			<if test="bookId != -1">
+				and BOOK_ID = #{bookId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="bookName != null">
+				and BOOK_NAME = #{bookName}
+			</if>
+			<if test="authorType != null">
+				and AUTHOR_TYPE = #{authorType}
+			</if>
+			<if test="authorName != null">
+				and AUTHOR_NAME = #{authorName}
+			</if>
+			<if test="publishDate != null">
+				and PUBLISH_DATE = #{publishDate}
+			</if>
+			<if test="publishDept != null">
+				and PUBLISH_DEPT = #{publishDept}
+			</if>
+			<if test="bookDesc != null">
+				and BOOK_DESC = #{bookDesc}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+    	ORDER BY
+    		BOOK_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			BOOK_ID,
+			ACCOUNT_ID,
+			BOOK_NAME,
+			AUTHOR_TYPE,
+			AUTHOR_NAME,
+			PUBLISH_DATE,
+			PUBLISH_DEPT,
+			BOOK_DESC,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		FROM
+			doctor_book_info
+		WHERE
+			1 = 1
+			<if test="bookInfoBean.bookId != -1">
+				and BOOK_ID = #{bookInfoBean.bookId}
+			</if>
+			<if test="bookInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{bookInfoBean.accountId}
+			</if>
+			<if test="bookInfoBean.bookName != null">
+				and BOOK_NAME = #{bookInfoBean.bookName}
+			</if>
+			<if test="bookInfoBean.authorType != null">
+				and AUTHOR_TYPE = #{bookInfoBean.authorType}
+			</if>
+			<if test="bookInfoBean.authorName != null">
+				and AUTHOR_NAME = #{bookInfoBean.authorName}
+			</if>
+			<if test="bookInfoBean.publishDate != null">
+				and PUBLISH_DATE = #{bookInfoBean.publishDate}
+			</if>
+			<if test="bookInfoBean.publishDept != null">
+				and PUBLISH_DEPT = #{bookInfoBean.publishDept}
+			</if>
+			<if test="bookInfoBean.bookDesc != null">
+				and BOOK_DESC = #{bookInfoBean.bookDesc}
+			</if>
+			<if test="bookInfoBean.createDate != null">
+				and CREATE_DATE = #{bookInfoBean.createDate}
+			</if>
+			<if test="bookInfoBean.createUser != -1">
+				and CREATE_USER = #{bookInfoBean.createUser}
+			</if>
+			<if test="bookInfoBean.updateDate != null">
+				and UPDATE_DATE = #{bookInfoBean.updateDate}
+			</if>
+			<if test="bookInfoBean.updateUser != -1">
+				and UPDATE_USER = #{bookInfoBean.updateUser}
+			</if>
+    	ORDER BY
+    		BOOK_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			doctor_book_info
+		WHERE
+			1 = 1
+			<if test="bookInfoBean.bookId != -1">
+				and BOOK_ID = #{bookInfoBean.bookId}
+			</if>
+			<if test="bookInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{bookInfoBean.accountId}
+			</if>
+			<if test="bookInfoBean.bookName != null">
+				and BOOK_NAME = #{bookInfoBean.bookName}
+			</if>
+			<if test="bookInfoBean.authorType != null">
+				and AUTHOR_TYPE = #{bookInfoBean.authorType}
+			</if>
+			<if test="bookInfoBean.authorName != null">
+				and AUTHOR_NAME = #{bookInfoBean.authorName}
+			</if>
+			<if test="bookInfoBean.publishDate != null">
+				and PUBLISH_DATE = #{bookInfoBean.publishDate}
+			</if>
+			<if test="bookInfoBean.publishDept != null">
+				and PUBLISH_DEPT = #{bookInfoBean.publishDept}
+			</if>
+			<if test="bookInfoBean.bookDesc != null">
+				and BOOK_DESC = #{bookInfoBean.bookDesc}
+			</if>
+			<if test="bookInfoBean.createDate != null">
+				and CREATE_DATE = #{bookInfoBean.createDate}
+			</if>
+			<if test="bookInfoBean.createUser != -1">
+				and CREATE_USER = #{bookInfoBean.createUser}
+			</if>
+			<if test="bookInfoBean.updateDate != null">
+				and UPDATE_DATE = #{bookInfoBean.updateDate}
+			</if>
+			<if test="bookInfoBean.updateUser != -1">
+				and UPDATE_USER = #{bookInfoBean.updateUser}
+			</if>
+    	ORDER BY
+    		BOOK_ID ASC
+	</select>
+	
+</mapper>

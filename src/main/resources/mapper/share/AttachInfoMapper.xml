@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.AttachInfoDao">
+
+	<resultMap type="AttachInfoBean" id="BaseResultMap">
+		<result column="ATTACH_ID" property="attachId" />
+		<result column="SHARE_ID" property="shareId" />
+		<result column="ATTACH_TYPE" property="attachType" />
+		<result column="ATTACH_NAME" property="attachName" />
+		<result column="ATTACH_URL" property="attachUrl" />
+		<result column="ATTACH_SUFFIX" property="attachSuffix" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="AttachInfoBean" keyProperty="attachId" useGeneratedKeys="true">
+		INSERT INTO share_attach_info (
+			SHARE_ID,
+			ATTACH_TYPE,
+			ATTACH_NAME,
+			ATTACH_URL,
+			ATTACH_SUFFIX,
+			CREATE_USER,
+			CREATE_DATE
+    	)
+		VALUES
+		(
+			#{shareId},
+			#{attachType},
+			#{attachName},
+			#{attachUrl},
+			#{attachSuffix},
+			#{createUser},
+			#{createDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="AttachInfoBean">
+		UPDATE share_attach_info 
+		SET 
+			SHARE_ID = #{shareId},
+			ATTACH_TYPE = #{attachType},
+			ATTACH_NAME = #{attachName},
+			ATTACH_URL = #{attachUrl},
+			ATTACH_SUFFIX = #{attachSuffix},
+			CREATE_USER = #{createUser},
+			CREATE_DATE = #{createDate}
+		WHERE 
+			ATTACH_ID = #{attachId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			share_attach_info 
+		WHERE 
+			ATTACH_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			ATTACH_ID,
+			SHARE_ID,
+			ATTACH_TYPE,
+			ATTACH_NAME,
+			ATTACH_URL,
+			ATTACH_SUFFIX,
+			CREATE_USER,
+			CREATE_DATE
+		FROM 
+			share_attach_info
+	 	WHERE 
+	 		ATTACH_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="AttachInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			ATTACH_ID,
+			SHARE_ID,
+			ATTACH_TYPE,
+			ATTACH_NAME,
+			ATTACH_URL,
+			ATTACH_SUFFIX,
+			CREATE_USER,
+			CREATE_DATE
+		FROM 
+			share_attach_info
+		WHERE
+			1 = 1
+			<if test="attachId != -1">
+				and ATTACH_ID = #{attachId}
+			</if>
+			<if test="shareId != -1">
+				and SHARE_ID = #{shareId}
+			</if>
+			<if test="attachType != -1">
+				and ATTACH_TYPE = #{attachType}
+			</if>
+			<if test="attachName != null">
+				and ATTACH_NAME = #{attachName}
+			</if>
+			<if test="attachUrl != null">
+				and ATTACH_URL = #{attachUrl}
+			</if>
+			<if test="attachSuffix != null">
+				and ATTACH_SUFFIX = #{attachSuffix}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+    	ORDER BY
+    		ATTACH_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			ATTACH_ID,
+			SHARE_ID,
+			ATTACH_TYPE,
+			ATTACH_NAME,
+			ATTACH_URL,
+			ATTACH_SUFFIX,
+			CREATE_USER,
+			CREATE_DATE
+		FROM
+			share_attach_info
+		WHERE
+			1 = 1
+			<if test="attachInfoBean.attachId != -1">
+				and ATTACH_ID = #{attachInfoBean.attachId}
+			</if>
+			<if test="attachInfoBean.shareId != -1">
+				and SHARE_ID = #{attachInfoBean.shareId}
+			</if>
+			<if test="attachInfoBean.attachType != -1">
+				and ATTACH_TYPE = #{attachInfoBean.attachType}
+			</if>
+			<if test="attachInfoBean.attachName != null">
+				and ATTACH_NAME = #{attachInfoBean.attachName}
+			</if>
+			<if test="attachInfoBean.attachUrl != null">
+				and ATTACH_URL = #{attachInfoBean.attachUrl}
+			</if>
+			<if test="attachInfoBean.attachSuffix != null">
+				and ATTACH_SUFFIX = #{attachInfoBean.attachSuffix}
+			</if>
+			<if test="attachInfoBean.createUser != -1">
+				and CREATE_USER = #{attachInfoBean.createUser}
+			</if>
+			<if test="attachInfoBean.createDate != null">
+				and CREATE_DATE = #{attachInfoBean.createDate}
+			</if>
+    	ORDER BY
+    		ATTACH_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			share_attach_info
+		WHERE
+			1 = 1
+			<if test="attachInfoBean.attachId != -1">
+				and ATTACH_ID = #{attachInfoBean.attachId}
+			</if>
+			<if test="attachInfoBean.shareId != -1">
+				and SHARE_ID = #{attachInfoBean.shareId}
+			</if>
+			<if test="attachInfoBean.attachType != -1">
+				and ATTACH_TYPE = #{attachInfoBean.attachType}
+			</if>
+			<if test="attachInfoBean.attachName != null">
+				and ATTACH_NAME = #{attachInfoBean.attachName}
+			</if>
+			<if test="attachInfoBean.attachUrl != null">
+				and ATTACH_URL = #{attachInfoBean.attachUrl}
+			</if>
+			<if test="attachInfoBean.attachSuffix != null">
+				and ATTACH_SUFFIX = #{attachInfoBean.attachSuffix}
+			</if>
+			<if test="attachInfoBean.createUser != -1">
+				and CREATE_USER = #{attachInfoBean.createUser}
+			</if>
+			<if test="attachInfoBean.createDate != null">
+				and CREATE_DATE = #{attachInfoBean.createDate}
+			</if>
+    	ORDER BY
+    		ATTACH_ID ASC
+	</select>
+	
+</mapper>

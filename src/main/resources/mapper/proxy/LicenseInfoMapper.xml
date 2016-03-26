@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.proxy.LicenseInfoDao">
+
+	<resultMap type="LicenseInfoBean" id="BaseResultMap">
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="ID_CARD" property="idCard" />
+		<result column="FRONT_URL" property="frontUrl" />
+		<result column="BACK_URL" property="backUrl" />
+		<result column="LICENSE_NO" property="licenseNo" />
+		<result column="LICENSE_URL" property="licenseUrl" />
+	</resultMap>
+
+	<!-- 鎻掑叆 -->
+	<insert id="insert" parameterType="LicenseInfoBean" keyProperty="accountId" useGeneratedKeys="true">
+		INSERT INTO proxy_license_info (
+			ACCOUNT_ID,
+			ID_CARD,
+			FRONT_URL,
+			BACK_URL,
+			LICENSE_NO,
+			LICENSE_URL
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{idCard},
+			#{frontUrl},
+			#{backUrl},
+			#{licenseNo},
+			#{licenseUrl}
+		)
+	</insert>
+	
+	<!-- 鏇存柊 -->
+	<update id="update" parameterType="LicenseInfoBean">
+		UPDATE proxy_license_info 
+		SET 
+			ID_CARD = #{idCard},
+			FRONT_URL = #{frontUrl},
+			BACK_URL = #{backUrl},
+			LICENSE_NO = #{licenseNo},
+			LICENSE_URL = #{licenseUrl}
+		WHERE 
+			ACCOUNT_ID = #{accountId}
+	</update>
+	
+	<!-- 鍒犻櫎 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			proxy_license_info 
+		WHERE 
+			ACCOUNT_ID = #{value}
+	</delete>
+	
+	<!-- 鏍规嵁涓婚敭鏌ヨ -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			ID_CARD,
+			FRONT_URL,
+			BACK_URL,
+			LICENSE_NO,
+			LICENSE_URL
+		FROM 
+			proxy_license_info
+	 	WHERE 
+	 		ACCOUNT_ID = #{value}
+	</select>
+	
+	<!-- 鏌ヨ鍒楄〃鏁版嵁 -->
+	<select id="listData" parameterType="LicenseInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			ID_CARD,
+			FRONT_URL,
+			BACK_URL,
+			LICENSE_NO,
+			LICENSE_URL
+		FROM 
+			proxy_license_info
+		WHERE
+			1 = 1
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="idCard != null">
+				and ID_CARD = #{idCard}
+			</if>
+			<if test="frontUrl != null">
+				and FRONT_URL = #{frontUrl}
+			</if>
+			<if test="backUrl != null">
+				and BACK_URL = #{backUrl}
+			</if>
+			<if test="licenseNo != null">
+				and LICENSE_NO = #{licenseNo}
+			</if>
+			<if test="licenseUrl != null">
+				and LICENSE_URL = #{licenseUrl}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+	<!-- 鏌ヨ鍒嗛〉鏁版嵁 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			ID_CARD,
+			FRONT_URL,
+			BACK_URL,
+			LICENSE_NO,
+			LICENSE_URL
+		FROM
+			proxy_license_info
+		WHERE
+			1 = 1
+			<if test="licenseInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{licenseInfoBean.accountId}
+			</if>
+			<if test="licenseInfoBean.idCard != null">
+				and ID_CARD = #{licenseInfoBean.idCard}
+			</if>
+			<if test="licenseInfoBean.frontUrl != null">
+				and FRONT_URL = #{licenseInfoBean.frontUrl}
+			</if>
+			<if test="licenseInfoBean.backUrl != null">
+				and BACK_URL = #{licenseInfoBean.backUrl}
+			</if>
+			<if test="licenseInfoBean.licenseNo != null">
+				and LICENSE_NO = #{licenseInfoBean.licenseNo}
+			</if>
+			<if test="licenseInfoBean.licenseUrl != null">
+				and LICENSE_URL = #{licenseInfoBean.licenseUrl}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 鍒嗛〉鏁版嵁缁熻鎬绘暟 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			proxy_license_info
+		WHERE
+			1 = 1
+			<if test="licenseInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{licenseInfoBean.accountId}
+			</if>
+			<if test="licenseInfoBean.idCard != null">
+				and ID_CARD = #{licenseInfoBean.idCard}
+			</if>
+			<if test="licenseInfoBean.frontUrl != null">
+				and FRONT_URL = #{licenseInfoBean.frontUrl}
+			</if>
+			<if test="licenseInfoBean.backUrl != null">
+				and BACK_URL = #{licenseInfoBean.backUrl}
+			</if>
+			<if test="licenseInfoBean.licenseNo != null">
+				and LICENSE_NO = #{licenseInfoBean.licenseNo}
+			</if>
+			<if test="licenseInfoBean.licenseUrl != null">
+				and LICENSE_URL = #{licenseInfoBean.licenseUrl}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+</mapper>

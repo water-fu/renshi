@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.PraiseInfoDao">
+
+	<resultMap type="PraiseInfoBean" id="BaseResultMap">
+		<result column="PRAISE_ID" property="praiseId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="SHARE_ID" property="shareId" />
+		<result column="IS_READ" property="isRead" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+	</resultMap>
+	
+	<resultMap type="ShareInfoBean" id="shareInfoBean">
+		<result column="SHARE_ID" property="shareId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="SHARE_TITLE" property="shareTitle" />
+		<result column="SHARE_TYPE" property="shareType" />
+		<result column="SHARE_TAG" property="shareTag" />
+		<result column="SHARE_DESC" property="shareDesc" />
+		<result column="BELONG_PROFESS" property="belongProfess" />
+		<result column="READ_PERMISSION" property="readPermission" />
+		<result column="SHARE_STATUS" property="shareStatus" />
+		<result column="LIKE_NUM" property="likeNum" />
+		<result column="COLLECTION_NUM" property="collectionNum" />
+		<result column="READ_NUM" property="readNum" />
+		<result column="COMMENT_NUM" property="commentNum" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="C_REAL_NAME" property="realName" />
+		<result column="B_HEAD_URL" property="headUrl" />
+		<result column="P_PRAISE_DATE" property="praiseDate" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="PraiseInfoBean" keyProperty="praiseId" useGeneratedKeys="true">
+		INSERT INTO share_praise_info (
+			ACCOUNT_ID,
+			SHARE_ID,
+			IS_READ,
+			CREATE_USER,
+			CREATE_DATE
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{shareId},
+			#{isRead},
+			#{createUser},
+			#{createDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="PraiseInfoBean">
+		UPDATE share_praise_info 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			SHARE_ID = #{shareId},
+			IS_READ = #{isRead},
+			CREATE_USER = #{createUser},
+			CREATE_DATE = #{createDate}
+		WHERE 
+			PRAISE_ID = #{praiseId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			share_praise_info 
+		WHERE 
+			PRAISE_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			PRAISE_ID,
+			ACCOUNT_ID,
+			SHARE_ID,
+			IS_READ,
+			CREATE_USER,
+			CREATE_DATE
+		FROM 
+			share_praise_info
+	 	WHERE 
+	 		PRAISE_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="PraiseInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			PRAISE_ID,
+			ACCOUNT_ID,
+			SHARE_ID,
+			IS_READ,
+			CREATE_USER,
+			CREATE_DATE
+		FROM 
+			share_praise_info
+		WHERE
+			1 = 1
+			<if test="praiseId != -1">
+				and PRAISE_ID = #{praiseId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="shareId != -1">
+				and SHARE_ID = #{shareId}
+			</if>
+			<if test="isRead != -1">
+				and IS_READ = #{isRead}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+    	ORDER BY
+    		PRAISE_ID ASC
+	</select>
+	
+	<sql id="pageWhere">
+			blog_share_info a,
+			system_account_info b,
+			doctor_user_info c,
+			share_praise_info p
+		WHERE
+			1 = 1
+			AND p.SHARE_ID = a.SHARE_ID
+			
+			AND p.ACCOUNT_ID = b.ACCOUNT_ID
+			AND p.ACCOUNT_ID = c.ACCOUNT_ID
+			
+			AND a.ACCOUNT_ID = #{praiseInfoBean.accountId}
+			AND p.ACCOUNT_ID != #{praiseInfoBean.accountId}
+			
+			<if test="praiseInfoBean.createUser != null and praiseInfoBean.accountId != -1">
+				AND a.SHARE_TYPE = ${praiseInfoBean.createUser}
+			</if>
+			
+	</sql>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="shareInfoBean">
+		SELECT 
+			a.SHARE_ID,
+			p.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			p.CREATE_DATE P_PRAISE_DATE
+		FROM
+		
+		<include refid="pageWhere"></include>
+		
+    	ORDER BY
+    		p.CREATE_DATE DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+		<include refid="pageWhere"></include>
+		
+    	ORDER BY
+    		p.CREATE_DATE DESC
+	</select>
+	
+</mapper>

@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.PersonInfoDao">
+
+	<resultMap type="PersonInfoBean" id="BaseResultMap">
+		<result column="PERSON_ID" property="personId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="FANS_NUM" property="fansNum" />
+		<result column="FOLLOW_NUM" property="followNum" />
+		<result column="BROWER_NUM" property="browerNum" />
+		<result column="VIDEO_NUM" property="videoNum" />
+		<result column="ARTICLE_NUM" property="articleNum" />
+		<result column="CASE_NUM" property="caseNum" />
+		<result column="COURSE_NUM" property="courseNum" />
+		<result column="QA_NUM" property="qaNum" />
+		<result column="COLLECTION_NUM" property="collectionNum" />
+		<result column="PERSON_STATUS" property="personStatus" />
+		<result column="PERSON_LEVEL" property="personLevel" />
+		<result column="PERSON_ACTIVE" property="personActive" />
+		<result column="PERSON_SPECIAL" property="personSpecial" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<association column="ACCOUNT_ID" property="userInfoBean" select="com.group.renshi.dao.doctor.UserInfoDao.load"></association>
+	</resultMap>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="PersonInfoBean" keyProperty="personId" useGeneratedKeys="true">
+		INSERT INTO share_person_info (
+			ACCOUNT_ID,
+			FANS_NUM,
+			FOLLOW_NUM,
+			BROWER_NUM,
+			VIDEO_NUM,
+			ARTICLE_NUM,
+			CASE_NUM,
+			COURSE_NUM,
+			QA_NUM,
+			COLLECTION_NUM,
+			PERSON_STATUS,
+			PERSON_LEVEL,
+			PERSON_ACTIVE,
+			PERSON_SPECIAL,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{fansNum},
+			#{followNum},
+			#{browerNum},
+			#{videoNum},
+			#{articleNum},
+			#{caseNum},
+			#{courseNum},
+			#{qaNum},
+			#{collectionNum},
+			#{personStatus},
+			#{personLevel},
+			#{personActive},
+			#{personSpecial},
+			#{createUser},
+			#{createDate},
+			#{updateUser},
+			#{updateDate}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="PersonInfoBean">
+		UPDATE share_person_info 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			FANS_NUM = #{fansNum},
+			FOLLOW_NUM = #{followNum},
+			BROWER_NUM = #{browerNum},
+			VIDEO_NUM = #{videoNum},
+			ARTICLE_NUM = #{articleNum},
+			CASE_NUM = #{caseNum},
+			COURSE_NUM = #{courseNum},
+			QA_NUM = #{qaNum},
+			COLLECTION_NUM = #{collectionNum},
+			PERSON_STATUS = #{personStatus},
+			PERSON_LEVEL = #{personLevel},
+			PERSON_ACTIVE = #{personActive},
+			PERSON_SPECIAL = #{personSpecial},
+			CREATE_USER = #{createUser},
+			CREATE_DATE = #{createDate},
+			UPDATE_USER = #{updateUser},
+			UPDATE_DATE = #{updateDate}
+		WHERE 
+			PERSON_ID = #{personId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			share_person_info 
+		WHERE 
+			PERSON_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			PERSON_ID,
+			ACCOUNT_ID,
+			FANS_NUM,
+			FOLLOW_NUM,
+			BROWER_NUM,
+			VIDEO_NUM,
+			ARTICLE_NUM,
+			CASE_NUM,
+			COURSE_NUM,
+			QA_NUM,
+			COLLECTION_NUM,
+			PERSON_STATUS,
+			PERSON_LEVEL,
+			PERSON_ACTIVE,
+			PERSON_SPECIAL,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			share_person_info
+	 	WHERE 
+	 		PERSON_ID = #{value}
+	</select>
+
+	<select id="loadByAccountId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+		PERSON_ID,
+		ACCOUNT_ID,
+		FANS_NUM,
+		FOLLOW_NUM,
+		BROWER_NUM,
+		VIDEO_NUM,
+		ARTICLE_NUM,
+		CASE_NUM,
+		COURSE_NUM,
+		QA_NUM,
+		COLLECTION_NUM,
+		PERSON_STATUS,
+		PERSON_LEVEL,
+		PERSON_ACTIVE,
+		PERSON_SPECIAL,
+		CREATE_USER,
+		CREATE_DATE,
+		UPDATE_USER,
+		UPDATE_DATE
+		FROM
+		share_person_info
+		WHERE
+		ACCOUNT_ID = #{accountId}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="PersonInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			PERSON_ID,
+			ACCOUNT_ID,
+			FANS_NUM,
+			FOLLOW_NUM,
+			BROWER_NUM,
+			VIDEO_NUM,
+			ARTICLE_NUM,
+			CASE_NUM,
+			COURSE_NUM,
+			QA_NUM,
+			COLLECTION_NUM,
+			PERSON_STATUS,
+			PERSON_LEVEL,
+			PERSON_ACTIVE,
+			PERSON_SPECIAL,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			share_person_info
+		WHERE
+			1 = 1
+			<if test="personId != -1">
+				and PERSON_ID = #{personId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="fansNum != -1">
+				and FANS_NUM = #{fansNum}
+			</if>
+			<if test="followNum != -1">
+				and FOLLOW_NUM = #{followNum}
+			</if>
+			<if test="browerNum != -1">
+				and BROWER_NUM = #{browerNum}
+			</if>
+			<if test="videoNum != -1">
+				and VIDEO_NUM = #{videoNum}
+			</if>
+			<if test="articleNum != -1">
+				and ARTICLE_NUM = #{articleNum}
+			</if>
+			<if test="caseNum != -1">
+				and CASE_NUM = #{caseNum}
+			</if>
+			<if test="courseNum != -1">
+				and COURSE_NUM = #{courseNum}
+			</if>
+			<if test="qaNum != -1">
+				and QA_NUM = #{qaNum}
+			</if>
+			<if test="collectionNum != -1">
+				and COLLECTION_NUM = #{collectionNum}
+			</if>
+			<if test="personStatus != -1">
+				and PERSON_STATUS = #{personStatus}
+			</if>
+			<if test="personLevel != -1">
+				and PERSON_LEVEL = #{personLevel}
+			</if>
+			<if test="personActive != -1">
+				and PERSON_ACTIVE = #{personActive}
+			</if>
+			<if test="personSpecial != -1">
+				and PERSON_SPECIAL = #{personSpecial}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+    	ORDER BY
+    		PERSON_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			PERSON_ID,
+			ACCOUNT_ID,
+			FANS_NUM,
+			FOLLOW_NUM,
+			BROWER_NUM,
+			VIDEO_NUM,
+			ARTICLE_NUM,
+			CASE_NUM,
+			COURSE_NUM,
+			QA_NUM,
+			COLLECTION_NUM,
+			PERSON_STATUS,
+			PERSON_LEVEL,
+			PERSON_ACTIVE,
+			PERSON_SPECIAL,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM
+			share_person_info
+		WHERE
+			1 = 1
+			<if test="personInfoBean.personId != -1">
+				and PERSON_ID = #{personInfoBean.personId}
+			</if>
+			<if test="personInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{personInfoBean.accountId}
+			</if>
+			<if test="personInfoBean.fansNum != -1">
+				and FANS_NUM = #{personInfoBean.fansNum}
+			</if>
+			<if test="personInfoBean.followNum != -1">
+				and FOLLOW_NUM = #{personInfoBean.followNum}
+			</if>
+			<if test="personInfoBean.browerNum != -1">
+				and BROWER_NUM = #{personInfoBean.browerNum}
+			</if>
+			<if test="personInfoBean.videoNum != -1">
+				and VIDEO_NUM = #{personInfoBean.videoNum}
+			</if>
+			<if test="personInfoBean.articleNum != -1">
+				and ARTICLE_NUM = #{personInfoBean.articleNum}
+			</if>
+			<if test="personInfoBean.caseNum != -1">
+				and CASE_NUM = #{personInfoBean.caseNum}
+			</if>
+			<if test="personInfoBean.courseNum != -1">
+				and COURSE_NUM = #{personInfoBean.courseNum}
+			</if>
+			<if test="personInfoBean.qaNum != -1">
+				and QA_NUM = #{qaNum}
+			</if>
+			<if test="personInfoBean.collectionNum != -1">
+				and COLLECTION_NUM = #{collectionNum}
+			</if>
+			<if test="personInfoBean.personStatus != -1">
+				and PERSON_STATUS = #{personInfoBean.personStatus}
+			</if>
+			<if test="personInfoBean.personLevel != -1">
+				and PERSON_LEVEL = #{personInfoBean.personLevel}
+			</if>
+			<if test="personInfoBean.personActive != -1">
+				and PERSON_ACTIVE = #{personInfoBean.personActive}
+			</if>
+			<if test="personInfoBean.personSpecial != -1">
+				and PERSON_SPECIAL = #{personInfoBean.personSpecial}
+			</if>
+			<if test="personInfoBean.createUser != -1">
+				and CREATE_USER = #{personInfoBean.createUser}
+			</if>
+			<if test="personInfoBean.createDate != null">
+				and CREATE_DATE = #{personInfoBean.createDate}
+			</if>
+			<if test="personInfoBean.updateUser != -1">
+				and UPDATE_USER = #{personInfoBean.updateUser}
+			</if>
+			<if test="personInfoBean.updateDate != null">
+				and UPDATE_DATE = #{personInfoBean.updateDate}
+			</if>
+    	ORDER BY
+    		PERSON_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			share_person_info
+		WHERE
+			1 = 1
+			<if test="personInfoBean.personId != -1">
+				and PERSON_ID = #{personInfoBean.personId}
+			</if>
+			<if test="personInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{personInfoBean.accountId}
+			</if>
+			<if test="personInfoBean.fansNum != -1">
+				and FANS_NUM = #{personInfoBean.fansNum}
+			</if>
+			<if test="personInfoBean.followNum != -1">
+				and FOLLOW_NUM = #{personInfoBean.followNum}
+			</if>
+			<if test="personInfoBean.browerNum != -1">
+				and BROWER_NUM = #{personInfoBean.browerNum}
+			</if>
+			<if test="personInfoBean.videoNum != -1">
+				and VIDEO_NUM = #{personInfoBean.videoNum}
+			</if>
+			<if test="personInfoBean.articleNum != -1">
+				and ARTICLE_NUM = #{personInfoBean.articleNum}
+			</if>
+			<if test="personInfoBean.caseNum != -1">
+				and CASE_NUM = #{personInfoBean.caseNum}
+			</if>
+			<if test="personInfoBean.courseNum != -1">
+				and COURSE_NUM = #{personInfoBean.courseNum}
+			</if>
+			<if test="personInfoBean.qaNum != -1">
+				and QA_NUM = #{qaNum}
+			</if>
+			<if test="personInfoBean.collectionNum != -1">
+				and COLLECTION_NUM = #{collectionNum}
+			</if>
+			<if test="personInfoBean.personStatus != -1">
+				and PERSON_STATUS = #{personInfoBean.personStatus}
+			</if>
+			<if test="personInfoBean.personLevel != -1">
+				and PERSON_LEVEL = #{personInfoBean.personLevel}
+			</if>
+			<if test="personInfoBean.personActive != -1">
+				and PERSON_ACTIVE = #{personInfoBean.personActive}
+			</if>
+			<if test="personInfoBean.personSpecial != -1">
+				and PERSON_SPECIAL = #{personInfoBean.personSpecial}
+			</if>
+			<if test="personInfoBean.createUser != -1">
+				and CREATE_USER = #{personInfoBean.createUser}
+			</if>
+			<if test="personInfoBean.createDate != null">
+				and CREATE_DATE = #{personInfoBean.createDate}
+			</if>
+			<if test="personInfoBean.updateUser != -1">
+				and UPDATE_USER = #{personInfoBean.updateUser}
+			</if>
+			<if test="personInfoBean.updateDate != null">
+				and UPDATE_DATE = #{personInfoBean.updateDate}
+			</if>
+    	ORDER BY
+    		PERSON_ID ASC
+	</select>
+	
+	<!-- 查询最有权威列表 -->
+	<select id="findMostAnswer" resultMap="BaseResultMap">
+		SELECT 
+			PERSON_ID,
+			ACCOUNT_ID,
+			FANS_NUM,
+			FOLLOW_NUM,
+			BROWER_NUM,
+			VIDEO_NUM,
+			ARTICLE_NUM,
+			CASE_NUM,
+			COURSE_NUM,
+			QA_NUM,
+			COLLECTION_NUM,
+			PERSON_STATUS,
+			PERSON_LEVEL,
+			PERSON_ACTIVE,
+			PERSON_SPECIAL,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			share_person_info
+		WHERE
+			PERSON_STATUS = 1
+		ORDER BY QA_NUM DESC
+		LIMIT 0, 5
+	</select>
+	<!-- 查询最最活跃用户列表 -->
+	<select id="findMostPerson" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT 
+			PERSON_ID,
+			ACCOUNT_ID,
+			FANS_NUM,
+			FOLLOW_NUM,
+			BROWER_NUM,
+			VIDEO_NUM,
+			ARTICLE_NUM,
+			CASE_NUM,
+			COURSE_NUM,
+			QA_NUM,
+			COLLECTION_NUM,
+			PERSON_STATUS,
+			PERSON_LEVEL,
+			PERSON_ACTIVE,
+			PERSON_SPECIAL,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			share_person_info
+		<!-- WHERE
+			PERSON_STATUS = 1 -->
+	   <if test="shareType == 1"><!-- 视频 -->
+          ORDER BY VIDEO_NUM DESC
+	   </if>
+	    <if test="shareType == 2"><!-- 观点 -->
+          ORDER BY ARTICLE_NUM DESC
+	   </if>
+	    <if test="shareType == 3"><!-- 病例 -->
+          ORDER BY CASE_NUM DESC
+	   </if>
+	    <if test="shareType == 4"><!-- 文库 -->
+          ORDER BY COURSE_NUM DESC
+	   </if>
+		LIMIT 0, 5
+	</select>
+</mapper>

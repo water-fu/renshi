@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="  
+       http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+       http://www.springframework.org/schema/mvc   
+       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd   
+       http://www.springframework.org/schema/context  
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<!-- 自动扫描与装配bean -->
+	<context:component-scan base-package="com.group.renshi.action"></context:component-scan>
+	<!-- 通过注解，把URL映射到Controller上，该标签默认注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->
+	<mvc:annotation-driven />
+	
+	<mvc:resources mapping="/images/**" location="/images/" />  
+    <mvc:resources mapping="/css/**" location="/css/" />  
+    <mvc:resources mapping="/js/**" location="/js/" />  
+    <mvc:resources mapping="/lib/**" location="/lib/" />  
+    <mvc:resources mapping="/plugin/**" location="/plugin/" />
+
+	<!-- 统一异常捕获 -->
+	<bean id="exceptionResolver"
+		class="com.group.webFramework.exception.CustomSimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">error/errorpage</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.group.webFramework.interceptor.LoginValidateInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- 避免IE在ajax请求时，返回json出现下载 -->
+	<bean id="jacksonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 文件上传 -->
+	<bean id="multipartResolver"  
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8">   
+        <property name="maxUploadSize">   
+            <value>4294967296</value>
+        </property>   
+        <property name="maxInMemorySize">   
+            <value>10240</value>
+        </property>
+    </bean>
+
+	<!-- 视图解析器 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+</beans>

@@ -1,0 +1,125 @@
+body{
+	font-family: "Microsoft YaHei"; 
+}
+/*header*/
+#topNav {
+	width: 100%;
+	background: #F0F0F0;
+	line-height: 30px;
+}
+
+#topNav a {
+	color: #25BE98;
+}
+
+#header {
+	height: 85px;
+}
+
+.siteLogo {
+	width: 204px;
+	height: 64px;
+	margin-top: 10px;
+	float: left;
+}
+
+.siteMenu {
+	float: left;
+	padding-top: 35px;
+	margin-left: 40px;
+}
+
+.siteMenu li {
+	float: left;
+	margin-left: 30px;
+	
+}
+
+.siteMenu li a{/*.current 
+	font-size: 30px;*/
+	/*color: #25BE98;Microsoft YaHei*/
+	padding-bottom: 0.5px;
+	font-size: 14pt;
+	font-family:"Microsoft YaHei";
+}
+
+.siteMenu li a:hover {
+	color: #25BE98;
+	border-bottom: 1px solid #25BE98;
+}
+
+.loginStatus {
+	float: right;
+	width: 135px;
+	margin-right: 20px;
+	margin-top: 20px;
+	position: relative;
+}
+
+.loginStatus img {
+	border-radius: 40px;
+	float: left;
+}
+
+.loginStatus .userName {
+	background: url(../../images/header/down.png) no-repeat right 0px;
+	width: 70px;
+	color: #25BE98;
+	float: left;
+	display: block;
+	margin-top: 15px;
+	margin-left: 10px;
+}
+
+.userLinks {
+	width: 150px;
+	height: 148px;
+	border: 1px solid #dedede;
+	position: absolute;
+	z-index:5555;/*设置成最外层显示*/
+	top: 50px;
+	left: 40px;
+	background: #fff;
+}
+
+.userLinks a {
+	padding: 5px 10px;
+	line-height: 25px;
+	display: block;
+}
+
+.userLinks a.logout {
+	background: url(../../images/header/btn_exit.jpg) no-repeat 15px 10px;
+	text-align: center;
+	color: #FE8182;
+	border-top: 1px solid #dedede;
+	margin: 5px;
+}
+
+.userLinks a:hover {
+	background-color: #f5f5f5;
+}
+
+.userLinks a i {
+	float: right;
+}
+
+.userLinks span.tri {
+	width: 14px;
+	height: 9px;
+	position: absolute;
+	display: block;
+	background: url(../../images/header/tri.jpg) no-repeat;
+	top: -9px;
+	right: 43%;
+}
+
+.topRegister {
+	border: 1px solid #E8E8E8;
+	padding: 3px 12px;
+	border-radius: 5px;
+	background-color: white;
+	width: 30px;
+	font-size: 10px;
+	cursor: pointer;
+}

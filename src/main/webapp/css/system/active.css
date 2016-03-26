@@ -1,0 +1,130 @@
+
+body{
+	font-family: ºÚÌå;
+}
+.userInfo{
+	width: 100%;
+	height: 560px;
+	overflow: hidden;
+	background-color: #F5F5F5;
+}
+
+.userInfo-layout{
+	width: 900px;
+	height: 515px;
+	margin: 0 auto;
+	border: 1px solid #D5D5D5;
+	margin-top: 30px;
+	background-color: white;
+}
+
+.forget {
+	width: 85%;
+	margin: 0 auto;
+}
+
+.intro p{
+	line-height: 35px;
+	margin-top: 15px;
+}
+
+p.title {
+	font-size: 23px;
+	background: url("../../images/register/mail.png") no-repeat;
+	padding-left: 45px;
+	font-family: ºÚÌå;
+	font-weight: bold;
+	color: #686868;
+}
+
+.content p {
+	margin-left: 55px;
+	font-size: 17px;
+	line-height: 60px;
+	color: #686868;
+}
+
+.content .left-con {
+	float: left;
+	width: 29%;
+/* 	border: 1px solid black; */
+	height: 130px;
+	padding-top: 30px;
+}
+
+.content .left-con img {
+	display: block;
+	margin: 0 auto;
+}
+
+.content .right-con {
+	float: right;
+	width: 69%;
+/* 	border: 1px solid black; */
+	height: 115px;
+	padding-top: 45px;
+}
+
+.content .right-con p {
+	line-height: 30px;
+	margin-left: 0px;
+	font-size: 16px;
+}
+
+.right-con .title-con {
+	font-size: 20px !important;
+	color: #3CC5A2;
+}
+
+.right-con .mail {
+	color: #3CC5A2;
+	border-bottom: 1px solid #3CC5A2;
+}
+
+.content .hr-con {
+	width: 100%;
+}
+
+.content .hr-con img {
+	display: block;
+	margin: 0 auto;
+}
+
+.content .bottom-con {
+	height: 90px;
+	width: 100%;
+}
+
+p.get-sub {
+	width: 150px;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	color: #fff;
+	background-color: #1dd3a2;
+	border-radius: 4px;
+	cursor: pointer;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+.subCont {
+	line-height: 27px !important;
+	font-size: 15px !important;
+}
+
+.hr {
+	height: 1px;
+	margin: 0px auto;
+	padding: 0px;
+	background-color: #D5D5D5;
+	overflow: hidden;
+}
+
+.hr_dashed {
+	height: 1px;
+	margin: 0px auto;
+	padding: 0px;
+	overflow: hidden;
+	border-bottom: 1px dashed #D5D5D5;
+}

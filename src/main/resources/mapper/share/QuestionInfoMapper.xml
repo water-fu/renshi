@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.QuestionInfoDao">
+
+	<resultMap type="QuestionInfoBean" id="BaseResultMap">
+		<result column="SHARE_ID" property="shareId" />
+		<result column="PATIENT_SEX" property="patientSex" />
+		<result column="PATIENT_AGE" property="patientAge" />
+		<result column="ILLNESS_DESC" property="illnessDesc" />
+		<result column="CHECK_RESULT" property="checkResult" />
+	</resultMap>
+
+	<!-- 鎻掑叆 -->
+	<insert id="insert" parameterType="QuestionInfoBean" keyProperty="shareId" useGeneratedKeys="true">
+		INSERT INTO share_question_info (
+			PATIENT_SEX,
+			PATIENT_AGE,
+			ILLNESS_DESC,
+			CHECK_RESULT
+    	)
+		VALUES
+		(
+			#{patientSex},
+			#{patientAge},
+			#{illnessDesc},
+			#{checkResult}
+		)
+	</insert>
+	
+	<!-- 鏇存柊 -->
+	<update id="update" parameterType="QuestionInfoBean">
+		UPDATE share_question_info 
+		SET 
+			PATIENT_SEX = #{patientSex},
+			PATIENT_AGE = #{patientAge},
+			ILLNESS_DESC = #{illnessDesc},
+			CHECK_RESULT = #{checkResult}
+		WHERE 
+			SHARE_ID = #{shareId}
+	</update>
+	
+	<!-- 鍒犻櫎 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			share_question_info 
+		WHERE 
+			SHARE_ID = #{value}
+	</delete>
+	
+	<!-- 鏍规嵁涓婚敭鏌ヨ -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			SHARE_ID,
+			PATIENT_SEX,
+			PATIENT_AGE,
+			ILLNESS_DESC,
+			CHECK_RESULT
+		FROM 
+			share_question_info
+	 	WHERE 
+	 		SHARE_ID = #{value}
+	</select>
+	
+	<!-- 鏌ヨ鍒楄〃鏁版嵁 -->
+	<select id="listData" parameterType="QuestionInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			SHARE_ID,
+			PATIENT_SEX,
+			PATIENT_AGE,
+			ILLNESS_DESC,
+			CHECK_RESULT
+		FROM 
+			share_question_info
+		WHERE
+			1 = 1
+			<if test="shareId != -1">
+				and SHARE_ID = #{shareId}
+			</if>
+			<if test="patientSex != null">
+				and PATIENT_SEX = #{patientSex}
+			</if>
+			<if test="patientAge != null">
+				and PATIENT_AGE = #{patientAge}
+			</if>
+			<if test="illnessDesc != null">
+				and ILLNESS_DESC = #{illnessDesc}
+			</if>
+			<if test="checkResult != null">
+				and CHECK_RESULT = #{checkResult}
+			</if>
+    	ORDER BY
+    		SHARE_ID ASC
+	</select>
+	
+	<!-- 鏌ヨ鍒嗛〉鏁版嵁 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			SHARE_ID,
+			PATIENT_SEX,
+			PATIENT_AGE,
+			ILLNESS_DESC,
+			CHECK_RESULT
+		FROM
+			share_question_info
+		WHERE
+			1 = 1
+			<if test="questionInfoBean.shareId != -1">
+				and SHARE_ID = #{questionInfoBean.shareId}
+			</if>
+			<if test="questionInfoBean.patientSex != null">
+				and PATIENT_SEX = #{questionInfoBean.patientSex}
+			</if>
+			<if test="questionInfoBean.patientAge != null">
+				and PATIENT_AGE = #{questionInfoBean.patientAge}
+			</if>
+			<if test="questionInfoBean.illnessDesc != null">
+				and ILLNESS_DESC = #{questionInfoBean.illnessDesc}
+			</if>
+			<if test="questionInfoBean.checkResult != null">
+				and CHECK_RESULT = #{questionInfoBean.checkResult}
+			</if>
+    	ORDER BY
+    		SHARE_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 鍒嗛〉鏁版嵁缁熻鎬绘暟 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			share_question_info
+		WHERE
+			1 = 1
+			<if test="questionInfoBean.shareId != -1">
+				and SHARE_ID = #{questionInfoBean.shareId}
+			</if>
+			<if test="questionInfoBean.patientSex != null">
+				and PATIENT_SEX = #{questionInfoBean.patientSex}
+			</if>
+			<if test="questionInfoBean.patientAge != null">
+				and PATIENT_AGE = #{questionInfoBean.patientAge}
+			</if>
+			<if test="questionInfoBean.illnessDesc != null">
+				and ILLNESS_DESC = #{questionInfoBean.illnessDesc}
+			</if>
+			<if test="questionInfoBean.checkResult != null">
+				and CHECK_RESULT = #{questionInfoBean.checkResult}
+			</if>
+    	ORDER BY
+    		SHARE_ID ASC
+	</select>
+	
+</mapper>

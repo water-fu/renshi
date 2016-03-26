@@ -1,0 +1,954 @@
+.centerTop {
+	width: 100%;
+	background-color: #f0f0f0;
+}
+
+.navContent {
+	width: 1000px;
+	margin: 0 auto;
+	overflow: hidden;
+	height: 36px;
+	line-height: 36px;
+}
+
+.navContLeft {
+	float: left;
+	font-size: 14px;
+	color: #6b6b6b;
+	display: block;
+	font-weight: bold;
+}
+
+.navContRight {
+	float: right;
+}
+
+.navContRight a {
+	float: left;
+	margin-left: 10px;
+	display: block;
+}
+
+.logoBpx {
+	background: url(../../images/userAdmin/top_bg.png) repeat-x;
+	width: 100%;
+	height: 94px;
+	display: block;
+}
+
+.logoCotent {
+	margin: 0 auto;
+	width: 1000px;
+	overflow: hidden;
+}
+
+.logoLeft {
+	float: left;
+}
+
+.logoLeft img {
+	display: block;
+	margin-top: 15px;
+}
+
+.logoRight {
+	float: right;
+	color: #6b6b6b;
+	margin-top: 60px;
+}
+
+.mainContent {
+	width: 1000px;
+	margin: 0 auto;
+	margin-top: 20px;
+	overflow: hidden;
+}
+
+.mainContent_left {
+	float: left;
+	width: 236px;
+	height: 760px;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	margin-bottom: 30px;
+}
+
+.mianCon_left_top {
+	background-color: #fafafa;
+	display: block;
+	overflow: hidden;
+	padding: 10px 0px 15px 20px;
+}
+
+.mianCon_left_top img {
+	float: left;
+	display: block;
+	width: 66px;
+	height: 66px;
+}
+
+.mianCon_left_top p {
+	float: left;
+	width: 106px;
+	height: 36px;
+	background: #3ed6a8 url(../../images/userAdmin/home.png) no-repeat 5px 6px;
+	display: block;
+	border-radius: 5px;
+	margin-left: 20px;
+	margin-top: 14px;
+}
+
+.mianCon_left_top p i {
+	color: #fff;
+	line-height: 36px;
+	text-align: center;
+	font-size: 16px;
+	font-style: normal;
+	margin-left: 30px;
+}
+
+.mainLeftList {
+	width: 100%;
+	overflow: hidden;
+}
+
+.mainLeftList a {
+	font-size: 18px;
+	color: #474747;
+	display: block;
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.mainLeftList a i {
+	font-size: 38px;
+	color: #3ed6a8;
+	float: left;
+	margin-left: 16px;
+	margin-right: 18px;
+}
+
+.mainLeftList a b {
+	background: url(../../images/userAdmin/normal.png) no-repeat;
+	width: 6px;
+	height: 12px;
+	display: block;
+	float: right;
+	margin-right: 28px;
+	margin-top: 22px;
+}
+
+.mainLeftList .leftCurrent {
+	font-weight: bold;
+	background-color: #3ed6a8;
+	border-bottom: none;
+	color: #fff;
+}
+
+.mainLeftList .leftCurrent i {
+	color: #fff;
+}
+
+.mainLeftList .leftCurrent b {
+	background: url(../../images/userAdmin/curr.png) no-repeat;
+	width: 6px;
+	height: 12px;
+	display: block;
+	float: right;
+	margin-right: 28px;
+	margin-top: 22px;
+}
+
+.mainContent_right {
+	float: right;
+	width: 714px;
+}
+
+.basicInfo {
+	border-bottom: 1px solid #adadad;
+}
+
+.basicInfoTit {
+	display: block;
+	border-bottom: 1px dashed #e0e0e0;
+	overflow: hidden;
+	font-size: 20px;
+	color: #333;
+	line-height: 60px;
+}
+
+.basicInfoTit i {
+	width: 3px;
+	height: 22px;
+	background-color: #25be98;
+	display: block;
+	float: left;
+	margin-top: 20px;
+	margin-right: 10px;
+}
+
+.basicInfoTit b {
+	font-size: 16px;
+	color: #adadad;
+	float: right;
+	margin-right: 20px;
+}
+
+.basicInfoTit b em {
+	color: #f95827;
+	margin-right: 5px;
+	font-style: normal;
+}
+
+.basicInfoContent {
+	overflow: hidden;
+}
+
+.basicInfoContent_left {
+	float: left;
+	margin-top: 24px;
+	margin-left: 40px;
+	width: 390px;
+}
+
+.basicInfoName {
+	overflow: hidden;
+	float: left;
+	width: 265px;
+}
+
+.Tname {
+	float: left;
+	display: block;
+	width: 73px;
+	height: 30px;
+	border: 1px solid #e0e0e0;
+	margin-right: 20px;
+	padding-left: 5px;
+	border-radius: 5px;
+}
+
+.basicInfoExplan {
+	color: #6b6b6b;
+	line-height: 40px;
+	font-size: 14px;
+}
+
+.basicInfoExplan a {
+	color: #25be98;
+	text-decoration: underline;
+	margin-left: 10px;
+}
+
+.basicSex {
+	width: 50px;
+	height: 26px;
+	font-size: 14px;
+	color: #333;
+	line-height: 26px;
+	text-align: center;
+	margin-bottom: 15px;
+	border-radius: 5px;
+	border: 1px solid #e0e0e0;
+	display: block;
+}
+
+.basicBorn {
+	width: 78px;
+	height: 26px;
+	border: 1px solid #e0e0e0;
+	padding-left: 5px;
+	margin-right: 10px;
+	color: #666;
+	font-size: 14px;
+	line-height: 26px;
+	text-align: center;
+	margin-bottom: 15px;
+	border-radius: 5px;
+	border: 1px solid #e0e0e0;
+	float: left;
+	display: block;
+}
+
+.basicInfoContent_right {
+	float: right;
+	margin-left: 20px;
+	border-left: 1px solid #e0e0e0;
+	margin-right: 100px;
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+
+.basicInfoContent_right img {
+	display: block;
+	margin-left: 50px;
+	margin-top: 40px;
+	border: 1px solid #e0e0e0;
+	width: 98px;
+	height: 98px;
+}
+
+.basicInfoContent_right .changeHeader {
+	display: block;
+	position: relative;
+	border-radius: 5px;
+	font-size: 14px;
+	overflow: hidden;
+	color: #3ed6a8;
+	text-decoration: none;
+	line-height: 28px;
+	width: 74px;
+	height: 28px;
+	text-align: center;
+	border: 1px solid #3ed6a8;
+	margin: 40px 0 0 60px;
+}
+
+.changeHeader input {
+	position: absolute;
+	right: 0;
+	top: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.profInfoContent {
+	margin: 20px 0px 28px 40px;
+}
+
+.title_type {
+	color: #949494;
+	width: 96px;
+	text-align: right;
+	vertical-align: top;
+	font-size: 16px;
+	padding-right: 25px;
+}
+
+.title_type i {
+	color: #f95827;
+	font-style: normal;
+	margin-right: 5px;
+	font-size: 18px;
+}
+
+.profInfo {
+	margin-top: 10px;
+}
+
+.positionSel {
+	width: 136px;
+	height: 34px;
+	font-size: 14px;
+	color: #333;
+	border: 1px solid #e0e0e0;
+	line-height: 34px;
+	text-align: center;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+.warning {
+	color: #ff8383;
+	margin-left: 20px;
+}
+
+.hospital {
+	border-radius: 5px;
+	width: 214px;
+	height: 34px;
+	border: 1px solid #e0e0e0;
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+
+.classType {
+	width: 118px;
+}
+
+.sp_area {
+	width: 221px;
+	height: 138px;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	padding-left: 5px;
+	line-height: 30px;
+	font-size: 14px;
+	color: #adadad;
+	margin-bottom: 25px;
+}
+
+.infoBtn {
+	display: block;
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+	background-color: #3ed6a8;
+	border-radius: 5px;
+}
+
+.infoBtn:hover {
+	cursor: pointer;
+	color: #fff;
+}
+
+.contactBtn {
+	margin-top: 20px;
+	cursor: pointer;
+	color: #fff;
+}
+
+.contactBtn:hover {
+	color: #fff;
+}
+
+.contactInfo {
+	border-bottom: none !important;
+	margin-top: 10px;
+}
+
+.basicFooter {
+	background-color: #fafafa !important;
+}
+
+.workingContent {
+	margin-top: 20px;
+}
+
+.workingContent_content {
+	width: 714px;
+	height: 40px;
+	background-color: #3ed6a8;
+	color: #fff;
+	display: block;
+	font-size: 18px;
+	overflow: hidden;
+	line-height: 40px;
+	cursor: pointer;
+}
+
+.workingContent_content b {
+	font-size: 30px;
+	color: #fff;
+	display: block;
+	float: left;
+	line-height: 40px;
+	margin-left: 10px;
+}
+
+.workingDeatil {
+	padding-top: 40px;
+	color: #333;
+	font-size: 16px;
+	overflow: hidden;
+	border-bottom: 1px dashed #e0e0e0;
+	position: relative;
+	margin-right: 15px;
+}
+
+.workingDeatil p {
+	color: #333;
+	font-size: 16px;
+	line-height: 30px;
+}
+
+.workingDeatil p i {
+	color: #6b6b6b;
+	margin-right: 5px;
+	font-style: normal;
+}
+
+.workPosition {
+	color: #6b6b6b;
+	font-size: 16px;
+	line-height: 30px;
+	overflow: hidden;
+	margin-bottom: 50px;
+	display: block;
+}
+
+.workPosition em {
+	color: #6b6b6b;
+	font-size: 16px;
+	line-height: 30px;
+	margin-left: 158px;
+	float: left;
+	font-style: normal;
+}
+
+.delete {
+	width: 62px;
+	height: 24px;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	font-size: 14px;
+	display: block;
+	text-align: center;
+	line-height: 24px;
+	float: right;
+	margin-left: 20px;
+	cursor: pointer;
+}
+
+.detailNext {
+	border-bottom: none;
+}
+
+.dialogContent {
+	
+}
+
+.deleteDialog {
+	overflow: hidden;
+	display: block;
+	border: 1px solid #e0e0e0;
+	width: 156px;
+	height: 56px;
+	position: absolute;
+	top: 5px;
+/* 	right: 40px; */
+	right: 3px;
+	background-color: #fff;
+	box-shadow: 0px 0px 3px #adadad;
+	-webkit-box-shadow: 0px 0px 3px #adadad;
+	-moz-box-shadow: 0px 0px 3px #adadad;
+	-ms-box-shadow: 0px 0px 3px #adadad;
+}
+
+.arrow {
+	background: url(../../images/userAdmin/trangle.png) no-repeat;
+	width: 9px;
+	height: 12px;
+	display: block;
+	position: absolute;
+	top: 61px;
+/* 	right: 118px; */
+	right: 30px;
+}
+
+.deleteDialog .OK {
+	display: block;
+	width: 48px;
+	height: 24px;
+	background-color: #3ed6a8;
+	color: #fff;
+	float: left;
+	text-align: center;
+	line-height: 24px;
+	margin-left: 17px;
+	margin-top: 15px;
+	cursor: pointer;
+}
+
+.addWorking {
+	width: 676px;
+	border: 2px solid #25be98;
+	background-color: #fafafa;
+	position: relative;
+	margin-top: 20px;
+	margin-left: 15px;
+	box-shadow: 0px 3px 3px #d4d4d4;
+	-webkit-box-shadow: 0px 3px 5px #d4d4d4;
+	-moz-box-shadow: 0px 3px 5px #d4d4d4;
+	-ms-box-shadow: 0px 3px 5px #d4d4d4;
+}
+
+.addWorking p {
+	background: url(../../images/userAdmin/g_trangle.png) no-repeat;
+	width: 15px;
+	height: 12px;
+	display: block;
+	position: absolute;
+	top: -10px;
+	left: 62px;
+}
+
+.addWorkingTit {
+	font-size: 18px;
+	font-weight: bold;
+	color: #25be98;
+	display: block;
+	border-bottom: none;
+	margin-left: 30px;
+}
+
+.addworkingTab {
+	margin-left: 30px;
+}
+
+.addworingTime {
+	color: #4c4c4c;
+	font-size: 16px;
+}
+
+.workingTime_con {
+	border-radius: 5px;
+	border: 1px solid #e0e0e0;
+	overflow: hidden;
+}
+
+.workingTime_box {
+	float: left;
+	color: #4c4c4c;
+	font-size: 14px;
+	display: block;
+	text-align: center;
+	font-family: 'Microsoft YaHei';
+	margin-right: 10px;
+	width: 88px;
+	height: 34px;
+	margin-bottom: 25px;
+}
+
+.workingTimeFrom i {
+	float: left;
+	display: block;
+	margin-right: 10px;
+	margin-top: 10px
+}
+
+.unit {
+	width: 203px;
+	height: 34px;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	font-size: 14px;
+	padding-left: 5px;
+	margin-bottom: 25px;
+}
+
+.addClassType {
+	width: 203px;
+	height: 34px;
+	padding-left: 5px;
+}
+
+.addworkingBtn {
+	width: 74px;
+	height: 36px;
+	text-align: center;
+	line-height: 36px;
+	font-size: 16px;
+	text-align: center;
+	background-color: #3ed6a8;
+	display: block;
+	color: #fff !important;
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 1px #000;
+	-moz-box-shadow: 0px 0px 1px #000;
+	-webkit-box-shadow: 0px 0px 1px #000;
+	-ms-box-shadow: 0px 0px 1px #000;
+}
+
+.addworkingBtn:hover {
+	color: #fff;
+}
+
+.alterWorking {
+	margin-top: -40px;
+	margin-bottom: 30px;
+}
+
+.alter_trangle {
+	margin-left: 580px;
+}
+
+.workPosition .achiveGoc {
+	margin-left: 85px;
+}
+
+.attendMeeting {
+	margin-bottom: 40px;
+}
+
+.judgeBox {
+	width: 432px;
+	min-height: 88px;
+	border: 1px solid #e0e0e0;
+	padding-left: 5px;
+	line-height: 30px;
+	padding-right: 5px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+}
+
+.contentRight {
+	font-size: 16px;
+	color: #474747;
+	padding-bottom: 20px;
+}
+
+.countSafety {
+	display: block;
+	background-color: #fafafa;
+	width: 700px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.safetyCount {
+	overflow: hidden;
+}
+
+.safetyCount i {
+	color: #666;
+	font-size: 18px;
+	line-height: 30px;
+	padding-top: 20px;
+	padding-left: 30px;
+	float: left;
+}
+
+.safetyLeavel {
+	width: 400px;
+	height: 16px;
+	background-color: #7be9c8;
+	display: block;
+	float: left;
+	margin-top: 26px;
+}
+
+.safetyLeavel b {
+	width: 50%;
+	background-color: #3ed6a8;
+	height: 16px;
+	display: block;
+}
+
+.countSafety p {
+	font-size: 16px;
+	line-height: 30px;
+	margin: 10px 0px 0px 30px;
+	padding-bottom: 30px;
+}
+
+.countPassword {
+	overflow: hidden;
+	margin: 0px 35px 10px 35px;
+	padding-top: 30px;
+}
+
+.countPassword h1 {
+	color: #4c4c4c;
+	font-size: 18px;
+	font-weight: bold;
+	float: left;
+	display: block;
+	margin-right: 45px;
+}
+
+.countPassword i img {
+	width: 20px;
+	height: 19px;
+	display: block;
+	float: left;
+	margin-right: 10px;
+}
+
+.changePw {
+	float: right;
+	width: 62px;
+	height: 28px;
+	text-align: center;
+	line-height: 28px;
+	border: 1px solid #3ed6a8;
+	color: #3ed6a8;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.changePw:hover {
+	color: #3ed6a8;
+}
+
+.pwLength {
+	float: left;
+	display: block;
+	line-height: 24px;
+	font-size: 14px;
+	margin-top: -10px;
+}
+
+.pwLength a {
+	color: #3ed6a8;
+}
+
+.closeSpace {
+	width: 78px;
+}
+
+.changePWContent {
+	border: 1px solid #e0e0e0;
+	margin-top: 40px;
+	margin-bottom: 30px;
+}
+
+.changeBox {
+	border-bottom: none;
+	color: #3ed6a8;
+	margin-left: 30px;
+}
+
+.changePwBtn {
+	width: 94px;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	margin-left: 100px;
+	font-size: 16px;
+}
+
+.changePwBtn:hover {
+	color: #fff;
+	cursor: pointer;
+}
+
+.codeContent {
+	overflow: hidden;
+}
+
+.codeMsg {
+	width: 90px;
+	float: left;
+}
+
+.codeBtn {
+	width: 110px;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	border: 1px solid #3ed6a8;
+	border-radius: 5px;
+	color: #3ed6a8;
+	display: block;
+	margin-left: 10px;
+	float: left;
+	font-size: 16px;
+}
+
+.codePhone {
+	width: 94px;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	background-color: #3ed6a8;
+	color: #fff;
+	display: block;
+	float: left;
+	border-radius: 5px;
+	margin-right: 30px;
+	margin-top: 40px;
+	font-size: 16px;
+}
+
+.codePhone:hover {
+	color: #fff;
+	cursor: pointer;
+}
+
+.phoneProblem {
+	width: 568px;
+	margin-left: 40px;
+}
+
+.phoneProblem h1 {
+	color: #4c4c4c;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.phoneProblem span {
+	color: #666666;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	display: block;
+}
+
+.phoneProblem p {
+	color: #666666;
+	font-size: 14px;
+	margin-bottom: 20px;
+	display: block;
+	line-height: 25px;
+}
+
+.emailCotent {
+	width: 120px;
+	height: 36px;
+	font-size: 16px;
+}
+
+.emailCotent:hover {
+	color: #fff;
+	cursor: pointer;
+}
+
+.emailLogin {
+	line-height: 30px;
+	margin-top: 20px;
+}
+
+.emailLogin p {
+	color: #3ed6a8;
+	font-size: 16px;
+}
+
+.emailLogin p a {
+	font-size: 16px;
+	color: #3082ce;
+	cursor: pointer;
+}
+
+.emailLogin p a:hover {
+	text-decoration: underline;
+}
+
+.emailNotice {
+	margin-left: 40px;
+	margin-bottom: 30px;
+}
+
+.emailNotice h1 {
+	color: #4c4c4c;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.emailNotice p {
+	color: #4c4c4c;
+	font-size: 16px;
+	line-height: 30px;
+}
+
+.emailNotice p a {
+	color: #4c4c4c;
+	font-size: 16px;
+	line-height: 30px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.emailNotice p a:hover {
+	color: #3ed6a8;
+}
+
+.changeTitle {
+	color: #4c4c4c;
+}
+
+.positionSel01 {
+	width: 120px;
+}
+
+.positionSel02 {
+	width: 120px;
+}

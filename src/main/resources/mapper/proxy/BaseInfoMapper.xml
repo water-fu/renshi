@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.proxy.BaseInfoDao">
+
+	<resultMap type="BaseInfoBean" id="BaseResultMap">
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="PROXY_TYPE" property="proxyType" />
+		<result column="PROXY_TARGET" property="proxyTarget" />
+		<result column="COMPANY_NAME" property="companyName" />
+		<result column="COMPANY_TYPE" property="companyType" />
+		<result column="LEGAL_NAME" property="legalName" />
+		<result column="COMPANY_INFRO" property="companyInfro" />
+		<result column="PERSON_SEX" property="personSex" />
+		<result column="PERSON_BIRTH" property="personBirth" />
+		<result column="LIVE_TOWN" property="liveTown" />
+		<result column="PERSON_INFRO" property="personInfro" />
+		<result column="REAL_NAME" property="realName" />
+		<result column="PHONE_NO" property="phoneNo" />
+		<result column="TEL_NO" property="telNo" />
+		<result column="EMAIL_NO" property="emailNo" />
+		<result column="QQ_NO" property="qqNo" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="BaseInfoBean" keyProperty="accountId" useGeneratedKeys="true">
+		INSERT INTO proxy_base_info (
+			ACCOUNT_ID,
+			PROXY_TYPE,
+			PROXY_TARGET,
+			COMPANY_NAME,
+			COMPANY_TYPE,
+			LEGAL_NAME,
+			COMPANY_INFRO,
+			PERSON_SEX,
+			PERSON_BIRTH,
+			LIVE_TOWN,
+			PERSON_INFRO,
+			REAL_NAME,
+			PHONE_NO,
+			TEL_NO,
+			EMAIL_NO,
+			QQ_NO
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{proxyType},
+			#{proxyTarget},
+			#{companyName},
+			#{companyType},
+			#{legalName},
+			#{companyInfro},
+			#{personSex},
+			#{personBirth},
+			#{liveTown},
+			#{personInfro},
+			#{realName},
+			#{phoneNo},
+			#{telNo},
+			#{emailNo},
+			#{qqNo}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="BaseInfoBean">
+		UPDATE proxy_base_info 
+		SET 
+			PROXY_TYPE = #{proxyType},
+			PROXY_TARGET = #{proxyTarget},
+			COMPANY_NAME = #{companyName},
+			COMPANY_TYPE = #{companyType},
+			LEGAL_NAME = #{legalName},
+			COMPANY_INFRO = #{companyInfro},
+			PERSON_SEX = #{personSex},
+			PERSON_BIRTH = #{personBirth},
+			LIVE_TOWN = #{liveTown},
+			PERSON_INFRO = #{personInfro},
+			REAL_NAME = #{realName},
+			PHONE_NO = #{phoneNo},
+			TEL_NO = #{telNo},
+			EMAIL_NO = #{emailNo},
+			QQ_NO = #{qqNo}
+		WHERE 
+			ACCOUNT_ID = #{accountId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			proxy_base_info 
+		WHERE 
+			ACCOUNT_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			PROXY_TYPE,
+			PROXY_TARGET,
+			COMPANY_NAME,
+			COMPANY_TYPE,
+			LEGAL_NAME,
+			COMPANY_INFRO,
+			PERSON_SEX,
+			PERSON_BIRTH,
+			LIVE_TOWN,
+			PERSON_INFRO,
+			REAL_NAME,
+			PHONE_NO,
+			TEL_NO,
+			EMAIL_NO,
+			QQ_NO
+		FROM 
+			proxy_base_info
+	 	WHERE 
+	 		ACCOUNT_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="BaseInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			PROXY_TYPE,
+			PROXY_TARGET,
+			COMPANY_NAME,
+			COMPANY_TYPE,
+			LEGAL_NAME,
+			COMPANY_INFRO,
+			PERSON_SEX,
+			PERSON_BIRTH,
+			LIVE_TOWN,
+			PERSON_INFRO,
+			REAL_NAME,
+			PHONE_NO,
+			TEL_NO,
+			EMAIL_NO,
+			QQ_NO
+		FROM 
+			proxy_base_info
+		WHERE
+			1 = 1
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="proxyType != -1">
+				and PROXY_TYPE = #{proxyType}
+			</if>
+			<if test="proxyTarget != null">
+				and PROXY_TARGET = #{proxyTarget}
+			</if>
+			<if test="companyName != null">
+				and COMPANY_NAME = #{companyName}
+			</if>
+			<if test="companyType != -1">
+				and COMPANY_TYPE = #{companyType}
+			</if>
+			<if test="legalName != null">
+				and LEGAL_NAME = #{legalName}
+			</if>
+			<if test="companyInfro != null">
+				and COMPANY_INFRO = #{companyInfro}
+			</if>
+			<if test="personSex != -1">
+				and PERSON_SEX = #{personSex}
+			</if>
+			<if test="personBirth != null">
+				and PERSON_BIRTH = #{personBirth}
+			</if>
+			<if test="liveTown != null">
+				and LIVE_TOWN = #{liveTown}
+			</if>
+			<if test="personInfro != null">
+				and PERSON_INFRO = #{personInfro}
+			</if>
+			<if test="realName != null">
+				and REAL_NAME = #{realName}
+			</if>
+			<if test="phoneNo != null">
+				and PHONE_NO = #{phoneNo}
+			</if>
+			<if test="telNo != null">
+				and TEL_NO = #{telNo}
+			</if>
+			<if test="emailNo != null">
+				and EMAIL_NO = #{emailNo}
+			</if>
+			<if test="qqNo != null">
+				and QQ_NO = #{qqNo}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			PROXY_TYPE,
+			PROXY_TARGET,
+			COMPANY_NAME,
+			COMPANY_TYPE,
+			LEGAL_NAME,
+			COMPANY_INFRO,
+			PERSON_SEX,
+			PERSON_BIRTH,
+			LIVE_TOWN,
+			PERSON_INFRO,
+			REAL_NAME,
+			PHONE_NO,
+			TEL_NO,
+			EMAIL_NO,
+			QQ_NO
+		FROM
+			proxy_base_info
+		WHERE
+			1 = 1
+			<if test="baseInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{baseInfoBean.accountId}
+			</if>
+			<if test="baseInfoBean.proxyType != -1">
+				and PROXY_TYPE = #{baseInfoBean.proxyType}
+			</if>
+			<if test="baseInfoBean.proxyTarget != null">
+				and PROXY_TARGET = #{baseInfoBean.proxyTarget}
+			</if>
+			<if test="baseInfoBean.companyName != null">
+				and COMPANY_NAME = #{baseInfoBean.companyName}
+			</if>
+			<if test="baseInfoBean.companyType != -1">
+				and COMPANY_TYPE = #{baseInfoBean.companyType}
+			</if>
+			<if test="baseInfoBean.legalName != null">
+				and LEGAL_NAME = #{baseInfoBean.legalName}
+			</if>
+			<if test="baseInfoBean.companyInfro != null">
+				and COMPANY_INFRO = #{baseInfoBean.companyInfro}
+			</if>
+			<if test="baseInfoBean.personSex != -1">
+				and PERSON_SEX = #{baseInfoBean.personSex}
+			</if>
+			<if test="baseInfoBean.personBirth != null">
+				and PERSON_BIRTH = #{baseInfoBean.personBirth}
+			</if>
+			<if test="baseInfoBean.liveTown != null">
+				and LIVE_TOWN = #{baseInfoBean.liveTown}
+			</if>
+			<if test="baseInfoBean.personInfro != null">
+				and PERSON_INFRO = #{baseInfoBean.personInfro}
+			</if>
+			<if test="baseInfoBean.realName != null">
+				and REAL_NAME = #{baseInfoBean.realName}
+			</if>
+			<if test="baseInfoBean.phoneNo != null">
+				and PHONE_NO = #{baseInfoBean.phoneNo}
+			</if>
+			<if test="baseInfoBean.telNo != null">
+				and TEL_NO = #{baseInfoBean.telNo}
+			</if>
+			<if test="baseInfoBean.emailNo != null">
+				and EMAIL_NO = #{baseInfoBean.emailNo}
+			</if>
+			<if test="baseInfoBean.qqNo != null">
+				and QQ_NO = #{baseInfoBean.qqNo}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			proxy_base_info
+		WHERE
+			1 = 1
+			<if test="baseInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{baseInfoBean.accountId}
+			</if>
+			<if test="baseInfoBean.proxyType != -1">
+				and PROXY_TYPE = #{baseInfoBean.proxyType}
+			</if>
+			<if test="baseInfoBean.proxyTarget != null">
+				and PROXY_TARGET = #{baseInfoBean.proxyTarget}
+			</if>
+			<if test="baseInfoBean.companyName != null">
+				and COMPANY_NAME = #{baseInfoBean.companyName}
+			</if>
+			<if test="baseInfoBean.companyType != -1">
+				and COMPANY_TYPE = #{baseInfoBean.companyType}
+			</if>
+			<if test="baseInfoBean.legalName != null">
+				and LEGAL_NAME = #{baseInfoBean.legalName}
+			</if>
+			<if test="baseInfoBean.companyInfro != null">
+				and COMPANY_INFRO = #{baseInfoBean.companyInfro}
+			</if>
+			<if test="baseInfoBean.personSex != -1">
+				and PERSON_SEX = #{baseInfoBean.personSex}
+			</if>
+			<if test="baseInfoBean.personBirth != null">
+				and PERSON_BIRTH = #{baseInfoBean.personBirth}
+			</if>
+			<if test="baseInfoBean.liveTown != null">
+				and LIVE_TOWN = #{baseInfoBean.liveTown}
+			</if>
+			<if test="baseInfoBean.personInfro != null">
+				and PERSON_INFRO = #{baseInfoBean.personInfro}
+			</if>
+			<if test="baseInfoBean.realName != null">
+				and REAL_NAME = #{baseInfoBean.realName}
+			</if>
+			<if test="baseInfoBean.phoneNo != null">
+				and PHONE_NO = #{baseInfoBean.phoneNo}
+			</if>
+			<if test="baseInfoBean.telNo != null">
+				and TEL_NO = #{baseInfoBean.telNo}
+			</if>
+			<if test="baseInfoBean.emailNo != null">
+				and EMAIL_NO = #{baseInfoBean.emailNo}
+			</if>
+			<if test="baseInfoBean.qqNo != null">
+				and QQ_NO = #{baseInfoBean.qqNo}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+</mapper>

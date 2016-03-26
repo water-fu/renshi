@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.doctor.ContactInfoDao">
+
+	<resultMap type="ContactInfoBean" id="BaseResultMap">
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="PHONE_NO" property="phoneNo" />
+		<result column="MAIL_ADDRESS" property="mailAddress" />
+		<result column="QQ_NO" property="qqNo" />
+		<result column="WECHAT_NO" property="wechatNo" />
+		<result column="WEIBO_ADDRESS" property="weiboAddress" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="ContactInfoBean" keyProperty="accountId" useGeneratedKeys="true">
+		INSERT INTO doctor_contact_info (
+			ACCOUNT_ID,
+			PHONE_NO,
+			MAIL_ADDRESS,
+			QQ_NO,
+			WECHAT_NO,
+			WEIBO_ADDRESS
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{phoneNo},
+			#{mailAddress},
+			#{qqNo},
+			#{wechatNo},
+			#{weiboAddress}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="ContactInfoBean">
+		UPDATE doctor_contact_info 
+		SET 
+			PHONE_NO = #{phoneNo},
+			MAIL_ADDRESS = #{mailAddress},
+			QQ_NO = #{qqNo},
+			WECHAT_NO = #{wechatNo},
+			WEIBO_ADDRESS = #{weiboAddress}
+		WHERE 
+			ACCOUNT_ID = #{accountId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			doctor_contact_info 
+		WHERE 
+			ACCOUNT_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			PHONE_NO,
+			MAIL_ADDRESS,
+			QQ_NO,
+			WECHAT_NO,
+			WEIBO_ADDRESS
+		FROM 
+			doctor_contact_info
+	 	WHERE 
+	 		ACCOUNT_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="ContactInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			PHONE_NO,
+			MAIL_ADDRESS,
+			QQ_NO,
+			WECHAT_NO,
+			WEIBO_ADDRESS
+		FROM 
+			doctor_contact_info
+		WHERE
+			1 = 1
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="phoneNo != null">
+				and PHONE_NO = #{phoneNo}
+			</if>
+			<if test="mailAddress != null">
+				and MAIL_ADDRESS = #{mailAddress}
+			</if>
+			<if test="qqNo != null">
+				and QQ_NO = #{qqNo}
+			</if>
+			<if test="wechatNo != null">
+				and WECHAT_NO = #{wechatNo}
+			</if>
+			<if test="weiboAddress != null">
+				and WEIBO_ADDRESS = #{weiboAddress}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			PHONE_NO,
+			MAIL_ADDRESS,
+			QQ_NO,
+			WECHAT_NO,
+			WEIBO_ADDRESS
+		FROM
+			doctor_contact_info
+		WHERE
+			1 = 1
+			<if test="contactInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{contactInfoBean.accountId}
+			</if>
+			<if test="contactInfoBean.phoneNo != null">
+				and PHONE_NO = #{contactInfoBean.phoneNo}
+			</if>
+			<if test="contactInfoBean.mailAddress != null">
+				and MAIL_ADDRESS = #{contactInfoBean.mailAddress}
+			</if>
+			<if test="contactInfoBean.qqNo != null">
+				and QQ_NO = #{contactInfoBean.qqNo}
+			</if>
+			<if test="contactInfoBean.wechatNo != null">
+				and WECHAT_NO = #{contactInfoBean.wechatNo}
+			</if>
+			<if test="contactInfoBean.weiboAddress != null">
+				and WEIBO_ADDRESS = #{contactInfoBean.weiboAddress}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			doctor_contact_info
+		WHERE
+			1 = 1
+			<if test="contactInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{contactInfoBean.accountId}
+			</if>
+			<if test="contactInfoBean.phoneNo != null">
+				and PHONE_NO = #{contactInfoBean.phoneNo}
+			</if>
+			<if test="contactInfoBean.mailAddress != null">
+				and MAIL_ADDRESS = #{contactInfoBean.mailAddress}
+			</if>
+			<if test="contactInfoBean.qqNo != null">
+				and QQ_NO = #{contactInfoBean.qqNo}
+			</if>
+			<if test="contactInfoBean.wechatNo != null">
+				and WECHAT_NO = #{contactInfoBean.wechatNo}
+			</if>
+			<if test="contactInfoBean.weiboAddress != null">
+				and WEIBO_ADDRESS = #{contactInfoBean.weiboAddress}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+</mapper>

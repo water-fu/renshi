@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.qa.ReplyDao">
+
+	<resultMap type="ReplyBean" id="BaseResultMap">
+		<result column="ID" property="id" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="CONTENT" property="content" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="FLAG" property="flag" />
+		<result column="VOTE_NUM" property="voteNum" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="ReplyBean" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO qa_reply (
+			ACCOUNT_ID,
+			CONTENT,
+			CREATE_DATE,
+			UPDATE_DATE,
+			FLAG,
+			VOTE_NUM
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{content},
+			#{createDate},
+			#{updateDate},
+			#{flag},
+			#{voteNum}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="ReplyBean">
+		UPDATE qa_reply 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			CONTENT = #{content},
+			CREATE_DATE = #{createDate},
+			UPDATE_DATE = #{updateDate},
+			FLAG = #{flag},
+			VOTE_NUM = #{voteNum}
+		WHERE 
+			ID = #{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			qa_reply 
+		WHERE 
+			ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			ID,
+			ACCOUNT_ID,
+			CONTENT,
+			CREATE_DATE,
+			UPDATE_DATE,
+			FLAG,
+			VOTE_NUM
+		FROM 
+			qa_reply
+	 	WHERE 
+	 		ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="ReplyBean" resultMap="BaseResultMap">
+		SELECT 
+			ID,
+			ACCOUNT_ID,
+			CONTENT,
+			CREATE_DATE,
+			UPDATE_DATE,
+			FLAG,
+			VOTE_NUM
+		FROM 
+			qa_reply
+		WHERE
+			1 = 1
+			<if test="id != null">
+				and ID = #{id}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="content != null">
+				and CONTENT = #{content}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+			<if test="flag != null">
+				and FLAG = #{flag}
+			</if>
+			<if test="voteNum != -1">
+				and VOTE_NUM = #{voteNum}
+			</if>
+    	ORDER BY
+    		ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			ID,
+			ACCOUNT_ID,
+			CONTENT,
+			CREATE_DATE,
+			UPDATE_DATE,
+			FLAG,
+			VOTE_NUM
+		FROM
+			qa_reply
+		WHERE
+			1 = 1
+			<if test="replyBean.id != null">
+				and ID = #{replyBean.id}
+			</if>
+			<if test="replyBean.accountId != -1">
+				and ACCOUNT_ID = #{replyBean.accountId}
+			</if>
+			<if test="replyBean.content != null">
+				and CONTENT = #{replyBean.content}
+			</if>
+			<if test="replyBean.createDate != null">
+				and CREATE_DATE = #{replyBean.createDate}
+			</if>
+			<if test="replyBean.updateDate != null">
+				and UPDATE_DATE = #{replyBean.updateDate}
+			</if>
+			<if test="replyBean.flag != null">
+				and FLAG = #{replyBean.flag}
+			</if>
+			<if test="replyBean.voteNum != -1">
+				and VOTE_NUM = #{replyBean.voteNum}
+			</if>
+    	ORDER BY
+    		ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			qa_reply
+		WHERE
+			1 = 1
+			<if test="replyBean.id != null">
+				and ID = #{replyBean.id}
+			</if>
+			<if test="replyBean.accountId != -1">
+				and ACCOUNT_ID = #{replyBean.accountId}
+			</if>
+			<if test="replyBean.content != null">
+				and CONTENT = #{replyBean.content}
+			</if>
+			<if test="replyBean.createDate != null">
+				and CREATE_DATE = #{replyBean.createDate}
+			</if>
+			<if test="replyBean.updateDate != null">
+				and UPDATE_DATE = #{replyBean.updateDate}
+			</if>
+			<if test="replyBean.flag != null">
+				and FLAG = #{replyBean.flag}
+			</if>
+			<if test="replyBean.voteNum != -1">
+				and VOTE_NUM = #{replyBean.voteNum}
+			</if>
+    	ORDER BY
+    		ID ASC
+	</select>
+	
+</mapper>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.doctor.AuthenticInfoDao">
+
+	<resultMap type="AuthenticInfoBean" id="BaseResultMap">
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="WORK_PROFESS" property="workProfess" />
+		<result column="ACADEMIC_PROFESS" property="academicProfess" />
+		<result column="EDUCATION_PROFESS" property="educationProfess" />
+		<result column="PROFESS_LEVEL" property="professLevel" />
+		<result column="ID_CARD" property="idCard" />
+		<result column="FRONT_URL" property="frontUrl" />
+		<result column="BACK_URL" property="backUrl" />
+		<result column="CERTIFICATE_TYPE" property="certificateType" />
+		<result column="CERTIFICATE_NO" property="certificateNo" />
+		<result column="CERTIFICATE_URL" property="certificateUrl" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="AuthenticInfoBean" keyProperty="accountId" useGeneratedKeys="true">
+		INSERT INTO doctor_authentic_info (
+			ACCOUNT_ID,
+			WORK_PROFESS,
+			ACADEMIC_PROFESS,
+			EDUCATION_PROFESS,
+			PROFESS_LEVEL,
+			ID_CARD,
+			FRONT_URL,
+			BACK_URL,
+			CERTIFICATE_TYPE,
+			CERTIFICATE_NO,
+			CERTIFICATE_URL
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{workProfess},
+			#{academicProfess},
+			#{educationProfess},
+			#{professLevel},
+			#{idCard},
+			#{frontUrl},
+			#{backUrl},
+			#{certificateType},
+			#{certificateNo},
+			#{certificateUrl}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="AuthenticInfoBean">
+		UPDATE doctor_authentic_info 
+		SET 
+			WORK_PROFESS = #{workProfess},
+			ACADEMIC_PROFESS = #{academicProfess},
+			EDUCATION_PROFESS = #{educationProfess},
+			PROFESS_LEVEL = #{professLevel},
+			ID_CARD = #{idCard},
+			FRONT_URL = #{frontUrl},
+			BACK_URL = #{backUrl},
+			CERTIFICATE_TYPE = #{certificateType},
+			CERTIFICATE_NO = #{certificateNo},
+			CERTIFICATE_URL = #{certificateUrl}
+		WHERE 
+			ACCOUNT_ID = #{accountId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			doctor_authentic_info 
+		WHERE 
+			ACCOUNT_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			WORK_PROFESS,
+			ACADEMIC_PROFESS,
+			EDUCATION_PROFESS,
+			PROFESS_LEVEL,
+			ID_CARD,
+			FRONT_URL,
+			BACK_URL,
+			CERTIFICATE_TYPE,
+			CERTIFICATE_NO,
+			CERTIFICATE_URL
+		FROM 
+			doctor_authentic_info
+	 	WHERE 
+	 		ACCOUNT_ID = #{value}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="AuthenticInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			WORK_PROFESS,
+			ACADEMIC_PROFESS,
+			EDUCATION_PROFESS,
+			PROFESS_LEVEL,
+			ID_CARD,
+			FRONT_URL,
+			BACK_URL,
+			CERTIFICATE_TYPE,
+			CERTIFICATE_NO,
+			CERTIFICATE_URL
+		FROM 
+			doctor_authentic_info
+		WHERE
+			1 = 1
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="workProfess != null">
+				and WORK_PROFESS = #{workProfess}
+			</if>
+			<if test="academicProfess != null">
+				and ACADEMIC_PROFESS = #{academicProfess}
+			</if>
+			<if test="educationProfess != null">
+				and EDUCATION_PROFESS = #{educationProfess}
+			</if>
+			<if test="professLevel != -1">
+				and PROFESS_LEVEL = #{professLevel}
+			</if>
+			<if test="idCard != null">
+				and ID_CARD = #{idCard}
+			</if>
+			<if test="frontUrl != null">
+				and FRONT_URL = #{frontUrl}
+			</if>
+			<if test="backUrl != null">
+				and BACK_URL = #{backUrl}
+			</if>
+			<if test="certificateType != -1">
+				and CERTIFICATE_TYPE = #{certificateType}
+			</if>
+			<if test="certificateNo != null">
+				and CERTIFICATE_NO = #{certificateNo}
+			</if>
+			<if test="certificateUrl != null">
+				and CERTIFICATE_URL = #{certificateUrl}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			ACCOUNT_ID,
+			WORK_PROFESS,
+			ACADEMIC_PROFESS,
+			EDUCATION_PROFESS,
+			PROFESS_LEVEL,
+			ID_CARD,
+			FRONT_URL,
+			BACK_URL,
+			CERTIFICATE_TYPE,
+			CERTIFICATE_NO,
+			CERTIFICATE_URL
+		FROM
+			doctor_authentic_info
+		WHERE
+			1 = 1
+			<if test="authenticInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{authenticInfoBean.accountId}
+			</if>
+			<if test="authenticInfoBean.workProfess != null">
+				and WORK_PROFESS = #{authenticInfoBean.workProfess}
+			</if>
+			<if test="authenticInfoBean.academicProfess != null">
+				and ACADEMIC_PROFESS = #{authenticInfoBean.academicProfess}
+			</if>
+			<if test="authenticInfoBean.educationProfess != null">
+				and EDUCATION_PROFESS = #{authenticInfoBean.educationProfess}
+			</if>
+			<if test="authenticInfoBean.professLevel != -1">
+				and PROFESS_LEVEL = #{authenticInfoBean.professLevel}
+			</if>
+			<if test="authenticInfoBean.idCard != null">
+				and ID_CARD = #{authenticInfoBean.idCard}
+			</if>
+			<if test="authenticInfoBean.frontUrl != null">
+				and FRONT_URL = #{authenticInfoBean.frontUrl}
+			</if>
+			<if test="authenticInfoBean.backUrl != null">
+				and BACK_URL = #{authenticInfoBean.backUrl}
+			</if>
+			<if test="authenticInfoBean.certificateType != -1">
+				and CERTIFICATE_TYPE = #{authenticInfoBean.certificateType}
+			</if>
+			<if test="authenticInfoBean.certificateNo != null">
+				and CERTIFICATE_NO = #{authenticInfoBean.certificateNo}
+			</if>
+			<if test="authenticInfoBean.certificateUrl != null">
+				and CERTIFICATE_URL = #{authenticInfoBean.certificateUrl}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			doctor_authentic_info
+		WHERE
+			1 = 1
+			<if test="authenticInfoBean.accountId != -1">
+				and ACCOUNT_ID = #{authenticInfoBean.accountId}
+			</if>
+			<if test="authenticInfoBean.workProfess != null">
+				and WORK_PROFESS = #{authenticInfoBean.workProfess}
+			</if>
+			<if test="authenticInfoBean.academicProfess != null">
+				and ACADEMIC_PROFESS = #{authenticInfoBean.academicProfess}
+			</if>
+			<if test="authenticInfoBean.educationProfess != null">
+				and EDUCATION_PROFESS = #{authenticInfoBean.educationProfess}
+			</if>
+			<if test="authenticInfoBean.professLevel != -1">
+				and PROFESS_LEVEL = #{authenticInfoBean.professLevel}
+			</if>
+			<if test="authenticInfoBean.idCard != null">
+				and ID_CARD = #{authenticInfoBean.idCard}
+			</if>
+			<if test="authenticInfoBean.frontUrl != null">
+				and FRONT_URL = #{authenticInfoBean.frontUrl}
+			</if>
+			<if test="authenticInfoBean.backUrl != null">
+				and BACK_URL = #{authenticInfoBean.backUrl}
+			</if>
+			<if test="authenticInfoBean.certificateType != -1">
+				and CERTIFICATE_TYPE = #{authenticInfoBean.certificateType}
+			</if>
+			<if test="authenticInfoBean.certificateNo != null">
+				and CERTIFICATE_NO = #{authenticInfoBean.certificateNo}
+			</if>
+			<if test="authenticInfoBean.certificateUrl != null">
+				and CERTIFICATE_URL = #{authenticInfoBean.certificateUrl}
+			</if>
+    	ORDER BY
+    		ACCOUNT_ID ASC
+	</select>
+	
+</mapper>

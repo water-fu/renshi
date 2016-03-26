@@ -1,0 +1,225 @@
+body{
+	font-family: "Microsoft YaHei";
+}
+.register{
+	width: 100%;
+	height: 480px;
+	overflow: hidden;
+	background:url(../../images/register/bg.png);
+/* 	margin-bottom:40px; */
+}
+.reg-layout{
+	width: 1000px;
+	margin: 0 auto;
+}
+.reg-left{
+	width: 600px;
+	float: left;
+}
+.reg-right{
+	position: relative;
+	width: 400px;
+	float: right;
+}
+.reg-left img{
+	width: 450px;
+	height: 400px;
+	margin-top: 40px;
+	margin-left: 75px;
+}
+.reg-con{
+	position: absolute;
+	width: 360px;
+	height: 380px;
+	background-color: #fff;
+	margin-top: 40px;
+	box-shadow: 0px 0px 8px #888888;
+	border-radius: 6px;
+}
+div.tiperror{
+	position: absolute;
+	height: 30px;
+	line-height: 30px;
+	margin-left: 80px;
+	background: white;
+}
+div.tiperror img{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+}
+div.tiperror span{
+	margin-left: 30px;
+	color: #fe8888;
+	font-size: 16px;
+}
+.reg-con p{
+	width: 300px;
+	margin:0 auto;
+}
+.reg-con p.title{
+	position: relative;
+	height: 50px;
+	line-height: 50px;
+	margin-top: 10px;
+}
+p.title span{
+	position: relative;
+	width: 4px;
+	height: 20px;
+	background-color: #1dd3a2;
+	display: inline-block;
+	top: 3px;
+}
+p.title em{
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 10px;
+	color: #666;
+}
+
+p.default{
+	border: 1px solid #cdcdcd;
+	border-radius: 4px;
+	height: 45px;
+	margin-bottom: 10px;
+}
+p.default img{
+	position: absolute;
+	width: 40px;
+	height: 45px;
+}
+p.default input{
+	font-family: "΢���ź�";
+	text-indent: 0.825em;
+	font-size: 16px;
+	margin-left: 42px;
+	width: 254px;
+	height: 43px;
+	border-top: 0px;
+	border-right: 0px;
+	border-bottom: 0px;
+	border-left: 1px solid #cdcdcd;
+}
+p.default-error{
+	border: 1px solid #fe8888;
+}
+p.default-error input{
+	border-left: 1px solid #fe8888;
+}
+.reg-con p.default-valiate,.reg-con p.default-message{
+	margin: 0;
+	width: 180px;
+	margin-left: 28px;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+p.default-valiate input,p.default-message input{
+	width: 127px;
+}
+#valiate-img{
+	position: absolute;
+	margin-top: 4px;
+	margin-left: 4px;
+	width: 92px;
+	height: 37px;
+}
+span.get-valiate{
+	position: relative;
+	margin-left: 100px;
+}
+span.get-valiate img{
+	position: absolute;
+	margin-top: 7px;
+	cursor: pointer;
+}
+span.get-message{
+	text-align: center;
+	width: 120px;
+	height: 43px;
+	line-height: 43px;
+	display: inline-block;
+	color: #1dd3a2;
+	border: 1px solid #1dd3a2;
+	margin-left: 5px;
+	cursor: pointer;
+	border-radius: 4px;
+}
+p.get-sub{
+	font-size: 22px;
+	width: 308px;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	color: #fff;
+	background-color: #1dd3a2;
+	margin-top: 6px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+p.get-sub-dis {
+	font-size: 22px;
+	width: 308px;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	color: #fff;
+	background-color: #D8CECE;
+	margin-top: 6px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+p.get-login{
+	width: 168px;
+	margin-top: 15px; 
+}
+p.get-login a{
+	color: #1dd3a2;
+}
+
+.reg-con div.hidden{
+	display: none;
+}
+.reg-con div.block{
+	display: inline-block;
+}
+
+.reg-con span.hidden{
+	display: none;
+}
+.reg-con span.block{
+	display: inline-block;
+}
+
+.reg-con img.hidden{
+	display: none;
+}
+.reg-con img.block{
+	display: inline-block;
+}
+
+
+/*login page*/
+p.get-register{
+	width: 295px;
+	margin-top: 20px; 
+}
+p.get-register span{
+	color: #DBDBDB;
+	margin-left: 34px;
+}
+p.get-register a{
+	color: #1dd3a2;
+	float: right;
+}
+
+p.get-forget {
+	width: 295px;
+	margin-top: 20px;
+}
+p.get-forget span a{
+	color: #1dd3a2;
+	float: right;
+	margin-right: 15px;
+}

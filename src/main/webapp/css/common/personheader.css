@@ -1,0 +1,140 @@
+div.header{
+	width: 100%;
+}
+div.head-layout{
+	width: 100%;
+	margin: 0 auto;
+	background-color: #e4e4e4;
+	border-bottom: 1px solid #797979;
+}
+div.head{
+	width: 1080px;
+	height: 40px;
+	line-height: 40px;
+	margin: 0 auto;
+}
+div.logo{
+	float: left;
+}
+div.quik{
+	float: right;
+}
+div.logo img{
+	position: absolute;
+	width: 62px;
+	height: 48px;
+	clear: both;
+	margin-top: 10px;
+}
+div.logo span{
+	font-size: 14px;
+	margin-left: 72px;
+}
+.quik a{
+	margin-right: 20px;
+}
+
+.info{
+	width: 100%;
+	height: 370px;
+	background-color: #ffc;
+	border-bottom: 1px solid #797979;
+}
+.info-layout{
+	position: relative;
+	width: 240px;
+	height: 320px;
+	margin: 0 auto;
+	top: 85px;
+}
+div.icon{
+	width: 100px;
+	height: 100px;
+	margin: 0 auto;
+	border: 1px solid #cdcdcd;
+}
+div.title{
+}
+div.info div.title{
+	width: 160px;
+	height: 40px;
+	line-height: 50px;
+	vertical-align: bottom;
+	margin: 0 auto;
+}
+div.title em{
+	font-size: 1.2em;
+	color: #990000;
+}
+div.title span{
+	font-family: Arial;
+	font-size: 1em;
+	margin-left: 10px;
+}
+div.company{
+	width: 180px;
+	height: 25px;
+	margin: 0 auto;
+}
+div.company a{
+	color: #39f;
+	font-size: 14px;
+	text-align: center;
+	width: 90px;
+	display: inline-block;
+}
+div.mess select{
+	width: 90px;
+	height: 30px;
+	font-size: 0.9em;
+	border-radius: 4px;
+	background-color: #949494;
+	color: #fff;
+	font-family: "微软雅黑";
+}
+div.mess span{
+	margin-left: 5px;
+}
+span.send-mess{
+	width: 90px;
+	height: 30px;
+	line-height: 30px;
+	display: inline-block;
+	text-align: center;
+	background-color: #949494;
+	color: #fff;
+	border-radius: 4px;
+	font-size: 0.9em;
+}
+span.more{
+	width: 40px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #949494;
+	color: #fff;
+	display: inline-block;
+	text-align: center;
+	border-radius: 4px;
+}
+
+
+.nav{
+	border-top: 1px solid #797979;
+	background-color: #fff;
+	overflow: hidden;
+}
+.nav ul{
+	width: 400px;
+	margin: 0 auto;
+}
+.nav li{
+	float: left;
+	text-align: center;
+	width: 100px;
+	line-height: 48px;
+	height: 48px;
+	background-color: #fff;
+}
+.nav li.active{
+	background-color: #d7d7d7;
+}

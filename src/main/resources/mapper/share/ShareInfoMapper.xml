@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.ShareInfoDao">
+
+	<resultMap type="ShareInfoBean" id="BaseResultMap">
+		<result column="SHARE_ID" property="shareId" />
+		<result column="ACCOUNT_ID" property="accountId" />
+		<result column="SHARE_TITLE" property="shareTitle" />
+		<result column="SHARE_TYPE" property="shareType" />
+		<result column="SHARE_TAG" property="shareTag" />
+		<result column="SHARE_DESC" property="shareDesc" />
+		<result column="BELONG_PROFESS" property="belongProfess" />
+		<result column="READ_PERMISSION" property="readPermission" />
+		<result column="SHARE_STATUS" property="shareStatus" />
+		<result column="LIKE_NUM" property="likeNum" />
+		<result column="COLLECTION_NUM" property="collectionNum" />
+		<result column="READ_NUM" property="readNum" />
+		<result column="COMMENT_NUM" property="commentNum" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		
+		<result column="SHARE_LEVEL" property="shareLevel" />
+	</resultMap>
+	
+	<resultMap type="ShareInfoBean" id="ExtendResultMap" extends="BaseResultMap">
+		<result column="C_REAL_NAME" property="realName" />
+		<result column="B_HEAD_URL" property="headUrl" />
+		<result column="C_BELONG_DEPT" property="belongDept" />
+		<result column="D_WORK_PROFESS" property="workProfess" />
+		<result column="E_IS_COLLECTION" property="isCollection" />
+		<result column="P_IS_PRAISE" property="isPraise" />
+		<result column="E_COLLECTION_DATE" property="collectionDate" />
+	</resultMap>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="ShareInfoBean" keyProperty="shareId" useGeneratedKeys="true">
+		INSERT INTO blog_share_info (
+			ACCOUNT_ID,
+			SHARE_TITLE,
+			SHARE_TYPE,
+			SHARE_TAG,
+			SHARE_DESC,
+			BELONG_PROFESS,
+			READ_PERMISSION,
+			SHARE_STATUS,
+			LIKE_NUM,
+			COLLECTION_NUM,
+			READ_NUM,
+			COMMENT_NUM,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE,
+			SHARE_LEVEL
+    	)
+		VALUES
+		(
+			#{accountId},
+			#{shareTitle},
+			#{shareType},
+			#{shareTag},
+			#{shareDesc},
+			#{belongProfess},
+			#{readPermission},
+			#{shareStatus},
+			#{likeNum},
+			#{collectionNum},
+			#{readNum},
+			#{commentNum},
+			#{createUser},
+			#{createDate},
+			#{updateUser},
+			#{updateDate},
+			#{shareLevel}
+		)
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="ShareInfoBean">
+		UPDATE blog_share_info 
+		SET 
+			ACCOUNT_ID = #{accountId},
+			SHARE_TITLE = #{shareTitle},
+			SHARE_TYPE = #{shareType},
+			SHARE_TAG = #{shareTag},
+			SHARE_DESC = #{shareDesc},
+			BELONG_PROFESS = #{belongProfess},
+			READ_PERMISSION = #{readPermission},
+			SHARE_STATUS = #{shareStatus},
+			LIKE_NUM = #{likeNum},
+			COLLECTION_NUM = #{collectionNum},
+			READ_NUM = #{readNum},
+			COMMENT_NUM = #{commentNum},
+			CREATE_USER = #{createUser},
+			CREATE_DATE = #{createDate},
+			UPDATE_USER = #{updateUser},
+			UPDATE_DATE = #{updateDate},
+			SHARE_LEVEL = #{shareLevel}
+		WHERE 
+			SHARE_ID = #{shareId}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			blog_share_info 
+		WHERE 
+			SHARE_ID = #{value}
+	</delete>
+	
+	<!-- 根据主键查询 -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			SHARE_ID,
+			ACCOUNT_ID,
+			SHARE_TITLE,
+			SHARE_TYPE,
+			SHARE_TAG,
+			SHARE_DESC,
+			BELONG_PROFESS,
+			READ_PERMISSION,
+			SHARE_STATUS,
+			LIKE_NUM,
+			COLLECTION_NUM,
+			READ_NUM,
+			COMMENT_NUM,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE,
+			SHARE_LEVEL
+		FROM 
+			blog_share_info
+	 	WHERE 
+	 		SHARE_ID = #{value}
+	</select>
+	
+	<!-- 根据主键查询 -->
+	<select id="loadExtend" parameterType="java.lang.Integer" resultMap="ExtendResultMap">
+		SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			a.SHARE_LEVEL,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			c.WORK_PROFESS D_WORK_PROFESS
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_ID = #{id}
+	</select>
+	
+	<!-- 查询列表数据 -->
+	<select id="listData" parameterType="ShareInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			SHARE_ID,
+			ACCOUNT_ID,
+			SHARE_TITLE,
+			SHARE_TYPE,
+			SHARE_TAG,
+			SHARE_DESC,
+			BELONG_PROFESS,
+			READ_PERMISSION,
+			SHARE_STATUS,
+			LIKE_NUM,
+			COLLECTION_NUM,
+			READ_NUM,
+			COMMENT_NUM,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE,
+			SHARE_LEVEL
+		FROM 
+			blog_share_info
+		WHERE
+			1 = 1
+			<if test="shareId != -1">
+				and SHARE_ID = #{shareId}
+			</if>
+			<if test="accountId != -1">
+				and ACCOUNT_ID = #{accountId}
+			</if>
+			<if test="shareTitle != null">
+				and SHARE_TITLE = #{shareTitle}
+			</if>
+			<if test="shareType != -1">
+				and SHARE_TYPE = #{shareType}
+			</if>
+			<if test="shareTag != null">
+				and SHARE_TAG = #{shareTag}
+			</if>
+			<if test="shareDesc != null">
+				and SHARE_DESC = #{shareDesc}
+			</if>
+			<if test="belongProfess != null">
+				and BELONG_PROFESS = #{belongProfess}
+			</if>
+			<if test="readPermission != -1">
+				and READ_PERMISSION = #{readPermission}
+			</if>
+			<if test="shareStatus != -1">
+				and SHARE_STATUS = #{shareStatus}
+			</if>
+			<if test="likeNum != -1">
+				and LIKE_NUM = #{likeNum}
+			</if>
+			<if test="collectionNum != -1">
+				and COLLECTION_NUM = #{collectionNum}
+			</if>
+			<if test="readNum != -1">
+				and READ_NUM = #{readNum}
+			</if>
+			<if test="commentNum != -1">
+				and COMMENT_NUM = #{commentNum}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+    	ORDER BY
+    		SHARE_ID ASC
+	</select>
+	
+	<sql id="pageWhere">
+			(blog_share_info a
+			LEFT JOIN
+			share_collection_info e
+			ON a.SHARE_ID = e.SHARE_ID AND e.ACCOUNT_ID = #{curAccountId})
+			LEFT JOIN
+			share_praise_info p
+			ON a.SHARE_ID = p.SHARE_ID AND p.ACCOUNT_ID = #{curAccountId},
+			
+			system_account_info b,
+			doctor_user_info c,
+			doctor_authentic_info d
+			<!-- 所有 -->
+			<if test="searchType == 1">
+				, share_follow_active f
+			</if>
+			<!-- 我关注的人 -->
+			<if test="searchType == 2">
+				, share_follow_active f
+			</if>
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND c.ACCOUNT_ID = d.ACCOUNT_ID
+			<if test="searchType == 1">
+				AND a.ACCOUNT_ID = f.FOLLOW_ACCOUNT
+				AND f.ACCOUNT_ID = #{shareInfoBean.accountId}
+				AND (f.FOLLOW_ACCOUNT = #{shareInfoBean.accountId} 
+					OR (f.FOLLOW_ACCOUNT != #{shareInfoBean.accountId} AND a.SHARE_STATUS = 1 AND a.READ_PERMISSION in (1, 3, 4)))
+			</if>
+			<!-- 我关注的人 -->
+			<if test="searchType == 2">
+				AND a.ACCOUNT_ID = f.FOLLOW_ACCOUNT 
+				AND f.ACCOUNT_ID = #{shareInfoBean.accountId}
+				AND f.FOLLOW_ACCOUNT != #{shareInfoBean.accountId}
+				AND a.SHARE_STATUS = 1
+				AND a.READ_PERMISSION in (1, 3, 4)
+			</if>
+			<!-- 我自己的-->
+			<if test="searchType == 3">
+				<if test="isMySelf == 1">
+					and a.ACCOUNT_ID = #{shareInfoBean.accountId}
+				</if>
+				<if test="isMySelf == 0">
+					and a.ACCOUNT_ID = #{shareInfoBean.accountId} and a.READ_PERMISSION in (1, 3, 4)
+				</if>
+				<if test="isMySelf == -1">
+					and a.ACCOUNT_ID = #{shareInfoBean.accountId} and a.READ_PERMISSION in (1)
+				</if>
+			</if>
+			
+			<if test="shareInfoBean.shareId != -1">
+				and a.SHARE_ID = #{shareInfoBean.shareId}
+			</if>
+			<if test="shareInfoBean.shareTitle != null">
+				and a.SHARE_TITLE = #{shareInfoBean.shareTitle}
+			</if>
+			<if test="shareInfoBean.shareType != -1">
+				and a.SHARE_TYPE = #{shareInfoBean.shareType}
+			</if>
+			<if test="shareInfoBean.shareTag != null">
+				and a.SHARE_TAG = #{shareInfoBean.shareTag}
+			</if>
+			<if test="shareInfoBean.shareDesc != null">
+				and a.SHARE_DESC = #{shareInfoBean.shareDesc}
+			</if>
+			<if test="shareInfoBean.belongProfess != null">
+				and a.BELONG_PROFESS = #{shareInfoBean.belongProfess}
+			</if>
+			<if test="shareInfoBean.readPermission != -1">
+				and a.READ_PERMISSION = #{shareInfoBean.readPermission}
+			</if>
+			<if test="shareInfoBean.shareStatus != -1">
+				and a.SHARE_STATUS = #{shareInfoBean.shareStatus}
+			</if>
+			<if test="shareInfoBean.likeNum != -1">
+				and a.LIKE_NUM = #{shareInfoBean.likeNum}
+			</if>
+			<if test="shareInfoBean.collectionNum != -1">
+				and a.COLLECTION_NUM = #{shareInfoBean.collectionNum}
+			</if>
+			<if test="shareInfoBean.readNum != -1">
+				and a.READ_NUM = #{shareInfoBean.readNum}
+			</if>
+			<if test="shareInfoBean.commentNum != -1">
+				and a.COMMENT_NUM = #{shareInfoBean.commentNum}
+			</if>
+			<if test="shareInfoBean.createUser != -1">
+				and a.CREATE_USER = #{shareInfoBean.createUser}
+			</if>
+			<!-- jty edit start -->
+			<if test="shareTime != null">
+			    and a.CREATE_DATE >= #{shareTime}
+			</if>
+			<if test="shareInfoBean.belongDept!=null">
+			   and c.BELONG_DEPT = #{shareInfoBean.belongDept}
+			</if>
+			<!-- jty edit end -->
+			<if test="shareInfoBean.createDate != null">
+				and a.CREATE_DATE = #{shareInfoBean.createDate}
+			</if>
+			<if test="shareInfoBean.updateUser != -1">
+				and a.UPDATE_USER = #{shareInfoBean.updateUser}
+			</if>
+			<if test="shareInfoBean.updateDate != null">
+				and a.UPDATE_DATE = #{shareInfoBean.updateDate}
+			</if>
+	</sql>
+	
+	<!-- 查询分页数据 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="ExtendResultMap">
+		SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			a.SHARE_LEVEL,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			d.WORK_PROFESS D_WORK_PROFESS,
+			ISNULL(e.COLLECTION_ID) E_IS_COLLECTION,
+			ISNULL(p.PRAISE_ID) P_IS_PRAISE,
+			e.CREATE_DATE E_COLLECTION_DATE
+		FROM
+		
+		<include refid="pageWhere"></include>
+		
+    	ORDER BY
+    		a.SHARE_ID DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 分页数据统计总数 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+		<include refid="pageWhere"></include>
+		
+    	ORDER BY
+    		a.SHARE_ID DESC
+	</select>
+	<!--获取你可能感兴趣的视频、 观点、病例、医问、文库-->
+	<select id="getInterestVlist"   parameterType="java.util.Map" resultMap="ExtendResultMap">
+	    SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			a.SHARE_LEVEL,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			d.WORK_PROFESS D_WORK_PROFESS
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c, doctor_authentic_info d
+		WHERE
+			1 = 1
+			<if test="shareType != null">
+			    AND a.SHARE_TYPE= #{shareType}
+            </if>
+            <if test="belongDept != null">
+			    AND a.BELONG_PROFESS = #{belongDept,jdbcType=VARCHAR}
+			 </if>
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND c.ACCOUNT_ID = d.ACCOUNT_ID
+		ORDER BY
+			a.READ_NUM DESC
+		LIMIT 
+			0, 5
+	</select>
+	<!-- 获取热门分享 -->
+	<select id="getHotList" parameterType="java.lang.Integer" resultMap="ExtendResultMap">
+		SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			a.SHARE_LEVEL,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			d.WORK_PROFESS D_WORK_PROFESS
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c, doctor_authentic_info d
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND c.ACCOUNT_ID = d.ACCOUNT_ID
+			AND a.ACCOUNT_ID = #{accountId}
+		ORDER BY
+			a.READ_NUM DESC
+		LIMIT 
+			0, 5
+	</select>
+	
+	<select id="countNewAskAnswer" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_TYPE = 5
+			<if test="searchCon != null">
+				AND a.SHARE_TITLE like CONCAT('%', '${searchCon}', '%')
+			</if>
+    	ORDER BY
+    		a.CREATE_DATE DESC
+	</select>
+	
+	<!-- 获取最新医问 -->
+	<select id="listNewAskAnswer" resultMap="ExtendResultMap">
+		SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			a.SHARE_LEVEL,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			c.WORK_PROFESS D_WORK_PROFESS
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_TYPE = 5
+			<if test="searchCon != null">
+				AND a.SHARE_TITLE like CONCAT('%', '${searchCon}', '%')
+			</if>
+		ORDER BY
+			a.CREATE_DATE DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<select id="countHotAskAnswer" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_TYPE = 5
+    	ORDER BY
+    		a.COMMENT_NUM DESC
+	</select>
+	
+	<!-- 获取最新医问 -->
+	<select id="listHotAskAnswer" resultMap="ExtendResultMap">
+		SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			a.SHARE_LEVEL,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			c.WORK_PROFESS D_WORK_PROFESS
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_TYPE = 5
+		ORDER BY
+			a.COMMENT_NUM DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<select id="countNoAskAnswer" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_TYPE = 5
+			AND a.COMMENT_NUM = 0
+    	ORDER BY
+    		a.CREATE_DATE DESC
+	</select>
+	
+	<!-- 获取最新医问 -->
+	<select id="listNoAskAnswer" resultMap="ExtendResultMap">
+		SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			a.SHARE_LEVEL,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			c.WORK_PROFESS D_WORK_PROFESS
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_TYPE = 5
+			AND a.COMMENT_NUM = 0
+		ORDER BY
+			a.CREATE_DATE DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 获取热荐视频 -->
+	<select id="countLevelVideo" resultType="java.lang.Integer">
+		SELECT 
+			count(1)
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_TYPE = ${type}
+			AND a.SHARE_STATUS = 1
+			<if test="searchCon != null">
+				AND a.SHARE_TITLE like CONCAT('%', '${searchCon}', '%')
+			</if>
+			AND a.READ_PERMISSION = 1
+		ORDER BY
+			a.SHARE_LEVEL DESC
+	</select>
+	
+	<!-- 获取热荐视频 -->
+	<select id="listLevelVideo" resultMap="ExtendResultMap">
+		SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			a.SHARE_LEVEL,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			c.WORK_PROFESS D_WORK_PROFESS
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_TYPE = ${type}
+			AND a.SHARE_STATUS = 1
+			<if test="searchCon != null">
+				AND a.SHARE_TITLE like CONCAT('%', '${searchCon}', '%')
+			</if>
+			AND a.READ_PERMISSION = 1
+		ORDER BY
+			a.CREATE_DATE DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 获取热荐视频 -->
+	<select id="countProfessVideo" resultType="java.lang.Integer">
+		SELECT 
+			count(1)
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_TYPE = ${type}
+			AND a.BELONG_PROFESS = #{profess}
+			AND a.SHARE_STATUS = 1
+			<if test="searchCon != null">
+				AND a.SHARE_TITLE like CONCAT('%', '${searchCon}', '%')
+			</if>
+			AND a.READ_PERMISSION = 1
+		ORDER BY
+			a.SHARE_LEVEL DESC
+	</select>
+	
+	<!-- 获取热荐视频 -->
+	<select id="listProfessVideo" resultMap="ExtendResultMap">
+		SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			a.SHARE_LEVEL,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			c.WORK_PROFESS D_WORK_PROFESS
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_TYPE = ${type}
+			AND a.BELONG_PROFESS = #{profess}
+			AND a.SHARE_STATUS = 1
+			<if test="searchCon != null">
+				AND a.SHARE_TITLE like CONCAT('%', '${searchCon}', '%')
+			</if>
+			AND a.READ_PERMISSION = 1
+		ORDER BY
+			a.SHARE_LEVEL DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+
+
+	<!-- 查询分页 待审核医生作品 -->
+	<select id="pageDocProductions" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT
+			SHARE_ID,
+			ACCOUNT_ID,
+			SHARE_TITLE,
+			SHARE_TYPE,
+			SHARE_TAG,
+			SHARE_DESC,
+			BELONG_PROFESS,
+			READ_PERMISSION,
+			SHARE_STATUS,
+			LIKE_NUM,
+			COLLECTION_NUM,
+			READ_NUM,
+			COMMENT_NUM,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE,
+			SHARE_LEVEL
+		FROM blog_share_info
+		WHERE 1 = 1
+		<if test="shareInfoBean.shareId != -1">
+			and SHARE_ID = #{shareInfoBean.shareId}
+		</if>
+		<if test="shareInfoBean.accountId != -1">
+			and ACCOUNT_ID = #{shareInfoBean.accountId}
+		</if>
+		<if test="shareInfoBean.shareTitle != null">
+			and SHARE_TITLE = #{shareInfoBean.shareTitle}
+		</if>
+		<if test="shareInfoBean.shareType != -1">
+			and SHARE_TYPE = #{shareInfoBean.shareType}
+		</if>
+		<if test="shareInfoBean.shareTag != null">
+			and SHARE_TAG = #{shareInfoBean.shareTag}
+		</if>
+		<if test="shareInfoBean.shareDesc != null">
+			and SHARE_DESC = #{shareInfoBean.shareDesc}
+		</if>
+		<if test="shareInfoBean.belongProfess != null">
+			and BELONG_PROFESS = #{shareInfoBean.belongProfess}
+		</if>
+		<if test="shareInfoBean.readPermission != -1">
+			and READ_PERMISSION = #{shareInfoBean.readPermission}
+		</if>
+		<if test="shareInfoBean.shareStatus != -1">
+			and SHARE_STATUS = #{shareInfoBean.shareStatus}
+		</if>
+		<if test="shareInfoBean.likeNum != -1">
+			and LIKE_NUM = #{shareInfoBean.likeNum}
+		</if>
+		<if test="shareInfoBean.collectionNum != -1">
+			and COLLECTION_NUM = #{shareInfoBean.collectionNum}
+		</if>
+		<if test="shareInfoBean.readNum != -1">
+			and READ_NUM = #{shareInfoBean.readNum}
+		</if>
+		<if test="shareInfoBean.commentNum != -1">
+			and COMMENT_NUM = #{shareInfoBean.commentNum}
+		</if>
+		ORDER BY
+		SHARE_ID ASC
+		LIMIT
+		#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+
+	<!-- 分页数据统计总数 待审核医生作品 -->
+	<select id="countPageDocProductions" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		FROM blog_share_info
+		WHERE 1 = 1
+		<if test="shareInfoBean.shareId != -1">
+			and SHARE_ID = #{shareInfoBean.shareId}
+		</if>
+		<if test="shareInfoBean.accountId != -1">
+			and ACCOUNT_ID = #{shareInfoBean.accountId}
+		</if>
+		<if test="shareInfoBean.shareTitle != null">
+			and SHARE_TITLE = #{shareInfoBean.shareTitle}
+		</if>
+		<if test="shareInfoBean.shareType != -1">
+			and SHARE_TYPE = #{shareInfoBean.shareType}
+		</if>
+		<if test="shareInfoBean.shareTag != null">
+			and SHARE_TAG = #{shareInfoBean.shareTag}
+		</if>
+		<if test="shareInfoBean.shareDesc != null">
+			and SHARE_DESC = #{shareInfoBean.shareDesc}
+		</if>
+		<if test="shareInfoBean.belongProfess != null">
+			and BELONG_PROFESS = #{shareInfoBean.belongProfess}
+		</if>
+		<if test="shareInfoBean.readPermission != -1">
+			and READ_PERMISSION = #{shareInfoBean.readPermission}
+		</if>
+		<if test="shareInfoBean.shareStatus != -1">
+			and SHARE_STATUS = #{shareInfoBean.shareStatus}
+		</if>
+		<if test="shareInfoBean.likeNum != -1">
+			and LIKE_NUM = #{shareInfoBean.likeNum}
+		</if>
+		<if test="shareInfoBean.collectionNum != -1">
+			and COLLECTION_NUM = #{shareInfoBean.collectionNum}
+		</if>
+		<if test="shareInfoBean.readNum != -1">
+			and READ_NUM = #{shareInfoBean.readNum}
+		</if>
+		<if test="shareInfoBean.commentNum != -1">
+			and COMMENT_NUM = #{shareInfoBean.commentNum}
+		</if>
+		ORDER BY
+		SHARE_ID ASC
+	</select>
+	
+	<!-- 获取热荐视频 -->
+	<select id="countRelateme" resultType="java.lang.Integer">
+		SELECT 
+			count(1)
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c, qa_mention d
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_ID = d.COMMON_ID
+			AND a.SHARE_STATUS = 1
+			AND d.ACCOUNT_ID = #{accountId}
+		ORDER BY
+			d.CREATE_DATE DESC
+	</select>
+	
+	<!-- 获取热荐视频 -->
+	<select id="listReloateme" resultMap="ExtendResultMap">
+		SELECT 
+			a.SHARE_ID,
+			a.ACCOUNT_ID,
+			a.SHARE_TITLE,
+			a.SHARE_TYPE,
+			a.SHARE_TAG,
+			a.SHARE_DESC,
+			a.BELONG_PROFESS,
+			a.READ_PERMISSION,
+			a.SHARE_STATUS,
+			a.LIKE_NUM,
+			a.COLLECTION_NUM,
+			a.READ_NUM,
+			a.COMMENT_NUM,
+			a.CREATE_USER,
+			a.CREATE_DATE,
+			a.UPDATE_USER,
+			a.UPDATE_DATE,
+			a.SHARE_LEVEL,
+			
+			b.HEAD_URL B_HEAD_URL,
+			c.REAL_NAME C_REAL_NAME,
+			c.BELONG_DEPT C_BELONG_DEPT,
+			c.WORK_PROFESS D_WORK_PROFESS
+		FROM
+			blog_share_info a, system_account_info b, doctor_user_info c, qa_mention d
+		WHERE
+			1 = 1
+			AND a.ACCOUNT_ID = b.ACCOUNT_ID
+			AND b.ACCOUNT_ID = c.ACCOUNT_ID
+			AND a.SHARE_ID = d.COMMON_ID
+			AND a.SHARE_STATUS = 1
+			AND d.ACCOUNT_ID = #{accountId}
+		ORDER BY
+			d.CREATE_DATE DESC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+</mapper>

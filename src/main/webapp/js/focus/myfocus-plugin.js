@@ -1,0 +1,9 @@
+myFocus.set({
+    id:'boxId',
+    pattern:'mF_YSlider',
+    time:3,
+    trigger:'click',
+    width:775,
+    height:327,
+	txtHeight:'default'
+});

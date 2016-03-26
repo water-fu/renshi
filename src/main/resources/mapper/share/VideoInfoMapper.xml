@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.share.VideoInfoDao">
+
+	<resultMap type="VideoInfoBean" id="BaseResultMap">
+		<result column="SHARE_ID" property="shareId" />
+		<result column="VIDEO_URL" property="videoUrl" />
+	</resultMap>
+
+	<!-- 鎻掑叆 -->
+	<insert id="insert" parameterType="VideoInfoBean" keyProperty="shareId" useGeneratedKeys="true">
+		INSERT INTO share_video_info (
+			SHARE_ID,
+			VIDEO_URL
+    	)
+		VALUES
+		(
+			#{shareId},
+			#{videoUrl}
+		)
+	</insert>
+	
+	<!-- 鏇存柊 -->
+	<update id="update" parameterType="VideoInfoBean">
+		UPDATE share_video_info 
+		SET 
+			VIDEO_URL = #{videoUrl}
+		WHERE 
+			SHARE_ID = #{shareId}
+	</update>
+	
+	<!-- 鍒犻櫎 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			share_video_info 
+		WHERE 
+			SHARE_ID = #{value}
+	</delete>
+	
+	<!-- 鏍规嵁涓婚敭鏌ヨ -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			SHARE_ID,
+			VIDEO_URL
+		FROM 
+			share_video_info
+	 	WHERE 
+	 		SHARE_ID = #{value}
+	</select>
+	
+	<!-- 鏌ヨ鍒楄〃鏁版嵁 -->
+	<select id="listData" parameterType="VideoInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			SHARE_ID,
+			VIDEO_URL
+		FROM 
+			share_video_info
+		WHERE
+			1 = 1
+			<if test="shareId != -1">
+				and SHARE_ID = #{shareId}
+			</if>
+			<if test="videoUrl != null">
+				and VIDEO_URL = #{videoUrl}
+			</if>
+    	ORDER BY
+    		SHARE_ID ASC
+	</select>
+	
+	<!-- 鏌ヨ鍒嗛〉鏁版嵁 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			SHARE_ID,
+			VIDEO_URL
+		FROM
+			share_video_info
+		WHERE
+			1 = 1
+			<if test="videoInfoBean.shareId != -1">
+				and SHARE_ID = #{videoInfoBean.shareId}
+			</if>
+			<if test="videoInfoBean.videoUrl != null">
+				and VIDEO_URL = #{videoInfoBean.videoUrl}
+			</if>
+    	ORDER BY
+    		SHARE_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 鍒嗛〉鏁版嵁缁熻鎬绘暟 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			share_video_info
+		WHERE
+			1 = 1
+			<if test="videoInfoBean.shareId != -1">
+				and SHARE_ID = #{videoInfoBean.shareId}
+			</if>
+			<if test="videoInfoBean.videoUrl != null">
+				and VIDEO_URL = #{videoInfoBean.videoUrl}
+			</if>
+    	ORDER BY
+    		SHARE_ID ASC
+	</select>
+	
+</mapper>

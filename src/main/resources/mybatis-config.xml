@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+        <!-- 命名空间 -->
+    <typeAliases>
+    	<typeAlias alias="AccountInfoBean" type="com.group.renshi.bean.system.AccountInfoBean"/>
+    	<typeAlias alias="ValidMailBean" type="com.group.renshi.bean.system.ValidMailBean"/>
+    	<typeAlias alias="HospitalInfoBean" type="com.group.renshi.bean.system.HospitalInfoBean"/>
+    	<typeAlias alias="AreaInfoBean" type="com.group.renshi.bean.system.AreaInfoBean"/>
+    	<typeAlias alias="DeptInfoBean" type="com.group.renshi.bean.system.DeptInfoBean"/>
+    	
+    	<typeAlias alias="UserInfoBean" type="com.group.renshi.bean.doctor.UserInfoBean"/>
+    	<typeAlias alias="ContactInfoBean" type="com.group.renshi.bean.doctor.ContactInfoBean"/>
+    	<typeAlias alias="AuthenticInfoBean" type="com.group.renshi.bean.doctor.AuthenticInfoBean"/>
+    	<typeAlias alias="EducationInfoBean" type="com.group.renshi.bean.doctor.EducationInfoBean"/>
+    	<typeAlias alias="WorkInfoBean" type="com.group.renshi.bean.doctor.WorkInfoBean"/>
+    	<typeAlias alias="PrizeInfoBean" type="com.group.renshi.bean.doctor.PrizeInfoBean"/>
+    	<typeAlias alias="PatientJudgeBean" type="com.group.renshi.bean.doctor.PatientJudgeBean"/>
+    	<typeAlias alias="BookInfoBean" type="com.group.renshi.bean.doctor.BookInfoBean"/>
+    	<typeAlias alias="PatentInfoBean" type="com.group.renshi.bean.doctor.PatentInfoBean"/>
+    	<typeAlias alias="MeetingInfoBean" type="com.group.renshi.bean.doctor.MeetingInfoBean"/>
+    	
+    	<typeAlias alias="FollowActiveBean" type="com.group.renshi.bean.share.FollowActiveBean"/>
+    	<typeAlias alias="PersonInfoBean" type="com.group.renshi.bean.share.PersonInfoBean"/>
+    	<typeAlias alias="ShareInfoBean" type="com.group.renshi.bean.share.ShareInfoBean"/>
+    	<typeAlias alias="AttachInfoBean" type="com.group.renshi.bean.share.AttachInfoBean"/>
+    	<typeAlias alias="CollectionInfoBean" type="com.group.renshi.bean.share.CollectionInfoBean"/>
+    	<typeAlias alias="PraiseInfoBean" type="com.group.renshi.bean.share.PraiseInfoBean"/>
+    	<typeAlias alias="DiscussInfoBean" type="com.group.renshi.bean.share.DiscussInfoBean"/>
+    	<typeAlias alias="TagInfoBean" type="com.group.renshi.bean.share.TagInfoBean"/>
+    	<typeAlias alias="VideoInfoBean" type="com.group.renshi.bean.share.VideoInfoBean"/>
+    	<typeAlias alias="CaseInfoBean" type="com.group.renshi.bean.share.CaseInfoBean"/>
+    	<typeAlias alias="QuestionInfoBean" type="com.group.renshi.bean.share.QuestionInfoBean"/>
+    	<typeAlias alias="MsgInfoBean" type="com.group.renshi.bean.share.MsgInfoBean"/>
+    	<typeAlias alias="MsgContentBean" type="com.group.renshi.bean.share.MsgContentBean"/>
+
+		<typeAlias alias="CommentBean" type="com.group.renshi.bean.qa.CommentBean"/>
+		<typeAlias alias="MentionBean" type="com.group.renshi.bean.qa.MentionBean"/>
+		<typeAlias alias="PostBean" type="com.group.renshi.bean.qa.PostBean"/>
+		<typeAlias alias="ReplyBean" type="com.group.renshi.bean.qa.ReplyBean"/>
+		
+		<typeAlias alias="BaseInfoBean" type="com.group.renshi.bean.proxy.BaseInfoBean"/>
+		<typeAlias alias="LicenseInfoBean" type="com.group.renshi.bean.proxy.LicenseInfoBean"/>
+
+		<typeAlias alias="PermissionBean" type="com.group.renshi.bean.admin.PermissionBean"/>
+		<typeAlias alias="RoleBean" type="com.group.renshi.bean.admin.RoleBean"/>
+		<typeAlias alias="RolePermissionBean" type="com.group.renshi.bean.admin.RolePermissionBean"/>
+		<typeAlias alias="UserBean" type="com.group.renshi.bean.admin.UserBean"/>
+		<typeAlias alias="UserRoleBean" type="com.group.renshi.bean.admin.UserRoleBean"/>
+		<typeAlias alias="AgentDoctorRelationBean" type="com.group.renshi.bean.admin.AgentDoctorRelationBean"/>
+    </typeAliases>
+
+    <!-- 映射map -->
+    <mappers>
+    </mappers>
+</configuration>

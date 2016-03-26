@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.group.renshi.dao.system.DeptInfoDao">
+
+	<resultMap type="DeptInfoBean" id="BaseResultMap">
+		<result column="DEPT_ID" property="deptId" />
+		<result column="HOSPITAL_ID" property="hospitalId" />
+		<result column="DEPT_NAME" property="deptName" />
+		<result column="DEPT_TYPE" property="deptType" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+	</resultMap>
+
+	<!-- 鎻掑叆 -->
+	<insert id="insert" parameterType="DeptInfoBean" keyProperty="deptId" useGeneratedKeys="true">
+		INSERT INTO system_dept_info (
+			HOSPITAL_ID,
+			DEPT_NAME,
+			DEPT_TYPE,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+    	)
+		VALUES
+		(
+			#{hospitalId},
+			#{deptName},
+			#{deptType},
+			#{createUser},
+			#{createDate},
+			#{updateUser},
+			#{updateDate}
+		)
+	</insert>
+	
+	<!-- 鏇存柊 -->
+	<update id="update" parameterType="DeptInfoBean">
+		UPDATE system_dept_info 
+		SET 
+			HOSPITAL_ID = #{hospitalId},
+			DEPT_NAME = #{deptName},
+			DEPT_TYPE = #{deptType},
+			CREATE_USER = #{createUser},
+			CREATE_DATE = #{createDate},
+			UPDATE_USER = #{updateUser},
+			UPDATE_DATE = #{updateDate}
+		WHERE 
+			DEPT_ID = #{deptId}
+	</update>
+	
+	<!-- 鍒犻櫎 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM 
+			system_dept_info 
+		WHERE 
+			DEPT_ID = #{value}
+	</delete>
+	
+	<!-- 鏍规嵁涓婚敭鏌ヨ -->
+	<select id="load" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT 
+			DEPT_ID,
+			HOSPITAL_ID,
+			DEPT_NAME,
+			DEPT_TYPE,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			system_dept_info
+	 	WHERE 
+	 		DEPT_ID = #{value}
+	</select>
+	
+	<!-- 鏌ヨ鍒楄〃鏁版嵁 -->
+	<select id="listData" parameterType="DeptInfoBean" resultMap="BaseResultMap">
+		SELECT 
+			DEPT_ID,
+			HOSPITAL_ID,
+			DEPT_NAME,
+			DEPT_TYPE,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM 
+			system_dept_info
+		WHERE
+			1 = 1
+			<if test="deptId != -1">
+				and DEPT_ID = #{deptId}
+			</if>
+			<if test="hospitalId != -1">
+				and HOSPITAL_ID = #{hospitalId}
+			</if>
+			<if test="deptName != null">
+				and DEPT_NAME = #{deptName}
+			</if>
+			<if test="deptType != -1">
+				and DEPT_TYPE = #{deptType}
+			</if>
+			<if test="createUser != -1">
+				and CREATE_USER = #{createUser}
+			</if>
+			<if test="createDate != null">
+				and CREATE_DATE = #{createDate}
+			</if>
+			<if test="updateUser != -1">
+				and UPDATE_USER = #{updateUser}
+			</if>
+			<if test="updateDate != null">
+				and UPDATE_DATE = #{updateDate}
+			</if>
+    	ORDER BY
+    		DEPT_ID ASC
+	</select>
+	
+	<!-- 鏌ヨ鍒嗛〉鏁版嵁 -->
+	<select id="pageData" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			DEPT_ID,
+			HOSPITAL_ID,
+			DEPT_NAME,
+			DEPT_TYPE,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		FROM
+			system_dept_info
+		WHERE
+			1 = 1
+			<if test="deptInfoBean.deptId != -1">
+				and DEPT_ID = #{deptInfoBean.deptId}
+			</if>
+			<if test="deptInfoBean.hospitalId != -1">
+				and HOSPITAL_ID = #{deptInfoBean.hospitalId}
+			</if>
+			<if test="deptInfoBean.deptName != null">
+				and DEPT_NAME = #{deptInfoBean.deptName}
+			</if>
+			<if test="deptInfoBean.deptType != -1">
+				and DEPT_TYPE = #{deptInfoBean.deptType}
+			</if>
+			<if test="deptInfoBean.createUser != -1">
+				and CREATE_USER = #{deptInfoBean.createUser}
+			</if>
+			<if test="deptInfoBean.createDate != null">
+				and CREATE_DATE = #{deptInfoBean.createDate}
+			</if>
+			<if test="deptInfoBean.updateUser != -1">
+				and UPDATE_USER = #{deptInfoBean.updateUser}
+			</if>
+			<if test="deptInfoBean.updateDate != null">
+				and UPDATE_DATE = #{deptInfoBean.updateDate}
+			</if>
+    	ORDER BY
+    		DEPT_ID ASC
+		LIMIT 
+			#{pageQueryResult.startNum}, #{pageQueryResult.pageSize}
+	</select>
+	
+	<!-- 鍒嗛〉鏁版嵁缁熻鎬绘暟 -->
+	<select id="countPageData" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+			count(1) 
+		FROM 
+			system_dept_info
+		WHERE
+			1 = 1
+			<if test="deptInfoBean.deptId != -1">
+				and DEPT_ID = #{deptInfoBean.deptId}
+			</if>
+			<if test="deptInfoBean.hospitalId != -1">
+				and HOSPITAL_ID = #{deptInfoBean.hospitalId}
+			</if>
+			<if test="deptInfoBean.deptName != null">
+				and DEPT_NAME = #{deptInfoBean.deptName}
+			</if>
+			<if test="deptInfoBean.deptType != -1">
+				and DEPT_TYPE = #{deptInfoBean.deptType}
+			</if>
+			<if test="deptInfoBean.createUser != -1">
+				and CREATE_USER = #{deptInfoBean.createUser}
+			</if>
+			<if test="deptInfoBean.createDate != null">
+				and CREATE_DATE = #{deptInfoBean.createDate}
+			</if>
+			<if test="deptInfoBean.updateUser != -1">
+				and UPDATE_USER = #{deptInfoBean.updateUser}
+			</if>
+			<if test="deptInfoBean.updateDate != null">
+				and UPDATE_DATE = #{deptInfoBean.updateDate}
+			</if>
+    	ORDER BY
+    		DEPT_ID ASC
+	</select>
+	
+</mapper>
